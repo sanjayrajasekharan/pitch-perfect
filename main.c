@@ -22,14 +22,19 @@ int sampleIndex = 0;
 int numSamples = 0;
 
 drwav_int16* windows[4]; // 4 windows of 4096 samples
+
+drwav_int16 window0[WINDOW_SIZE];
+drwav_int16 window1[WINDOW_SIZE];
+drwav_int16 window2[WINDOW_SIZE];
+drwav_int16 window3[WINDOW_SIZE];
+
 int window_cursors[4];
 
-float* curr_fft_buffer_real;
-float* prev_fft_buffer_real;
+float curr_fft_buffer_real[WINDOW_SIZE];
+float prev_fft_buffer_real[WINDOW_SIZE];
 
-float* curr_fft_buffer_imaginary;
-float* prev_fft_buffer_imaginary;
-
+float curr_fft_buffer_imaginary[WINDOW_SIZE];
+float prev_fft_buffer_imaginary[WINDOW_SIZE];
 
 double phaseDifference(float real1, float imag1, float real2, float imag2) {
     return atan2(imag2, real2) - atan2(imag1, real1);
@@ -120,6 +125,7 @@ int load_samples(const char* filename) {
 }
 
 int get_next_sample() {
+    // printf("Getting sample %d\n", sampleIndex);
     if (sampleIndex < 0) {
         printf("Invalid sample index\n");
         return -1;
@@ -130,13 +136,10 @@ int get_next_sample() {
         return -1;
     }
 
-    //printf("quack\n");
-
     drwav_int16 sample = pSamples[sampleIndex];
     if (sample == -1)
         return 0;
     
-    //printf("Sample: %d\n", sample);
     return sample;
 }
 
@@ -153,19 +156,10 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    // initialize windows and buffers
-
-    // allocate memory for windows
-    for (int i = 0; i < 4; i++) {
-        windows[i] = (drwav_int16*) malloc(WINDOW_SIZE * sizeof(drwav_int16));
-    }
-
-    //allocate memory for fft  buffers
-    curr_fft_buffer_real = (float*) malloc(WINDOW_SIZE * sizeof(float));
-    prev_fft_buffer_real = (float*) malloc(WINDOW_SIZE * sizeof(float));
-
-    curr_fft_buffer_imaginary = (float*) malloc(WINDOW_SIZE * sizeof(float));
-    prev_fft_buffer_imaginary = (float*) malloc(WINDOW_SIZE * sizeof(float));
+    windows[0] = window0;
+    windows[1] = window1;
+    windows[2] = window2;
+    windows[3] = window3;
 
     output_samples = (drwav_int16*) malloc(numSamples * sizeof(drwav_int16) * 4);
 
@@ -176,7 +170,7 @@ int main(int argc, char** argv) {
     while ((sample = get_next_sample()) != -1) {
         // printf("Processing sample %d\n", sampleIndex);
         // printf("Window cursors: %d %d %d %d\n", window_cursors[0], window_cursors[1], window_cursors[2], window_cursors[3]);
-        // check if any windows are full and process them
+        // check if any windows are full and process them        
         for (int i = 0; i < 4; i++) {
             if (window_cursors[i] == WINDOW_SIZE) {
                 // process window, perhapse we should fork here
@@ -211,10 +205,9 @@ int main(int argc, char** argv) {
                 rearrange(curr_fft_buffer_real, curr_fft_buffer_imaginary, WINDOW_SIZE);
                 inverseCompute(curr_fft_buffer_real, curr_fft_buffer_imaginary, WINDOW_SIZE);
 
-                // copy samples to output buffer
-                // printf("Copying samples to output buffer\n");
-                 for (int j = 0; j < WINDOW_SIZE; j++) {
-                    //right now we are just copying the samples
+                // // copy samples to output buffer
+                for (int j = 0; j < WINDOW_SIZE; j++) {
+                    // right now we are just copying the samples
                     output_samples[output_sample_index + j] = windows[i][j];
                 }
 
@@ -304,6 +297,10 @@ int main(int argc, char** argv) {
     //     perror("Failed to open output file");
     //     return 1;
     // }
+    // if(!(output_wav = drwav_open_file_write(output_filename, &format))) {
+    //     perror("Failed to open output file");
+    //     return 1;
+    // }
     
     // drwav_uint64 framesWrittten = drwav_write(output_wav, pWav->totalSampleCount, multi_channel);
     // if (framesWrittten != pWav->totalSampleCount) {
@@ -320,16 +317,6 @@ int main(int argc, char** argv) {
 
 
     // free memory
-    for (int i = 0; i < 4; i++) {
-        free(windows[i]);
-    }
-    
-    free(curr_fft_buffer_real);
-    free(prev_fft_buffer_real);
-
-    free(curr_fft_buffer_imaginary);
-    free(prev_fft_buffer_imaginary);
-
     free(pSamples);
     free(output_samples);
 
