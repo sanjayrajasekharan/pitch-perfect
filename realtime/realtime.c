@@ -61,44 +61,42 @@ void applyHannWindow(drwav_int16* samples, float* output, size_t numSamples) {
     }
 }
 
-float input_samples[WINDOW_SIZE * 2];
-int input_window_start = 0;
-int input_idx = 0;
-float *hann_bufs[2];
-int hann_buf_idx = 0;
-float hann_buf_1[WINDOW_SIZE];
-float hann_buf_2[WINDOW_SIZE];
-float *real_bufs[2];
-int fft_buf_idx = 0;
-float real_buf_1[WINDOW_SIZE];
-float real_buf_2[WINDOW_SIZE];
-float *imag_bufs[2];
-float imag_buf_1[WINDOW_SIZE];
-float imag_buf_2[WINDOW_SIZE];
+float inputSamples[WINDOW_SIZE * 4];
+int inputWindowStart = 0;
+int inputCurIdx = 0;
+float hannBuf[WINDOW_SIZE];
+float *realBufs[2];
+float *imagBufs[2];
+int fftBufIdx = 0;
+float realBuf1[WINDOW_SIZE];
+float realBuf2[WINDOW_SIZE];
+float imagBuf1[WINDOW_SIZE];
+float imagBuf2[WINDOW_SIZE];
 
 
 int main(int argc, char** argv)
 {
 
-    hann_bufs[0] = hann_buf_1;
-    hann_bufs[1] = hann_buf_2;
-    real_bufs[0] = real_buf_1;
-    real_bufs[1] = real_buf_2;
-    imag_bufs[0] = imag_buf_1;
-    imag_bufs[1] = imag_buf_2;
+    realBufs[0] = realBuf1;
+    realBufs[1] = realBuf2;
+    imagBufs[0] = imagBuf1;
+    imagBufs[1] = imagBuf2;
 
     for (;;) {
 
         // Read in 1 sample from stdin
-        fread(&input_samples[input_idx], sizeof(float), 1, stdin);
+        fread(&inputSamples[inputCurIdx], sizeof(float), 1, stdin);
 
         // Abstraction: assume all processing takes place in span of 1 sample
-        if (input_idx == (input_window_start + WINDOW_SIZE) % (WINDOW_SIZE * 2)) {
-            applyHannWindow(&input_samples[input_window_start], hann_bufs[hann_buf_idx], WINDOW_SIZE);
+        if (inputCurIdx == (inputWindowStart + WINDOW_SIZE) % (WINDOW_SIZE * 2)) {
+            applyHannWindow(&inputSamples[inputWindowStart], hannBuf, WINDOW_SIZE);
 
             // Perform FFT
-            rearrange(hann_bufs[hann_buf_idx], &hann_bufs[hann_buf_idx][WINDOW_SIZE], WINDOW_SIZE);
-            compute(hann_bufs[hann_buf_idx], &hann_bufs[hann_buf_idx][WINDOW_SIZE], WINDOW_SIZE);
+            for (int i = 0; i < WINDOW_SIZE; i++) {
+                realBufs[fftBufIdx][i] = hannBuf[i];
+            }
+            rearrange(realBufs[fftBufIdx], imagBufs[fftBufIdx], WINDOW_SIZE);
+            compute(realBufs[fftBufIdx], imagBufs[fftBufIdx], WINDOW_SIZE);
             for (int i = 0; i < WINDOW_SIZE; i++) {
                 real_bufs[fft_buf_idx][i] = hann_bufs[hann_buf_idx][i];
             }
@@ -124,9 +122,8 @@ int main(int argc, char** argv)
             fwrite(real_bufs[fft_buf_idx], sizeof(float), WINDOW_SIZE, stdout);
 
             // Slide the window
-            input_window_start += HOP_LENGTH;
-            input_idx = (input_idx + 1) % WINDOW_SIZE;
-            input_window_start = input_idx;
+            cur_window_start += HOP_LENGTH;
+            cur_input_idx = (inputCurIdx + 1) % WINDOW_SIZE;
         }
 
     }
