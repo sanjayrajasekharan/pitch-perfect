@@ -126,13 +126,13 @@ int get_next_sample() {
     }
 
     if (sampleIndex >= numSamples) {
-        printf("Reached end of samples\n");
+        printf("Reached end of samples %d >= %d\n", sampleIndex, numSamples);
         return -1;
     }
 
     //printf("quack\n");
 
-    drwav_int16 sample = pSamples[sampleIndex++];
+    drwav_int16 sample = pSamples[sampleIndex];
     if (sample == -1)
         return 0;
     
@@ -167,7 +167,7 @@ int main(int argc, char** argv) {
     curr_fft_buffer_imaginary = (float*) malloc(WINDOW_SIZE * sizeof(float));
     prev_fft_buffer_imaginary = (float*) malloc(WINDOW_SIZE * sizeof(float));
 
-    output_samples = (drwav_int16*) malloc(numSamples * sizeof(drwav_int16));
+    output_samples = (drwav_int16*) malloc(numSamples * sizeof(drwav_int16) * 4);
 
     drwav_int16 sample;
     int output_sample_index = 0;
@@ -180,6 +180,7 @@ int main(int argc, char** argv) {
         for (int i = 0; i < 4; i++) {
             if (window_cursors[i] == WINDOW_SIZE) {
                 // process window, perhapse we should fork here
+                // printf("Processing window %d\n", i);
                 
                 // copy from curr_fft_buffer to prev_fft_buffer
                 for (int j = 0; j < WINDOW_SIZE; j++) {
@@ -211,15 +212,17 @@ int main(int argc, char** argv) {
                 inverseCompute(curr_fft_buffer_real, curr_fft_buffer_imaginary, WINDOW_SIZE);
 
                 // copy samples to output buffer
-                printf("Copying samples to output buffer\n");
+                // printf("Copying samples to output buffer\n");
                  for (int j = 0; j < WINDOW_SIZE; j++) {
                     //right now we are just copying the samples
                     output_samples[output_sample_index + j] = windows[i][j];
                 }
 
-                output_sample_index += WINDOW_SIZE;
+                output_sample_index = output_sample_index + WINDOW_SIZE;
+                // printf("output_sample_index: %d\n", output_sample_index);
                 break;
             }
+            // printf("Window %d failed, cursor = %d\n", i, window_cursors[i]);
         }
 
         // fill windows
@@ -235,48 +238,85 @@ int main(int argc, char** argv) {
         }
 
         sampleIndex++;
+        // printf("Sample Index: %d\n", sampleIndex);
     }
 
     printf("finished samples\n");
+    printf("output_sample_index: %d\n", output_sample_index);
+
+    for (int i = 0; i < output_sample_index; i++) {
+        printf("%d\n", output_samples[i]);
+    }
 
 
     //write output_samples to wav file
 
-    pWav = drwav_open_file(input_filename);
+    // // Define the audio parameters
+    // drwav_data_format format;
+    // format.container = drwav_container_riff;
+    // format.format = DR_WAVE_FORMAT_IEEE_FLOAT;
+    // format.channels = 1; // Number of channels (e.g., stereo)
+    // format.sampleRate = 48000; // Sample rate (samples per second)
 
-    drwav_int16* multi_channel = (drwav_int16*) malloc(pWav->totalSampleCount * sizeof(drwav_int16));
-    if (pWav->totalSampleCount != drwav_read_s16(pWav, pWav->totalSampleCount, multi_channel)) {
-        perror("Failed to read samples");
-        return 1;
-    }
-    
-    drwav_close(pWav);
+    // // Define the array of float samples (replace this with your own data)
 
-    drwav_data_format format;
-    format.container = drwav_container_riff;     // <-- drwav_container_riff = normal WAV files, drwav_container_w64 = Sony Wave64.
-    format.format = DR_WAVE_FORMAT_PCM;          // <-- Any of the DR_WAVE_FORMAT_* codes.
-    format.channels = pWav->channels;
-    format.sampleRate = pWav->sampleRate;
-    format.bitsPerSample = pWav->bitsPerSample;
-    drwav* output_wav;
-    
-    if(!(output_wav = drwav_open_file_write(output_filename, &format))) {
-        perror("Failed to open output file");
-        return 1;
-    }
-    
-    drwav_uint64 framesWrittten = drwav_write(output_wav, pWav->totalSampleCount, multi_channel);
-    if (framesWrittten != pWav->totalSampleCount) {
-        perror("Failed to write output samples");
-        return 1;
-    }
-    // drwav_write(output_wav, pWav->totalSampleCount, multi_channel);
+    // // Open a WAV file for writing
+    // drwav *pWav2 = drwav_open_file_write("output.wav", &format);
+    // if (pWav2 == NULL) {
+    //     printf("Failed to open WAV file for writing.");
+    //     return -1;
+    // }
 
-    free(multi_channel);
-    
-    drwav_close(output_wav);
+    // // Write the audio data to the WAV file
+    // drwav_uint64 samplesWritten = drwav_write(pWav2, (drwav_uint64)100000, output_samples);
+    // if (samplesWritten != (drwav_uint64)100000) {
+    //     printf("Failed to write audio data to WAV file.");
+    //     drwav_close(pWav2);
+    //     return -1;
+    // }
 
-    printf("Wrote output samples to %s\n", output_filename);
+    // // Close the WAV file
+    // drwav_close(pWav2);
+
+    // printf("WAV file successfully written.\n");
+
+    // ----------------------------
+
+    // pWav = drwav_open_file(input_filename);
+
+    // drwav_int16* multi_channel = (drwav_int16*) malloc(pWav->totalSampleCount * sizeof(drwav_int16));
+    // if (pWav->totalSampleCount != drwav_read_s16(pWav, pWav->totalSampleCount, multi_channel)) {
+    //     perror("Failed to read samples");
+    //     return 1;
+    // }
+    
+    // drwav_close(pWav);
+
+    // drwav_data_format format;
+    // format.container = drwav_container_riff;     // <-- drwav_container_riff = normal WAV files, drwav_container_w64 = Sony Wave64.
+    // format.format = DR_WAVE_FORMAT_PCM;          // <-- Any of the DR_WAVE_FORMAT_* codes.
+    // format.channels = pWav->channels;
+    // format.sampleRate = pWav->sampleRate;
+    // format.bitsPerSample = pWav->bitsPerSample;
+    // drwav* output_wav;
+    
+    // if(!(output_wav = drwav_open_file_write(output_filename, &format))) {
+    //     perror("Failed to open output file");
+    //     return 1;
+    // }
+    
+    // drwav_uint64 framesWrittten = drwav_write(output_wav, pWav->totalSampleCount, multi_channel);
+    // if (framesWrittten != pWav->totalSampleCount) {
+    //     perror("Failed to write output samples");
+    //     return 1;
+    // }
+    // // drwav_write(output_wav, pWav->totalSampleCount, multi_channel);
+
+    // free(multi_channel);
+    
+    // drwav_close(output_wav);
+
+    // printf("Wrote output samples to %s\n", output_filename);
 
 
     // free memory
