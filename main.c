@@ -11,6 +11,8 @@
 
 #define WINDOW_SIZE 4096
 #define HOP_LENGTH 1024
+// pitches up by 5 semitones
+#define PHASE_SHIFT_AMOUNT pow(2.0, (5.0 / 12.0))
 
 drwav_int16* pSamples;
 drwav_int16* output_samples;
@@ -28,6 +30,44 @@ float* prev_fft_buffer_real;
 float* curr_fft_buffer_imaginary;
 float* prev_fft_buffer_imaginary;
 
+
+double phaseDifference(float real1, float imag1, float real2, float imag2) {
+    return atan2(imag2, real2) - atan2(imag1, real1);
+}
+
+/* set new vectors to prev vectors shifted by desired amount */
+void shiftPhase(float* realPrev, float* imagPrev, float* realNew,
+              float* imagNew) {
+    for (int i = 0; i < WINDOW_SIZE / 2; i++) {
+        float angleDiff = phaseDifference(realPrev[i], imagPrev[i], realNew[i],
+                                          imagNew[i]);
+        float shiftAngle = PHASE_SHIFT_AMOUNT * angleDiff;
+        float cosShift = cos(shiftAngle);
+        float sinShift = sin(shiftAngle);
+        realNew[i] = realPrev[i] * cosShift - imagPrev[i] * sinShift;
+        imagNew[i] = realPrev[i] * sinShift + imagPrev[i] * cosShift;
+    }
+}
+
+/* scales prev vectors to have length of corresponding new vectors */
+void getCorrectMagnitudes(float* realPrev, float* imagPrev,
+                         float* realNew, float* imagNew) {
+    for (int i = 0; i < WINDOW_SIZE / 2; i++) {
+        float magPrev = sqrt(realPrev[i] * realPrev[i] +
+                             imagPrev[i] * imagPrev[i]);
+        float magNew = sqrt(realNew[i] * realNew[i] + imagNew[i] * imagNew[i]);
+        realPrev[i] = realPrev[i] * magPrev / magNew;
+        imagPrev[i] = imagPrev[i] * magPrev / magNew;
+    }
+}
+
+void getPhaseDifferences(float* realPrev, float* imagPrev, float* realNew,
+                         float* imagNew, float* phaseDifferences) {
+    for (int i = 0; i < WINDOW_SIZE / 2; i++) {
+        phaseDifferences[i] = phaseDifference(realPrev[i], imagPrev[i],
+                                              realNew[i], imagNew[i]);
+    }
+}
 
 void applyHannWindow(drwav_int16* samples, float* output, size_t numSamples) {
     for (size_t i = 0; i < numSamples; ++i) {
@@ -90,13 +130,13 @@ int get_next_sample() {
         return -1;
     }
 
-    printf("quack\n");
+    //printf("quack\n");
 
     drwav_int16 sample = pSamples[sampleIndex++];
     if (sample == -1)
         return 0;
     
-    printf("Sample: %d\n", sample);
+    //printf("Sample: %d\n", sample);
     return sample;
 }
 
@@ -153,12 +193,22 @@ int main(int argc, char** argv) {
                 for (int j = 0; j < WINDOW_SIZE; j++) {
                     curr_fft_buffer_imaginary[j] = 0.0;
                 }
-
                 rearrange(curr_fft_buffer_real, curr_fft_buffer_imaginary, WINDOW_SIZE);
                 compute(curr_fft_buffer_real, curr_fft_buffer_imaginary, WINDOW_SIZE);
 
+                // perform pitch scaling
+                /* first, scale prevs in-place to have magnitudes of curr */
+                getCorrectMagnitudes(prev_fft_buffer_real,
+                                     prev_fft_buffer_imaginary,
+                                     curr_fft_buffer_real,
+                                     curr_fft_buffer_imaginary);
+                /* then, shift phases by desired amount and store in curr */
+                shiftPhase(prev_fft_buffer_real, prev_fft_buffer_imaginary,
+                           curr_fft_buffer_real, curr_fft_buffer_imaginary);
 
-                // TODO: @stevenwinnick --> perform pitch scaling
+                // perform ifft
+                rearrange(curr_fft_buffer_real, curr_fft_buffer_imaginary, WINDOW_SIZE);
+                inverseCompute(curr_fft_buffer_real, curr_fft_buffer_imaginary, WINDOW_SIZE);
 
                 // copy samples to output buffer
                 printf("Copying samples to output buffer\n");
