@@ -97,8 +97,8 @@ int load_samples(const char* filename) {
     numSamples =  pWav->totalSampleCount/(pWav->channels);
     pSamples = (drwav_int16*) malloc(numSamples * sizeof(drwav_int16));
 
-    printf("Total samples: %llu\n", pWav->totalSampleCount);
-    printf("Downmixed samples: %d\n", numSamples);
+    // printf("Total samples: %llu\n", pWav->totalSampleCount);
+    // printf("Downmixed samples: %d\n", numSamples);
 
     //downmix to mono
     int sample_index = 0;
@@ -126,7 +126,7 @@ int get_next_sample() {
     }
 
     if (sampleIndex >= numSamples) {
-        printf("Reached end of samples %d >= %d\n", sampleIndex, numSamples);
+        // printf("Reached end of samples %d >= %d\n", sampleIndex, numSamples);
         return -1;
     }
 
@@ -241,8 +241,8 @@ int main(int argc, char** argv) {
         // printf("Sample Index: %d\n", sampleIndex);
     }
 
-    printf("finished samples\n");
-    printf("output_sample_index: %d\n", output_sample_index);
+    // printf("finished samples\n");
+    // printf("output_sample_index: %d\n", output_sample_index);
 
     for (int i = 0; i < output_sample_index; i++) {
         printf("%d\n", output_samples[i]);
