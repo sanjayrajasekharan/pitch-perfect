@@ -20,14 +20,19 @@ int sampleIndex = 0;
 int numSamples = 0;
 
 drwav_int16* windows[4]; // 4 windows of 4096 samples
+
+drwav_int16 window0[WINDOW_SIZE];
+drwav_int16 window1[WINDOW_SIZE];
+drwav_int16 window2[WINDOW_SIZE];
+drwav_int16 window3[WINDOW_SIZE];
+
 int window_cursors[4];
 
-float* curr_fft_buffer_real;
-float* prev_fft_buffer_real;
+float curr_fft_buffer_real[WINDOW_SIZE];
+float prev_fft_buffer_real[WINDOW_SIZE];
 
-float* curr_fft_buffer_imaginary;
-float* prev_fft_buffer_imaginary;
-
+float curr_fft_buffer_imaginary[WINDOW_SIZE];
+float prev_fft_buffer_imaginary[WINDOW_SIZE];
 
 void applyHannWindow(drwav_int16* samples, float* output, size_t numSamples) {
     for (size_t i = 0; i < numSamples; ++i) {
@@ -80,6 +85,7 @@ int load_samples(const char* filename) {
 }
 
 int get_next_sample() {
+    // printf("Getting sample %d\n", sampleIndex);
     if (sampleIndex < 0) {
         printf("Invalid sample index\n");
         return -1;
@@ -90,13 +96,10 @@ int get_next_sample() {
         return -1;
     }
 
-    printf("quack\n");
-
     drwav_int16 sample = pSamples[sampleIndex++];
     if (sample == -1)
         return 0;
     
-    printf("Sample: %d\n", sample);
     return sample;
 }
 
@@ -113,19 +116,10 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    // initialize windows and buffers
-
-    // allocate memory for windows
-    for (int i = 0; i < 4; i++) {
-        windows[i] = (drwav_int16*) malloc(WINDOW_SIZE * sizeof(drwav_int16));
-    }
-
-    //allocate memory for fft  buffers
-    curr_fft_buffer_real = (float*) malloc(WINDOW_SIZE * sizeof(float));
-    prev_fft_buffer_real = (float*) malloc(WINDOW_SIZE * sizeof(float));
-
-    curr_fft_buffer_imaginary = (float*) malloc(WINDOW_SIZE * sizeof(float));
-    prev_fft_buffer_imaginary = (float*) malloc(WINDOW_SIZE * sizeof(float));
+    windows[0] = window0;
+    windows[1] = window1;
+    windows[2] = window2;
+    windows[3] = window3;
 
     output_samples = (drwav_int16*) malloc(numSamples * sizeof(drwav_int16));
 
@@ -136,7 +130,7 @@ int main(int argc, char** argv) {
     while ((sample = get_next_sample()) != -1) {
         // printf("Processing sample %d\n", sampleIndex);
         // printf("Window cursors: %d %d %d %d\n", window_cursors[0], window_cursors[1], window_cursors[2], window_cursors[3]);
-        // check if any windows are full and process them
+        // check if any windows are full and process them        
         for (int i = 0; i < 4; i++) {
             if (window_cursors[i] == WINDOW_SIZE) {
                 // process window, perhapse we should fork here
@@ -160,14 +154,15 @@ int main(int argc, char** argv) {
 
                 // TODO: @stevenwinnick --> perform pitch scaling
 
-                // copy samples to output buffer
-                printf("Copying samples to output buffer\n");
-                 for (int j = 0; j < WINDOW_SIZE; j++) {
-                    //right now we are just copying the samples
-                    output_samples[output_sample_index + j] = windows[i][j];
-                }
+                // // copy samples to output buffer
+                //  for (int j = 0; j < WINDOW_SIZE; j++) {
+                //     //right now we are just copying the samples
+                //     output_samples[output_sample_index + j] = windows[i][j];
+                // }
 
-                output_sample_index += WINDOW_SIZE;
+                // output_sample_index += WINDOW_SIZE;
+
+                window_cursors[i] = 0;
                 break;
             }
         }
@@ -184,61 +179,37 @@ int main(int argc, char** argv) {
             window_cursors[i]++;
         }
 
-        sampleIndex++;
     }
 
     printf("finished samples\n");
 
 
     //write output_samples to wav file
-
-    pWav = drwav_open_file(input_filename);
-
-    drwav_int16* multi_channel = (drwav_int16*) malloc(pWav->totalSampleCount * sizeof(drwav_int16));
-    if (pWav->totalSampleCount != drwav_read_s16(pWav, pWav->totalSampleCount, multi_channel)) {
-        perror("Failed to read samples");
-        return 1;
-    }
     
-    drwav_close(pWav);
+    // drwav_close(pWav);
 
-    drwav_data_format format;
-    format.container = drwav_container_riff;     // <-- drwav_container_riff = normal WAV files, drwav_container_w64 = Sony Wave64.
-    format.format = DR_WAVE_FORMAT_PCM;          // <-- Any of the DR_WAVE_FORMAT_* codes.
-    format.channels = pWav->channels;
-    format.sampleRate = pWav->sampleRate;
-    format.bitsPerSample = pWav->bitsPerSample;
-    drwav* output_wav;
+    // drwav_data_format format;
+    // format.container = drwav_container_riff;     // <-- drwav_container_riff = normal WAV files, drwav_container_w64 = Sony Wave64.
+    // format.format = DR_WAVE_FORMAT_PCM;          // <-- Any of the DR_WAVE_FORMAT_* codes.
+    // format.channels = pWav->channels;
+    // format.sampleRate = pWav->sampleRate;
+    // format.bitsPerSample = pWav->bitsPerSample;
+    // drwav* output_wav;
     
-    if(!(output_wav = drwav_open_file_write(output_filename, &format))) {
-        perror("Failed to open output file");
-        return 1;
-    }
+    // if(!(output_wav = drwav_open_file_write(output_filename, &format))) {
+    //     perror("Failed to open output file");
+    //     return 1;
+    // }
     
-    drwav_uint64 framesWrittten = drwav_write(output_wav, pWav->totalSampleCount, multi_channel);
-    if (framesWrittten != pWav->totalSampleCount) {
-        perror("Failed to write output samples");
-        return 1;
-    }
-    // drwav_write(output_wav, pWav->totalSampleCount, multi_channel);
-
-    free(multi_channel);
+    // drwav_uint64 framesWrittten = drwav_write(output_wav, pWav->totalSampleCount, multi_channel);
+    // if (framesWrittten != pWav->totalSampleCount) {
+    //     perror("Failed to write output samples");
+    //     return 1;
+    // }
     
-    drwav_close(output_wav);
+    // drwav_close(output_wav);
 
-    printf("Wrote output samples to %s\n", output_filename);
-
-
-    // free memory
-    for (int i = 0; i < 4; i++) {
-        free(windows[i]);
-    }
-    
-    free(curr_fft_buffer_real);
-    free(prev_fft_buffer_real);
-
-    free(curr_fft_buffer_imaginary);
-    free(prev_fft_buffer_imaginary);
+    // printf("Wrote output samples to %s\n", output_filename);
 
     free(pSamples);
     free(output_samples);
