@@ -6,7 +6,7 @@ def read_samples_from_file(filename):
         samples = [float(sample) for sample in file.readlines()]
     return np.array(samples)
 
-def write_wav_file(samples, filename, sample_rate=44100, amplitude=32767):
+def write_wav_file(samples, filename, sample_rate=48000, amplitude=32767):
     wav_file = wave.open(filename, 'w')
     wav_file.setparams((1, 2, sample_rate, len(samples), 'NONE', 'not compressed'))
 
