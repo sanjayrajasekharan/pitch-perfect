@@ -1,5 +1,5 @@
 CC := gcc
-CFLAGS := -Wall
+CFLAGS := -Wall -g
 LDFLAGS := -lm
 
 SRC := main.c fft/fft.c
