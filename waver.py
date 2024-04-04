@@ -1,5 +1,7 @@
 import numpy as np
 import wave
+import sys
+
 
 def read_samples_from_file(filename):
     with open(filename, 'r') as file:
@@ -24,6 +26,8 @@ def write_wav_file(samples, filename, sample_rate=44100, amplitude=32767):
 
 if __name__ == "__main__":
     # Change this to the path of your input file
+    if len(sys.argv) > 1:
+        input_filename = sys.argv[1]
     input_filename = "wavList.txt"
 
     # Change this to the desired output filename
