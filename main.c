@@ -206,7 +206,7 @@ int main(int argc, char** argv) {
                            currFFTBufferReal, currFFTBufferImaginary);
 
                 // perform ifft
-                rearrange(currFFTBufferReal, currFFTBufferImaginary, WINDOW_SIZE);
+                // rearrange(currFFTBufferReal, currFFTBufferImaginary, WINDOW_SIZE);
                 inverseCompute(currFFTBufferReal, currFFTBufferImaginary, WINDOW_SIZE);
 
                 // // copy samples to output buffer
