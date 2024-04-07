@@ -26,9 +26,9 @@ def write_wav_file(samples, filename, sample_rate=48000, amplitude=32767):
 
 if __name__ == "__main__":
     # Change this to the path of your input file
-    input_filename = "wavList.txt"
     if len(sys.argv) > 1:
         input_filename = sys.argv[1]
+    input_filename = "wavList.txt"
 
     # Change this to the desired output filename
     output_filename = "pyout.wav"

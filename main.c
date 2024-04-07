@@ -8,6 +8,7 @@
 #include "dr_wav.h"
 
 #include "fft/fft.h"
+#include "scaling/scaling.h"
 
 
 #define WINDOW_SIZE 4096
@@ -33,49 +34,15 @@ float prevFFTBufferReal[WINDOW_SIZE];
 
 float currFFTBufferImaginary[WINDOW_SIZE];
 float prevFFTBufferImaginary[WINDOW_SIZE];
+float currScaledReal[WINDOW_SIZE];
+float currScaledImag[WINDOW_SIZE];
+float prevScaledReal[WINDOW_SIZE];
+float prevScaledImag[WINDOW_SIZE];
 
 drwav_int16 outputBuffer[WINDOW_SIZE];
 int outputBufferIndex = 0;
 
 int print_windows_flag = 0;
-
-double phaseDifference(float real1, float imag1, float real2, float imag2) {
-    return atan2(imag2, real2) - atan2(imag1, real1);
-}
-
-/* set new vectors to prev vectors shifted by desired amount */
-void shiftPhase(float* realPrev, float* imagPrev, float* realNew,
-              float* imagNew) {
-    for (int i = 0; i < WINDOW_SIZE / 2; i++) {
-        float angleDiff = phaseDifference(realPrev[i], imagPrev[i], realNew[i],
-                                          imagNew[i]);
-        float shiftAngle = PHASE_SHIFT_AMOUNT * angleDiff;
-        float cosShift = cos(shiftAngle);
-        float sinShift = sin(shiftAngle);
-        realNew[i] = realPrev[i] * cosShift - imagPrev[i] * sinShift;
-        imagNew[i] = realPrev[i] * sinShift + imagPrev[i] * cosShift;
-    }
-}
-
-/* scales prev vectors to have length of corresponding new vectors */
-void getCorrectMagnitudes(float* realPrev, float* imagPrev,
-                         float* realNew, float* imagNew) {
-    for (int i = 0; i < WINDOW_SIZE / 2; i++) {
-        float magPrev = sqrt(realPrev[i] * realPrev[i] +
-                             imagPrev[i] * imagPrev[i]);
-        float magNew = sqrt(realNew[i] * realNew[i] + imagNew[i] * imagNew[i]);
-        realPrev[i] = realPrev[i] * magPrev / magNew;
-        imagPrev[i] = imagPrev[i] * magPrev / magNew;
-    }
-}
-
-void getPhaseDifferences(float* realPrev, float* imagPrev, float* realNew,
-                         float* imagNew, float* phaseDifferences) {
-    for (int i = 0; i < WINDOW_SIZE / 2; i++) {
-        phaseDifferences[i] = phaseDifference(realPrev[i], imagPrev[i],
-                                              realNew[i], imagNew[i]);
-    }
-}
 
 void applyHannWindow(drwav_int16* samples, float* output, size_t numSamples) {
     for (size_t i = 0; i < numSamples; ++i) {
@@ -205,6 +172,12 @@ int main(int argc, char** argv) {
         }
     }
 
+    for (int i = 0; i < WINDOW_SIZE; i++) {
+        prevScaledReal[i] = 0.0;
+        prevScaledImag[i] = 0.0;
+        currFFTBufferReal[i] = 0.0;
+        currFFTBufferImaginary[i] = 0.0;
+    }
 
     drwav_int16 sample;
     int nextWindow = 0;
@@ -229,6 +202,8 @@ int main(int argc, char** argv) {
                 for (int j = 0; j < WINDOW_SIZE; j++) {
                     prevFFTBufferReal[j] = currFFTBufferReal[j];
                     prevFFTBufferImaginary[j] = currFFTBufferImaginary[j];
+                    prevScaledReal[j] = currScaledReal[j];
+                    prevScaledImag[j] = currScaledImag[j];
                 }
 
                 applyHannWindow(windows[i], currFFTBufferReal, WINDOW_SIZE);
@@ -242,17 +217,13 @@ int main(int argc, char** argv) {
 
                 // perform pitch scaling
                 /* first, scale prevs in-place to have magnitudes of curr */
-                getCorrectMagnitudes(prevFFTBufferReal,
-                                     prevFFTBufferImaginary,
-                                     currFFTBufferReal,
-                                     currFFTBufferImaginary);
-                /* then, shift phases by desired amount and store in curr */
-                shiftPhase(prevFFTBufferReal, prevFFTBufferImaginary,
-                           currFFTBufferReal, currFFTBufferImaginary);
+                processTransformed(prevFFTBufferReal, prevFFTBufferImaginary,
+                                currFFTBufferReal,currFFTBufferImaginary,
+                                prevScaledReal, prevScaledImag,
+                                currScaledReal, currScaledImag);
 
                 // perform ifft
-                // rearrange(currFFTBufferReal, currFFTBufferImaginary, WINDOW_SIZE);
-                inverseCompute(currFFTBufferReal, currFFTBufferImaginary, WINDOW_SIZE);
+                inverseCompute(currScaledReal, currScaledImag, WINDOW_SIZE);
 
                 int j = 0;
                 while(j < WINDOW_SIZE) {
