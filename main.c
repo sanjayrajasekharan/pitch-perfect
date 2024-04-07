@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <math.h>
+#include <getopt.h>
 
 #define DR_WAV_IMPLEMENTATION
 #include "dr_wav.h"
@@ -12,25 +13,21 @@
 
 #define WINDOW_SIZE 4096
 #define HOP_LENGTH 1024
+#define HOPS_PER_WINDOW (WINDOW_SIZE / HOP_LENGTH + (WINDOW_SIZE % HOP_LENGTH != 0)) 
+
 // pitches up by 5 semitones
 #define SEMITONE_SHIFT 24
 #define PHASE_SHIFT_AMOUNT pow(2.0, (SEMITONE_SHIFT / 12.0))
 
 drwav_int16* pSamples;
-drwav_int16* outputSamples;
 
 drwav* pWav;
 int sampleIndex = 0;
 int numSamples = 0;
 
-drwav_int16* windows[4]; // 4 windows of 4096 samples
+drwav_int16 windows[HOPS_PER_WINDOW][WINDOW_SIZE] = {{0}};
 
-drwav_int16 window0[WINDOW_SIZE];
-drwav_int16 window1[WINDOW_SIZE];
-drwav_int16 window2[WINDOW_SIZE];
-drwav_int16 window3[WINDOW_SIZE];
-
-int windowCursors[4];
+int windowCursors[HOPS_PER_WINDOW];
 
 float currFFTBufferReal[WINDOW_SIZE];
 float prevFFTBufferReal[WINDOW_SIZE];
@@ -44,6 +41,8 @@ float prevScaledImag[WINDOW_SIZE];
 
 drwav_int16 outputBuffer[WINDOW_SIZE];
 int outputBufferIndex = 0;
+
+int print_windows_flag = 0;
 
 void applyHannWindow(drwav_int16* samples, float* output, size_t numSamples) {
     for (size_t i = 0; i < numSamples; ++i) {
@@ -114,23 +113,64 @@ int getNextSample() {
     return sample;
 }
 
+void print_usage(char* arg_name) {
+    printf("Usage: %s <input.wav> <output.wav> [--print_windows]\n", arg_name);
+}
+
 int main(int argc, char** argv) {
     if (argc < 3) {
-        printf("Usage: %s <input.wav> <output.wav>\n", argv[0]);
+        // usage with flags and options
+        print_usage(argv[0]);
         return 1;
     }
 
     const char* input_filename = argv[1];
     const char* output_filename = argv[2];
 
+    static struct option long_options[] = {
+        {"print_windows", no_argument, &print_windows_flag, 1},
+        {0, 0, 0, 0} // End of options
+    };
+
+    int opt;
+    int option_index = 0;
+
+    while ((opt = getopt_long(argc, argv, "", long_options, &option_index)) != -1) {
+        switch (opt) {
+        case 0:
+            break;
+        case '?':
+            //print error message here
+            fprintf(stderr, "Invalid parameter: %s\n", optarg);
+            return 1;
+        default:
+            abort();
+        }
+    }
+
     if (load_samples(input_filename) != 0) {
         return 1;
     }
 
-    windows[0] = window0;
-    windows[1] = window1;
-    windows[2] = window2;
-    windows[3] = window3;
+    // open file to write windows
+    FILE* computedWindowsFile = NULL;
+    FILE* expectedWindowsFile = NULL;
+    if (print_windows_flag) {
+        computedWindowsFile = fopen("computed_windows.txt", "w");
+        expectedWindowsFile = fopen("expected_windows.txt", "w");
+
+        int i;
+        for (i = 0; i < numSamples; i+=HOP_LENGTH) {
+            fprintf(expectedWindowsFile, "Window %d:", i/HOP_LENGTH);
+            for (int j = 0; j < WINDOW_SIZE; j++) {
+                if (i + j >= numSamples) {
+                    break;
+                }
+                fprintf(expectedWindowsFile, " %d", pSamples[i + j]);
+            }
+            fprintf(expectedWindowsFile, "\n");
+        }
+    }
 
     for (int i = 0; i < WINDOW_SIZE; i++) {
         prevScaledReal[i] = 0.0;
@@ -139,20 +179,24 @@ int main(int argc, char** argv) {
         currFFTBufferImaginary[i] = 0.0;
     }
 
-    outputSamples = (drwav_int16*) malloc(numSamples * sizeof(drwav_int16) * 4);
-
     drwav_int16 sample;
-    int outputSampleIndex = 0;
     int nextWindow = 0;
     
     while ((sample = getNextSample()) != -1) {
         // printf("Processing sample %d\n", sampleIndex);
         // printf("Window cursors: %d %d %d %d\n", windowCursors[0], windowCursors[1], windowCursors[2], windowCursors[3]);
         // check if any windows are full and process them        
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < HOPS_PER_WINDOW; i++) {
             if (windowCursors[i] == WINDOW_SIZE) {
-                // process window, perhapse we should fork here
-                // printf("Processing window %d\n", i);
+                // write window to file
+                if (print_windows_flag) {
+                    fprintf(computedWindowsFile, "Window %d:", i);
+                    for (int j = 0; j < WINDOW_SIZE; j++) {
+                        fprintf(computedWindowsFile, " %d", windows[i][j]);
+                    }
+
+                    fprintf(computedWindowsFile, "\n");
+                }
                 
                 // copy from curr_fft_buffer to prev_fft_buffer
                 for (int j = 0; j < WINDOW_SIZE; j++) {
@@ -181,16 +225,6 @@ int main(int argc, char** argv) {
                 // perform ifft
                 inverseCompute(currScaledReal, currScaledImag, WINDOW_SIZE);
 
-                // // copy samples to output buffer
-                for (int j = 0; j < WINDOW_SIZE; j++) {
-                    // right now we are just copying the samples
-                    outputSamples[outputSampleIndex + j] = windows[i][j];
-                }
-
-                outputSampleIndex = outputSampleIndex + WINDOW_SIZE;
-                // printf("outputSampleIndex: %d\n", outputSampleIndex);
-
-                // ring buffer
                 int j = 0;
                 while(j < WINDOW_SIZE) {
                     outputBuffer[(outputBufferIndex + j) % WINDOW_SIZE] = windows[i][j];
@@ -204,6 +238,9 @@ int main(int argc, char** argv) {
 
                 outputBufferIndex = (outputBufferIndex + HOP_LENGTH) % WINDOW_SIZE;
 
+                // reset window cursor
+                windowCursors[i] = 0;
+
                 break;
             }
             // printf("Window %d failed, cursor = %d\n", i, window_cursors[i]);
@@ -212,30 +249,20 @@ int main(int argc, char** argv) {
         // fill windows
         if (sampleIndex % HOP_LENGTH == 0) {
             windowCursors[nextWindow] = 0;
-            nextWindow = (nextWindow + 1) % 4;
+            nextWindow = (nextWindow + 1) % HOPS_PER_WINDOW;
         }
         
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < HOPS_PER_WINDOW; i++) {
             int j = windowCursors[i];
             windows[i][j] = sample;
             windowCursors[i]++;
         }
 
         sampleIndex++;
-        // printf("Sample Index: %d\n", sampleIndex);
     }
-
-    // printf("finished samples\n");
-    // printf("outputSampleIndex: %d\n", outputSampleIndex);
-
-    // for (int i = 0; i < outputSampleIndex; i++) {
-    //     printf("%d\n", outputSamples[i]);
-    // }
-
 
     // free memory
     free(pSamples);
-    free(outputSamples);
 
     return 0;
 }
