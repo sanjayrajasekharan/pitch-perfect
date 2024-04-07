@@ -4,7 +4,7 @@
 
 #define WINDOW_SIZE 4096
 #define HOP_LENGTH 1024
-#define SEMITONE_SHIFT 6
+#define SEMITONE_SHIFT 24
 #define PHASE_SHIFT_AMOUNT pow(2.0, (SEMITONE_SHIFT / 12.0))
 
 double phaseDifference(float real1, float imag1, float real2, float imag2) {

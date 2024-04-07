@@ -69,7 +69,7 @@ int main(int argc, char** argv)
     while (-1 != getline(&curLine, &curLineLen, stdin)) {
 
         // Convert curLine to float
-        inputSamples[inputCurIdx] = strtof(curLine, NULL);        
+        inputSamples[inputCurIdx] = strtof(curLine, NULL);
 
         // Abstraction: assume all processing takes place in span of 1 sample
         if (inputCurIdx == (inputWindowStart + WINDOW_SIZE) % 
@@ -84,15 +84,19 @@ int main(int argc, char** argv)
             rearrange(fftRealBufs[fftBufIdx], fftImagBufs[fftBufIdx], WINDOW_SIZE);
             compute(fftRealBufs[fftBufIdx], fftImagBufs[fftBufIdx], WINDOW_SIZE);
 
+            for (int i = 0; i < WINDOW_SIZE; i++) {
+                // printf("Pre-transform: %f, %f\n", fftRealBufs[fftBufIdx][i], fftImagBufs[fftBufIdx][i]);
+            }
+
             // Shift phase
-            processTransformed(fftRealBufs[fftBufIdx],
-                               fftImagBufs[fftBufIdx],
-                               fftRealBufs[(fftBufIdx + 1) % 2],
+            processTransformed(fftRealBufs[(fftBufIdx + 1) % 2],
                                fftImagBufs[(fftBufIdx + 1) % 2],
-                               shiftRealBufs[fftBufIdx],
-                               shiftImagBufs[fftBufIdx],
+                               fftRealBufs[fftBufIdx],
+                               fftImagBufs[fftBufIdx],
                                shiftRealBufs[(fftBufIdx + 1) % 2],
-                               shiftImagBufs[(fftBufIdx + 1) % 2]);
+                               shiftImagBufs[(fftBufIdx + 1) % 2],
+                               shiftRealBufs[fftBufIdx],
+                               shiftImagBufs[fftBufIdx]);
 
             for (int i = 0; i < WINDOW_SIZE; i++) {
                 fftRealBufs[fftBufIdx][i] = shiftRealBufs[fftBufIdx][i];
@@ -100,32 +104,34 @@ int main(int argc, char** argv)
             }
 
             // Perform IFFT
-            rearrange(fftRealBufs[fftBufIdx], fftImagBufs[fftBufIdx], 
-                      WINDOW_SIZE);
             inverseCompute(fftRealBufs[fftBufIdx], fftImagBufs[fftBufIdx], 
                            WINDOW_SIZE);
+
+            // for (int i = 0; i < WINDOW_SIZE; i++) {
+            //     printf("Post-IFFT: %f, %f\n", fftRealBufs[fftBufIdx][i], fftImagBufs[fftBufIdx][i]);
+            // }
             
             // Add outputs to stitcher
             for (int i = 0; i < WINDOW_SIZE; i++) {
                 if (i < WINDOW_SIZE - HOP_LENGTH)
                     stitcher[(stitcherPtr + i) % WINDOW_SIZE] += 
-                    shiftRealBufs[fftBufIdx][i + HOP_LENGTH];
+                    shiftRealBufs[fftBufIdx][i];
                 else
                     stitcher[(stitcherPtr + i) % WINDOW_SIZE] = 
-                    shiftRealBufs[fftBufIdx][i + HOP_LENGTH];
+                    shiftRealBufs[fftBufIdx][i];
             }
 
             // Output completed stitches to stdout
             for (int i = 0; i < HOP_LENGTH; i++) {
                 printf("%f\n", stitcher[stitcherPtr + i]);
             }
-            stitcherPtr = (stitcherPtr + HOP_LENGTH) % WINDOW_SIZE;
 
-            // Slide the window
+            // Increment position-tracking pointers
             inputWindowStart = (inputWindowStart + HOP_LENGTH) % 
                                (WINDOW_SIZE + HOP_LENGTH);
-
             fftBufIdx = (fftBufIdx + 1) % 2;
+            stitcherPtr = (stitcherPtr + HOP_LENGTH) % WINDOW_SIZE;
+
         }
 
         inputCurIdx = (inputCurIdx + 1) % (WINDOW_SIZE + HOP_LENGTH);
