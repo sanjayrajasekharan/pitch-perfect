@@ -13,15 +13,16 @@ double phaseDifference(float real1, float imag1, float real2, float imag2) {
 
 void processTransformed(float* realPrev, float* imagPrev, float* realNew,
                         float* imagNew, float* realOutPrev, float* imagOutPrev,
-                        float* realOutNew, float* imagOutNew) {
+                        float* realOutNew, float* imagOutNew, double phaseScaleAmount) {
     for (int i = 0; i < WINDOW_SIZE; i++) {
-        if (realPrev[i] == 0 && imagPrev[i] == 0) {
+        if ((realPrev[i] == 0 && imagPrev[i] == 0) || 
+            (realOutPrev[i] == 0 && imagOutPrev[i] == 0)) {
             realOutNew[i] = realNew[i];
             imagOutNew[i] = imagNew[i];
             continue;
         }
         float dPhase = phaseDifference(realPrev[i], imagPrev[i], realNew[i], imagNew[i]);
-        float newAngle = atan2(imagOutPrev[i], realOutPrev[i]) + (PHASE_SHIFT_AMOUNT * dPhase);
+        float newAngle = atan2(imagOutPrev[i], realOutPrev[i]) + (phaseScaleAmount * dPhase);
         float magnitude = sqrt((realNew[i] * realNew[i]) + (imagNew[i] * imagNew[i]));
         realOutNew[i] = cos(newAngle) * magnitude;
         imagOutNew[i] = sin(newAngle) * magnitude;
