@@ -2,7 +2,7 @@ CC := gcc
 CFLAGS := -Wall
 LDFLAGS := -lm
 
-SRC := main.c fft/fft.c scaling/scaling.c
+SRC := main.c scaling.c
 OBJS := $(SRC:.c=.o)
 
 OUT := main
