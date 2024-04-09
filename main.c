@@ -220,7 +220,7 @@ int main(int argc, char** argv) {
                 processTransformed(prevFFTBufferReal, prevFFTBufferImaginary,
                                 currFFTBufferReal,currFFTBufferImaginary,
                                 prevScaledReal, prevScaledImag,
-                                currScaledReal, currScaledImag);
+                                currScaledReal, currScaledImag, PHASE_SHIFT_AMOUNT);
 
                 // perform ifft
                 inverseCompute(currScaledReal, currScaledImag, WINDOW_SIZE);
