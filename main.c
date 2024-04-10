@@ -117,6 +117,56 @@ void print_usage(char* arg_name) {
     printf("Usage: %s <input.wav> <output.wav> [--print_windows]\n", arg_name);
 }
 
+//zero phase zero windowing
+void zeroPhase(float real[], float imaginary[], const unsigned int N, float resultReal[], float resultImaginary[]) {
+
+    unsigned int half = N / 2;
+    unsigned int resultShift = (N - half / 2);
+    unsigned int currShift = half / 2;
+
+    // Copy first half of real and imaginary arrays
+    for (unsigned int i = 0; i < (half/2); i++) {
+        printf("half/2: %d", half/2);
+        resultReal[i] = real[i];
+        resultImaginary[i] = imaginary[i];
+    }
+
+    // Fill the middle with zeros
+    for (unsigned int i = half/2; i < (N-half/2); i++) {
+        resultReal[i] = 0.0;
+        resultImaginary[i] = 0.0;
+    }
+
+    // Copy the remaining half of real and imaginary arrays
+    for (unsigned int i = 0; i < half; i++) {
+        resultReal[i + resultShift] = real[i + currShift];
+        resultImaginary[i + resultShift] = imaginary[i + currShift];
+    }
+}
+
+void linearInterpolation(const float real[], const float imaginary[], const unsigned int N, const float resamplingFactor, float interpolatedReal[], float interpolatedImaginary[]) {
+    // Size of the output array after resampling
+    unsigned int M = (unsigned int)(N * resamplingFactor);
+
+    for (unsigned int i = 0; i < M; i++) {
+        float index = (float)i / resamplingFactor;
+        unsigned int j = (unsigned int)index;
+        float k = index - j;
+
+        interpolatedReal[i] = real[j] * (1 - k) + real[j + 1] * k;
+        interpolatedImaginary[i] = imaginary[j] * (1 - k) + imaginary[j + 1] * k;
+    }
+}
+
+
+int main() {
+    float real[] = {1, 2, 3, 4};
+    float imaginary[] = {1, 2, 3, 4};
+    unsigned int N = 8;
+    zeroPhase(real, imaginary, N);
+    return 0;
+}
+
 int main(int argc, char** argv) {
     if (argc < 3) {
         // usage with flags and options
