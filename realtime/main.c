@@ -81,8 +81,8 @@ int main(int argc, char** argv)
                 fftRealBufs[fftBufIdx][i] = postHann[i];
                 fftImagBufs[fftBufIdx][i] = 0;
             }
-            // rearrange(fftRealBufs[fftBufIdx], fftImagBufs[fftBufIdx], WINDOW_SIZE);
-            // compute(fftRealBufs[fftBufIdx], fftImagBufs[fftBufIdx], WINDOW_SIZE);
+            rearrange(fftRealBufs[fftBufIdx], fftImagBufs[fftBufIdx], WINDOW_SIZE);
+            compute(fftRealBufs[fftBufIdx], fftImagBufs[fftBufIdx], WINDOW_SIZE);
 
             for (int i = 0; i < WINDOW_SIZE; i++) {
                 // printf("Pre-transform: %f, %f\n", fftRealBufs[fftBufIdx][i], fftImagBufs[fftBufIdx][i]);
@@ -104,8 +104,8 @@ int main(int argc, char** argv)
             // }
 
             // Perform IFFT
-            // inverseCompute(fftRealBufs[fftBufIdx], fftImagBufs[fftBufIdx], 
-            //                WINDOW_SIZE);
+            inverseCompute(fftRealBufs[fftBufIdx], fftImagBufs[fftBufIdx], 
+                           WINDOW_SIZE);
 
             // for (int i = 0; i < WINDOW_SIZE; i++) {
             //     printf("Post-IFFT: %f, %f\n", fftRealBufs[fftBufIdx][i], fftImagBufs[fftBufIdx][i]);
@@ -115,18 +115,18 @@ int main(int argc, char** argv)
             // for (int i = 0; i < WINDOW_SIZE; i++) {
             //     if (i < WINDOW_SIZE - HOP_LENGTH)
             //         stitcher[(stitcherPtr + i) % WINDOW_SIZE] += 
-            //         (shiftRealBufs[fftBufIdx][i] / 2.0);
+            //         (postHann[i] / 2.0);
             //     else
             //         stitcher[(stitcherPtr + i) % WINDOW_SIZE] = 
-            //         (shiftRealBufs[fftBufIdx][i] / 2.0);
+            //         (postHann[i] / 2.0);
             // }
             for (int i = 0; i < WINDOW_SIZE; i++) {
                 if (i < WINDOW_SIZE - HOP_LENGTH)
                     stitcher[(stitcherPtr + i) % WINDOW_SIZE] += 
-                    (postHann[i] / 2.0);
+                    (fftRealBufs[fftBufIdx][i] / 2.0);
                 else
                     stitcher[(stitcherPtr + i) % WINDOW_SIZE] = 
-                    (postHann[i] / 2.0);
+                    (fftRealBufs[fftBufIdx][i] / 2.0);
             }
 
             // Output completed stitches to stdout
