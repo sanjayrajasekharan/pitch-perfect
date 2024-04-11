@@ -13,7 +13,7 @@ import sys
 
 WINDOW_SIZE = 4096 # win_len, n_fft
 HOP_LEN = 1024 # hop_len
-PHASE_SHIFT_AMOUNT = 2 ** (-12 / 12) # scaling
+PHASE_SHIFT_AMOUNT = 2 ** (5 / 12) # scaling
 
 waveform, samp_rate = librosa.load(sys.argv[1], sr=None, mono=True) # waveform, sr # used to not be mono
 num_samples = waveform.shape[0] # og_len
@@ -37,20 +37,23 @@ for idx, frame in enumerate(stft_result):
 
     dphases_from_prev = phases - prev_anal_phases
 
-    bin_center_freqs = np.arange(n_fft_bins) * 2 * np.pi / WINDOW_SIZE
+    bin_center_freqs = np.arange(n_fft_bins) * 2 * np.pi / WINDOW_SIZE # how much each bin should move per sample
     dphases_from_expected = dphases_from_prev - (bin_center_freqs * HOP_LEN)
     dphases_from_expected = np.mod(dphases_from_expected + (3 * np.pi), 2 * np.pi) - np.pi # wrap to [-pi, pi]
 
-    bin_deviations = (dphases_from_expected * WINDOW_SIZE) / (2 * np.pi * HOP_LEN)
-    new_bin_nums = np.rint((np.arange(n_fft_bins) + bin_deviations) * PHASE_SHIFT_AMOUNT)
+    bin_deviations = (dphases_from_expected * WINDOW_SIZE) / (2 * np.pi * HOP_LEN) # how many bins we should change (over a whole bin length)
+    new_bins = (np.arange(n_fft_bins) + bin_deviations) * PHASE_SHIFT_AMOUNT
+    new_bin_nums = np.rint(new_bins)
 
     synth_mags = np.zeros(n_fft_bins)
+    synth_deviations = np.zeros(n_fft_bins)
     for old_idx, new_bin_num in enumerate(new_bin_nums):
         if new_bin_num >= 0 and new_bin_num < n_fft_bins:
             synth_mags[int(new_bin_num)] += mags[old_idx]
+            synth_deviations[int(new_bin_num)] += new_bins[old_idx] - new_bin_nums[old_idx]
 
-    phase_remainders = ((synth_mags - np.arange(n_fft_bins)) * 2 * np.pi * HOP_LEN) / WINDOW_SIZE
-    synth_phases = prev_synth_phases + phase_remainders + (bin_center_freqs * HOP_LEN)
+    phase_remainders = ((synth_deviations) * 2 * np.pi * HOP_LEN) / WINDOW_SIZE
+    synth_phases = prev_synth_phases + phase_remainders + (2 * np.pi * bin_center_freqs * HOP_LEN)
     synth_phases = np.mod(synth_phases + (3 * np.pi), 2 * np.pi) - np.pi # wrap to [-pi, pi]
 
     stft_result_scaled.append(synth_mags * np.exp(synth_phases * 1j))
