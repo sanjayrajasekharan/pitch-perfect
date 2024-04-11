@@ -43,6 +43,7 @@ drwav_int16 outputBuffer[WINDOW_SIZE];
 int outputBufferIndex = 0;
 
 int print_windows_flag = 0;
+int enable_scaling_flag = 1;
 
 void applyHannWindow(drwav_int16* samples, float* output, size_t numSamples) {
     for (size_t i = 0; i < numSamples; ++i) {
@@ -267,17 +268,17 @@ int main(int argc, char** argv) {
 
                 // perform pitch scaling
                 /* first, scale prevs in-place to have magnitudes of curr */
-                processTransformed(prevFFTBufferReal, prevFFTBufferImaginary,
-                                currFFTBufferReal,currFFTBufferImaginary,
-                                prevScaledReal, prevScaledImag,
-                                currScaledReal, currScaledImag);
+                // processTransformed(prevFFTBufferReal, prevFFTBufferImaginary,
+                //                 currFFTBufferReal,currFFTBufferImaginary,
+                //                 prevScaledReal, prevScaledImag,
+                //                 currScaledReal, currScaledImag, WINDOW_SIZE);
 
                 // perform ifft
                 inverseCompute(currScaledReal, currScaledImag, WINDOW_SIZE);
 
                 int j = 0;
                 while(j < WINDOW_SIZE) {
-                    outputBuffer[(outputBufferIndex + j) % WINDOW_SIZE] = windows[i][j];
+                    outputBuffer[(outputBufferIndex + j) % WINDOW_SIZE] = currFFTBufferReal[j]; // windows[i][j]/4;
                     j++;
                 }
 
