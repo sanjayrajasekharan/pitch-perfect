@@ -268,10 +268,17 @@ int main(int argc, char** argv) {
 
                 // perform pitch scaling
                 /* first, scale prevs in-place to have magnitudes of curr */
+<<<<<<< HEAD
+                processTransformed(prevFFTBufferReal, prevFFTBufferImaginary,
+                                currFFTBufferReal,currFFTBufferImaginary,
+                                prevScaledReal, prevScaledImag,
+                                currScaledReal, currScaledImag, PHASE_SHIFT_AMOUNT);
+=======
                 // processTransformed(prevFFTBufferReal, prevFFTBufferImaginary,
                 //                 currFFTBufferReal,currFFTBufferImaginary,
                 //                 prevScaledReal, prevScaledImag,
                 //                 currScaledReal, currScaledImag, WINDOW_SIZE);
+>>>>>>> main
 
                 // perform ifft
                 inverseCompute(currScaledReal, currScaledImag, WINDOW_SIZE);

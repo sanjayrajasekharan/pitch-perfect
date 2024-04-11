@@ -96,7 +96,7 @@ int main(int argc, char** argv)
                                shiftRealBufs[(fftBufIdx + 1) % 2],
                                shiftImagBufs[(fftBufIdx + 1) % 2],
                                shiftRealBufs[fftBufIdx],
-                               shiftImagBufs[fftBufIdx]);
+                               shiftImagBufs[fftBufIdx], PHASE_SHIFT_AMOUNT);
 
             for (int i = 0; i < WINDOW_SIZE; i++) {
                 fftRealBufs[fftBufIdx][i] = shiftRealBufs[fftBufIdx][i];
