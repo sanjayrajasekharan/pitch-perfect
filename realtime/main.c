@@ -16,7 +16,7 @@
 void hannify(float* inputSamples, int startIdx, float* output) {
     for (size_t i = 0; i < WINDOW_SIZE; ++i) {
         float w = 0.5 * (1 - cos(2 * M_PI * i / WINDOW_SIZE));
-        output[i] = inputSamples[(i + startIdx) % WINDOW_SIZE] * w;
+        output[i] = inputSamples[(i + startIdx) % (WINDOW_SIZE + HOP_LENGTH)] * w;
     }
 }
 
@@ -81,44 +81,52 @@ int main(int argc, char** argv)
                 fftRealBufs[fftBufIdx][i] = postHann[i];
                 fftImagBufs[fftBufIdx][i] = 0;
             }
-            rearrange(fftRealBufs[fftBufIdx], fftImagBufs[fftBufIdx], WINDOW_SIZE);
-            compute(fftRealBufs[fftBufIdx], fftImagBufs[fftBufIdx], WINDOW_SIZE);
+            // rearrange(fftRealBufs[fftBufIdx], fftImagBufs[fftBufIdx], WINDOW_SIZE);
+            // compute(fftRealBufs[fftBufIdx], fftImagBufs[fftBufIdx], WINDOW_SIZE);
 
             for (int i = 0; i < WINDOW_SIZE; i++) {
                 // printf("Pre-transform: %f, %f\n", fftRealBufs[fftBufIdx][i], fftImagBufs[fftBufIdx][i]);
             }
 
             // Shift phase
-            processTransformed(fftRealBufs[(fftBufIdx + 1) % 2],
-                               fftImagBufs[(fftBufIdx + 1) % 2],
-                               fftRealBufs[fftBufIdx],
-                               fftImagBufs[fftBufIdx],
-                               shiftRealBufs[(fftBufIdx + 1) % 2],
-                               shiftImagBufs[(fftBufIdx + 1) % 2],
-                               shiftRealBufs[fftBufIdx],
-                               shiftImagBufs[fftBufIdx], PHASE_SHIFT_AMOUNT);
+            // processTransformed(fftRealBufs[(fftBufIdx + 1) % 2],
+            //                    fftImagBufs[(fftBufIdx + 1) % 2],
+            //                    fftRealBufs[fftBufIdx],
+            //                    fftImagBufs[fftBufIdx],
+            //                    shiftRealBufs[(fftBufIdx + 1) % 2],
+            //                    shiftImagBufs[(fftBufIdx + 1) % 2],
+            //                    shiftRealBufs[fftBufIdx],
+            //                    shiftImagBufs[fftBufIdx], PHASE_SHIFT_AMOUNT);
 
-            for (int i = 0; i < WINDOW_SIZE; i++) {
-                fftRealBufs[fftBufIdx][i] = shiftRealBufs[fftBufIdx][i];
-                fftImagBufs[fftBufIdx][i] = shiftImagBufs[fftBufIdx][i];
-            }
+            // for (int i = 0; i < WINDOW_SIZE; i++) {
+            //     fftRealBufs[fftBufIdx][i] = shiftRealBufs[fftBufIdx][i];
+            //     fftImagBufs[fftBufIdx][i] = shiftImagBufs[fftBufIdx][i];
+            // }
 
             // Perform IFFT
-            inverseCompute(fftRealBufs[fftBufIdx], fftImagBufs[fftBufIdx], 
-                           WINDOW_SIZE);
+            // inverseCompute(fftRealBufs[fftBufIdx], fftImagBufs[fftBufIdx], 
+            //                WINDOW_SIZE);
 
             // for (int i = 0; i < WINDOW_SIZE; i++) {
             //     printf("Post-IFFT: %f, %f\n", fftRealBufs[fftBufIdx][i], fftImagBufs[fftBufIdx][i]);
             // }
             
             // Add outputs to stitcher
+            // for (int i = 0; i < WINDOW_SIZE; i++) {
+            //     if (i < WINDOW_SIZE - HOP_LENGTH)
+            //         stitcher[(stitcherPtr + i) % WINDOW_SIZE] += 
+            //         (shiftRealBufs[fftBufIdx][i] / 2.0);
+            //     else
+            //         stitcher[(stitcherPtr + i) % WINDOW_SIZE] = 
+            //         (shiftRealBufs[fftBufIdx][i] / 2.0);
+            // }
             for (int i = 0; i < WINDOW_SIZE; i++) {
                 if (i < WINDOW_SIZE - HOP_LENGTH)
                     stitcher[(stitcherPtr + i) % WINDOW_SIZE] += 
-                    shiftRealBufs[fftBufIdx][i];
+                    (postHann[i] / 2.0);
                 else
                     stitcher[(stitcherPtr + i) % WINDOW_SIZE] = 
-                    shiftRealBufs[fftBufIdx][i];
+                    (postHann[i] / 2.0);
             }
 
             // Output completed stitches to stdout

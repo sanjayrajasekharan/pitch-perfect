@@ -160,13 +160,13 @@ void linearInterpolation(const float real[], const float imaginary[], const unsi
 }
 
 
-int main() {
-    float real[] = {1, 2, 3, 4};
-    float imaginary[] = {1, 2, 3, 4};
-    unsigned int N = 8;
-    // zeroPhase(real, imaginary, N);
-    return 0;
-}
+// int main() {
+//     float real[] = {1, 2, 3, 4};
+//     float imaginary[] = {1, 2, 3, 4};
+//     unsigned int N = 8;
+//     // zeroPhase(real, imaginary, N);
+//     return 0;
+// }
 
 int main(int argc, char** argv) {
     if (argc < 3) {
@@ -263,8 +263,8 @@ int main(int argc, char** argv) {
                 for (int j = 0; j < WINDOW_SIZE; j++) {
                     currFFTBufferImaginary[j] = 0.0;
                 }
-                rearrange(currFFTBufferReal, currFFTBufferImaginary, WINDOW_SIZE);
-                compute(currFFTBufferReal, currFFTBufferImaginary, WINDOW_SIZE);
+                // rearrange(currFFTBufferReal, currFFTBufferImaginary, WINDOW_SIZE);
+                // compute(currFFTBufferReal, currFFTBufferImaginary, WINDOW_SIZE);
 
                 // perform pitch scaling
                 /* first, scale prevs in-place to have magnitudes of curr */
@@ -274,7 +274,7 @@ int main(int argc, char** argv) {
                 //                 currScaledReal, currScaledImag, WINDOW_SIZE);
 
                 // perform ifft
-                inverseCompute(currScaledReal, currScaledImag, WINDOW_SIZE);
+                // inverseCompute(currScaledReal, currScaledImag, WINDOW_SIZE);
 
                 int j = 0;
                 while(j < WINDOW_SIZE) {
@@ -283,7 +283,7 @@ int main(int argc, char** argv) {
                 }
 
                 for (int j = 0; j < HOP_LENGTH; j++) {
-                    printf("%d\n", outputBuffer[outputBufferIndex + j]);
+                    printf("%d\n", outputBuffer[outputBufferIndex + j] / 2);
                     outputBuffer[outputBufferIndex + j] = 0;
                 }
 
