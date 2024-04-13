@@ -15,7 +15,6 @@
 #define HOP_LENGTH 1024
 #define HOPS_PER_WINDOW (WINDOW_SIZE / HOP_LENGTH + (WINDOW_SIZE % HOP_LENGTH != 0)) 
 
-// pitches up by 5 semitones
 #define SEMITONE_SHIFT 24
 #define PHASE_SHIFT_AMOUNT pow(2.0, (SEMITONE_SHIFT / 12.0))
 
