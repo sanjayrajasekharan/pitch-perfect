@@ -89,19 +89,19 @@ int main(int argc, char** argv)
             }
 
             // Shift phase
-            // processTransformed(fftRealBufs[(fftBufIdx + 1) % 2],
-            //                    fftImagBufs[(fftBufIdx + 1) % 2],
-            //                    fftRealBufs[fftBufIdx],
-            //                    fftImagBufs[fftBufIdx],
-            //                    shiftRealBufs[(fftBufIdx + 1) % 2],
-            //                    shiftImagBufs[(fftBufIdx + 1) % 2],
-            //                    shiftRealBufs[fftBufIdx],
-            //                    shiftImagBufs[fftBufIdx], PHASE_SHIFT_AMOUNT);
+            processTransformed(fftRealBufs[(fftBufIdx + 1) % 2],
+                               fftImagBufs[(fftBufIdx + 1) % 2],
+                               fftRealBufs[fftBufIdx],
+                               fftImagBufs[fftBufIdx],
+                               shiftRealBufs[(fftBufIdx + 1) % 2],
+                               shiftImagBufs[(fftBufIdx + 1) % 2],
+                               shiftRealBufs[fftBufIdx],
+                               shiftImagBufs[fftBufIdx], PHASE_SHIFT_AMOUNT);
 
-            // for (int i = 0; i < WINDOW_SIZE; i++) {
-            //     fftRealBufs[fftBufIdx][i] = shiftRealBufs[fftBufIdx][i];
-            //     fftImagBufs[fftBufIdx][i] = shiftImagBufs[fftBufIdx][i];
-            // }
+            for (int i = 0; i < WINDOW_SIZE; i++) {
+                fftRealBufs[fftBufIdx][i] = shiftRealBufs[fftBufIdx][i];
+                fftImagBufs[fftBufIdx][i] = shiftImagBufs[fftBufIdx][i];
+            }
 
             // Perform IFFT
             inverseCompute(fftRealBufs[fftBufIdx], fftImagBufs[fftBufIdx], 
