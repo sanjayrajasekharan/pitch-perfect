@@ -22,19 +22,22 @@ void processTransformed(float* realPrev, float* imagPrev, float* realNew,
     }
 
     for (int i = 0; i < WINDOW_SIZE / 2; i++) {
-        if ((realPrev[i] == 0 && imagPrev[i] == 0) || 
-            (realOutPrev[i] == 0 && imagOutPrev[i] == 0)) {
-            realOutNew[i] = realNew[i];
-            imagOutNew[i] = imagNew[i];
+        float binDeviation;
+        if (realNew[i] == 0 && imagNew[i] == 0) {
             continue;
         }
-        
-        float dPhase = phaseDifference(realPrev[i], imagPrev[i], realNew[i], imagNew[i]);
-        float expectedDPhase = i * 2 * M_PI * HOP_LENGTH / WINDOW_SIZE;
-        float dPhaseFromExpected = dPhase - expectedDPhase;
-        dPhaseFromExpected = fmod(dPhaseFromExpected + (3 * M_PI), 2 * M_PI) - M_PI;
+        else if ((realPrev[i] == 0 && imagPrev[i] == 0) || 
+                 (realOutPrev[i] == 0 && imagOutPrev[i] == 0)) {
+            binDeviation = atan2(imagNew[i], realNew[i]);
+        }
+        else {
+            float dPhase = phaseDifference(realPrev[i], imagPrev[i], realNew[i], imagNew[i]);
+            float expectedDPhase = i * 2 * M_PI * HOP_LENGTH / WINDOW_SIZE;
+            float dPhaseFromExpected = dPhase - expectedDPhase;
+            dPhaseFromExpected = fmod(dPhaseFromExpected + (3 * M_PI), 2 * M_PI) - M_PI;
+            binDeviation = dPhaseFromExpected * WINDOW_SIZE / (2 * M_PI * HOP_LENGTH);
+        }
 
-        float binDeviation = dPhaseFromExpected * WINDOW_SIZE / (2 * M_PI * HOP_LENGTH);
         float newBin = (i + binDeviation) * phaseScaleAmount;
         int newBinNum = round(newBin);
         float newBinDeviation = newBinNum - newBin;
@@ -51,15 +54,17 @@ void processTransformed(float* realPrev, float* imagPrev, float* realNew,
     }
 
     for (int i = 0; i < WINDOW_SIZE / 2; i++) {
-        if ((realPrev[i] == 0 && imagPrev[i] == 0) || 
-            (realOutPrev[i] == 0 && imagOutPrev[i] == 0)) {
-            realOutNew[i] = realNew[i];
-            imagOutNew[i] = imagNew[i];
-            continue;
+        float newPhase;
+        if (synthMags[i] == 0) {
+            newPhase = 0;
         }
-
-        float phaseRemainder = synthBinDeviations[i] * 2 * M_PI * HOP_LENGTH / WINDOW_SIZE;
-        float newPhase = atan2(imagOutPrev[i], realOutPrev[i]) + phaseRemainder + (i * 2 * M_PI * HOP_LENGTH / WINDOW_SIZE);
+        else if (realOutPrev[i] == 0 && imagOutPrev[i] == 0) {
+            newPhase = synthBinDeviations[i];
+        }
+        else {
+            float phaseRemainder = synthBinDeviations[i] * 2 * M_PI * HOP_LENGTH / WINDOW_SIZE;
+            newPhase = atan2(imagOutPrev[i], realOutPrev[i]) + phaseRemainder + (i * 2 * M_PI * HOP_LENGTH / WINDOW_SIZE);
+        }
         realOutNew[i] = cos(newPhase) * synthMags[i];
         imagOutNew[i] = sin(newPhase) * synthMags[i];
         realOutNew[i + WINDOW_SIZE / 2] = cos(-newPhase) * synthMags[i];
