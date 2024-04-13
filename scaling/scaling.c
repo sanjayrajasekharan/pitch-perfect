@@ -21,7 +21,7 @@ void processTransformed(float* realPrev, float* imagPrev, float* realNew,
         synthBinDeviations[i] = 0;
     }
 
-    for (int i = 0; i < WINDOW_SIZE / 2; i++) {
+    for (int i = 1; i < WINDOW_SIZE / 2; i++) {
         float binDeviation;
         if (realNew[i] == 0 && imagNew[i] == 0) {
             continue;
@@ -53,7 +53,7 @@ void processTransformed(float* realPrev, float* imagPrev, float* realNew,
         // imagOutNew[i] = sin(newAngle) * magnitude;
     }
 
-    for (int i = 0; i < WINDOW_SIZE / 2; i++) {
+    for (int i = 1; i < WINDOW_SIZE / 2; i++) {
         float newPhase;
         if (synthMags[i] == 0) {
             newPhase = 0;
@@ -67,11 +67,14 @@ void processTransformed(float* realPrev, float* imagPrev, float* realNew,
         }
         realOutNew[i] = cos(newPhase) * synthMags[i];
         imagOutNew[i] = sin(newPhase) * synthMags[i];
-        realOutNew[i + WINDOW_SIZE / 2] = cos(-newPhase) * synthMags[i];
-        imagOutNew[i + WINDOW_SIZE / 2] = sin(-newPhase) * synthMags[i];
+        realOutNew[WINDOW_SIZE - i] = cos(-newPhase) * synthMags[i];
+        imagOutNew[WINDOW_SIZE - i] = sin(-newPhase) * synthMags[i];
         // printf("ScaleInP: %f, %f\n", realPrev[i], imagPrev[i]);
         // printf("ScaleInC: %f, %f\n", realNew[i], imagNew[i]);
         // printf("newAngle: %f, magnitude: %f\n", newAngle, magnitude);
         // printf("ScaleOut: %f, %f\n", realOutNew[i], imagOutNew[i]);
     }
+
+    realOutNew[0] = realNew[0];
+    imagOutNew[0] = imagNew[0];
 }
