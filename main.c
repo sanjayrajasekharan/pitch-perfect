@@ -147,7 +147,6 @@ void zeroPhase(float real[], float imaginary[], const unsigned int N, float resu
 void linearInterpolation(const float real[], const float imaginary[], const unsigned int N, const float resamplingFactor, float interpolatedReal[], float interpolatedImaginary[]) {
     // Size of the output array after resampling
     unsigned int M = (unsigned int)(N * resamplingFactor);
-
     for (unsigned int i = 0; i < M; i++) {
         float index = (float)i / resamplingFactor;
         unsigned int j = (unsigned int)index;
