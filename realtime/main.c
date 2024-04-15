@@ -10,13 +10,13 @@
 
 #define WINDOW_SIZE 4096
 #define HOP_LENGTH 1024
-// pitches up by 5 semitones
-#define PHASE_SHIFT_AMOUNT pow(2.0, (5.0 / 12.0))
+#define SEMITONE_SHIFT -12
+#define PHASE_SHIFT_AMOUNT pow(2.0, (SEMITONE_SHIFT / 12.0))
 
 void hannify(float* inputSamples, int startIdx, float* output) {
     for (size_t i = 0; i < WINDOW_SIZE; ++i) {
         float w = 0.5 * (1 - cos(2 * M_PI * i / WINDOW_SIZE));
-        output[i] = inputSamples[(i + startIdx) % WINDOW_SIZE] * w;
+        output[i] = inputSamples[(i + startIdx) % (WINDOW_SIZE + HOP_LENGTH)] * w;
     }
 }
 
@@ -96,7 +96,7 @@ int main(int argc, char** argv)
                                shiftRealBufs[(fftBufIdx + 1) % 2],
                                shiftImagBufs[(fftBufIdx + 1) % 2],
                                shiftRealBufs[fftBufIdx],
-                               shiftImagBufs[fftBufIdx]);
+                               shiftImagBufs[fftBufIdx], PHASE_SHIFT_AMOUNT);
 
             for (int i = 0; i < WINDOW_SIZE; i++) {
                 fftRealBufs[fftBufIdx][i] = shiftRealBufs[fftBufIdx][i];
@@ -112,13 +112,21 @@ int main(int argc, char** argv)
             // }
             
             // Add outputs to stitcher
+            // for (int i = 0; i < WINDOW_SIZE; i++) {
+            //     if (i < WINDOW_SIZE - HOP_LENGTH)
+            //         stitcher[(stitcherPtr + i) % WINDOW_SIZE] += 
+            //         (postHann[i] / 2.0);
+            //     else
+            //         stitcher[(stitcherPtr + i) % WINDOW_SIZE] = 
+            //         (postHann[i] / 2.0);
+            // }
             for (int i = 0; i < WINDOW_SIZE; i++) {
                 if (i < WINDOW_SIZE - HOP_LENGTH)
                     stitcher[(stitcherPtr + i) % WINDOW_SIZE] += 
-                    shiftRealBufs[fftBufIdx][i];
+                    (fftRealBufs[fftBufIdx][i] / 2.0);
                 else
                     stitcher[(stitcherPtr + i) % WINDOW_SIZE] = 
-                    shiftRealBufs[fftBufIdx][i];
+                    (fftRealBufs[fftBufIdx][i] / 2.0);
             }
 
             // Output completed stitches to stdout

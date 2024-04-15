@@ -15,7 +15,6 @@
 #define HOP_LENGTH 1024
 #define HOPS_PER_WINDOW (WINDOW_SIZE / HOP_LENGTH + (WINDOW_SIZE % HOP_LENGTH != 0)) 
 
-// pitches up by 5 semitones
 #define SEMITONE_SHIFT 24
 #define PHASE_SHIFT_AMOUNT pow(2.0, (SEMITONE_SHIFT / 12.0))
 
@@ -43,6 +42,7 @@ drwav_int16 outputBuffer[WINDOW_SIZE];
 int outputBufferIndex = 0;
 
 int print_windows_flag = 0;
+int enable_scaling_flag = 1;
 
 void applyHannWindow(drwav_int16* samples, float* output, size_t numSamples) {
     for (size_t i = 0; i < numSamples; ++i) {
@@ -158,13 +158,13 @@ void linearInterpolation(const float real[], const float imaginary[], const unsi
 }
 
 
-int main() {
-    float real[] = {1, 2, 3, 4};
-    float imaginary[] = {1, 2, 3, 4};
-    unsigned int N = 8;
-    zeroPhase(real, imaginary, N);
-    return 0;
-}
+// int main() {
+//     float real[] = {1, 2, 3, 4};
+//     float imaginary[] = {1, 2, 3, 4};
+//     unsigned int N = 8;
+//     // zeroPhase(real, imaginary, N);
+//     return 0;
+// }
 
 int main(int argc, char** argv) {
     if (argc < 3) {
@@ -261,27 +261,27 @@ int main(int argc, char** argv) {
                 for (int j = 0; j < WINDOW_SIZE; j++) {
                     currFFTBufferImaginary[j] = 0.0;
                 }
-                rearrange(currFFTBufferReal, currFFTBufferImaginary, WINDOW_SIZE);
-                compute(currFFTBufferReal, currFFTBufferImaginary, WINDOW_SIZE);
+                // rearrange(currFFTBufferReal, currFFTBufferImaginary, WINDOW_SIZE);
+                // compute(currFFTBufferReal, currFFTBufferImaginary, WINDOW_SIZE);
 
                 // perform pitch scaling
                 /* first, scale prevs in-place to have magnitudes of curr */
-                processTransformed(prevFFTBufferReal, prevFFTBufferImaginary,
-                                currFFTBufferReal,currFFTBufferImaginary,
-                                prevScaledReal, prevScaledImag,
-                                currScaledReal, currScaledImag);
+                // processTransformed(prevFFTBufferReal, prevFFTBufferImaginary,
+                //                 currFFTBufferReal,currFFTBufferImaginary,
+                //                 prevScaledReal, prevScaledImag,
+                //                 currScaledReal, currScaledImag, WINDOW_SIZE);
 
                 // perform ifft
-                inverseCompute(currScaledReal, currScaledImag, WINDOW_SIZE);
+                // inverseCompute(currScaledReal, currScaledImag, WINDOW_SIZE);
 
                 int j = 0;
                 while(j < WINDOW_SIZE) {
-                    outputBuffer[(outputBufferIndex + j) % WINDOW_SIZE] = windows[i][j];
+                    outputBuffer[(outputBufferIndex + j) % WINDOW_SIZE] = currFFTBufferReal[j]; // windows[i][j]/4;
                     j++;
                 }
 
                 for (int j = 0; j < HOP_LENGTH; j++) {
-                    printf("%d\n", outputBuffer[outputBufferIndex + j]);
+                    printf("%d\n", outputBuffer[outputBufferIndex + j] / 2);
                     outputBuffer[outputBufferIndex + j] = 0;
                 }
 
