@@ -10,7 +10,7 @@
 
 #define WINDOW_SIZE 4096
 #define HOP_LENGTH 1024
-#define SEMITONE_SHIFT -5
+#define SEMITONE_SHIFT 5
 #define PHASE_SHIFT_AMOUNT pow(2.0, (SEMITONE_SHIFT / 12.0))
 
 void hannify(float* inputSamples, int startIdx, float* output) {
@@ -93,7 +93,7 @@ int main(int argc, char** argv)
             }
 
             // Shift phase
-            processTransformed(fftRealBufs[(fftBufIdx + 1) % 2],
+            simpleTransform(fftRealBufs[(fftBufIdx + 1) % 2],
                                fftImagBufs[(fftBufIdx + 1) % 2],
                                fftRealBufs[fftBufIdx],
                                fftImagBufs[fftBufIdx],
@@ -116,7 +116,7 @@ int main(int argc, char** argv)
             }
             
             // hannify(ifftReal, 0, postHann);
-            // Add outputs to stitcher
+            // // Add outputs to stitcher
             // for (int i = 0; i < WINDOW_SIZE; i++) {
             //     if (i < WINDOW_SIZE - HOP_LENGTH)
             //         stitcher[(stitcherPtr + i) % WINDOW_SIZE] += 
@@ -126,13 +126,13 @@ int main(int argc, char** argv)
             //         (postHann[i] / 2.0);
             // }
 
-            float total = 0;
+            // float total = 0;
             for (int i = 0; i < WINDOW_SIZE; i++) {
                 if (i < WINDOW_SIZE - HOP_LENGTH)
                     stitcher[(stitcherPtr + i) % WINDOW_SIZE] += (ifftReal[i] / 2.0);
                 else
                     stitcher[(stitcherPtr + i) % WINDOW_SIZE] = (ifftReal[i] / 2.0);
-                total += fabsf(ifftReal[i]);
+                // total += fabsf(ifftReal[i]);
             }
             // printf("Total: %f\n", total);
             // printf("new\n");
