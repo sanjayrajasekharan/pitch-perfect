@@ -12,6 +12,14 @@ double phaseDifference(float real1, float imag1, float real2, float imag2) {
     return atan2(imag2, real2) - atan2(imag1, real1);
 }
 
+float wrapPhase(float phaseIn)
+{
+    if (phaseIn >= 0)
+        return fmodf(phaseIn + M_PI, 2.0 * M_PI) - M_PI;
+    else
+        return fmodf(phaseIn - M_PI, -2.0 * M_PI) + M_PI;	
+}
+
 void processTransformed(float* realPrev, float* imagPrev, float* realNew,
                         float* imagNew, float* realOutPrev, float* imagOutPrev,
                         float* realOutNew, float* imagOutNew, double phaseScaleAmount) {
@@ -34,9 +42,9 @@ void processTransformed(float* realPrev, float* imagPrev, float* realNew,
         }
 
         float expectedDPhase = i * 2 * M_PI * HOP_LENGTH / WINDOW_SIZE;
-        float dPhaseFromExpected = dPhase - expectedDPhase;
-        dPhaseFromExpected = fmodf(fmodf(dPhaseFromExpected, 2 * M_PI) + (2 * M_PI), 2 * M_PI) - M_PI;
-        float binDeviation = dPhaseFromExpected * WINDOW_SIZE / (2 * M_PI * HOP_LENGTH);
+        float dPhaseFromExpected = dPhase - expectedDPhase; // compute phase remainder
+        // dPhaseFromExpected = fmodf(fmodf(dPhaseFromExpected, 2 * M_PI) + (2 * M_PI), 2 * M_PI) - M_PI;
+        float binDeviation = wrapPhase(dPhaseFromExpected) * WINDOW_SIZE / (2 * M_PI * HOP_LENGTH);
         float newBin = (i + binDeviation) * phaseScaleAmount;
         int newBinNum = round(newBin);
         float newBinDeviation = newBin - newBinNum;
