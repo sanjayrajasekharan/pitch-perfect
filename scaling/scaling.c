@@ -39,7 +39,7 @@ void processTransformed(float* realPrev, float* imagPrev, float* realNew,
 
         float expectedDPhase = i * 2 * M_PI * HOP_LENGTH / WINDOW_SIZE;
         float dPhaseFromExpected = dPhase - expectedDPhase;
-        dPhaseFromExpected = fmod(dPhaseFromExpected + (3 * M_PI), 2 * M_PI) - M_PI;
+        dPhaseFromExpected = fmodf(fmodf(dPhaseFromExpected, 2 * M_PI) + (2 * M_PI), 2 * M_PI) - M_PI;
         float binDeviation = dPhaseFromExpected * WINDOW_SIZE / (2 * M_PI * HOP_LENGTH);
         float newBin = (i + binDeviation) * phaseScaleAmount;
         int newBinNum = round(newBin);
@@ -69,7 +69,7 @@ void processTransformed(float* realPrev, float* imagPrev, float* realNew,
         else {
             // printf("no 0 2\n");
             float phaseRemainder = synthBinDeviations[i] * 2 * M_PI * HOP_LENGTH / WINDOW_SIZE;
-            newPhase = atan2(imagOutPrev[i], realOutPrev[i]) + phaseRemainder + (i * 2 * M_PI * 2 * M_PI * HOP_LENGTH / WINDOW_SIZE);
+            newPhase = atan2(imagOutPrev[i], realOutPrev[i]) + phaseRemainder + (i * 2 * M_PI * HOP_LENGTH / WINDOW_SIZE);
             // newPhase = atan2(imagOutPrev[i], realOutPrev[i]) + (i * 2 * M_PI * HOP_LENGTH / WINDOW_SIZE);
         }
         realOutNew[i] = cos(newPhase) * synthMags[i];
@@ -93,7 +93,40 @@ void processTransformed(float* realPrev, float* imagPrev, float* realNew,
     // for (int i = 50; i < 70; i++) {
     //     printf("Bin %d mag: %f\n", i, sqrt((imagOutNew[i] * imagOutNew[i]) + (realOutNew[i] * realOutNew[i])));
     // }
+}
 
-    realOutNew[0] = realNew[0];
-    imagOutNew[0] = imagNew[0];
+void simpleTransform(float* realPrev, float* imagPrev, float* realNew,
+                        float* imagNew, float* realOutPrev, float* imagOutPrev,
+                        float* realOutNew, float* imagOutNew, double phaseScaleAmount) {
+    
+    for (int i = 0; i < WINDOW_SIZE; i++) {
+        synthMags[i] = 0;
+    }
+
+    for (int i = 0; i < WINDOW_SIZE / 2; i++) {
+        if (realNew[i] == 0 && imagNew[i] == 0) {
+            continue;
+        }
+        int newBinNum = round(i * phaseScaleAmount);
+        synthMags[newBinNum] += sqrt((realNew[i] * realNew[i]) + (imagNew[i] * imagNew[i]));
+    }
+
+    for (int i = 0; i < WINDOW_SIZE / 2; i++) {
+        float newPhase;
+        if (synthMags[i] == 0) {
+            newPhase = 0;
+        }
+        else if (realOutPrev[i] == 0 && imagOutPrev[i] == 0) {
+            newPhase = 0;
+        }
+        else {
+            newPhase = atan2(imagOutPrev[i], realOutPrev[i]) + (i * 2 * M_PI * HOP_LENGTH / WINDOW_SIZE);
+        }
+        realOutNew[i] = cos(newPhase) * synthMags[i];
+        imagOutNew[i] = sin(newPhase) * synthMags[i];
+        if (i != 0) {
+            realOutNew[WINDOW_SIZE - i] = cos(-newPhase) * synthMags[i];
+            imagOutNew[WINDOW_SIZE - i] = sin(-newPhase) * synthMags[i];
+        }
+    }
 }
