@@ -5,6 +5,10 @@ double phaseDifference(float real1, float imag1, float real2, float imag2);
 void processTransformed(float* realPrev, float* imagPrev, float* realNew,
                         float* imagNew, float* realOutPrev, float* imagOutPrev,
                         float* realOutNew, float* imagOutNew,
-                        double phaseScaleAmount);   
+                        double phaseScaleAmount);
+void simpleTransform(float* realPrev, float* imagPrev, float* realNew,
+                     float* imagNew, float* realOutPrev, float* imagOutPrev,
+                     float* realOutNew, float* imagOutNew,
+                     double phaseScaleAmount);  
 
 #endif

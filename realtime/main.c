@@ -10,7 +10,7 @@
 
 #define WINDOW_SIZE 4096
 #define HOP_LENGTH 1024
-#define SEMITONE_SHIFT -12
+#define SEMITONE_SHIFT 5
 #define PHASE_SHIFT_AMOUNT pow(2.0, (SEMITONE_SHIFT / 12.0))
 
 void hannify(float* inputSamples, int startIdx, float* output) {
@@ -23,7 +23,8 @@ void hannify(float* inputSamples, int startIdx, float* output) {
 float inputSamples[WINDOW_SIZE + HOP_LENGTH];
 int inputWindowStart = 0;
 int inputCurIdx = 0;
-float postHann[WINDOW_SIZE];
+float hanned1[WINDOW_SIZE];
+float hanned2[WINDOW_SIZE];
 float *fftRealBufs[2];
 float *fftImagBufs[2];
 float *shiftRealBufs[2];
@@ -37,6 +38,8 @@ float shiftReal1[WINDOW_SIZE];
 float shiftImag1[WINDOW_SIZE];
 float shiftReal2[WINDOW_SIZE];
 float shiftImag2[WINDOW_SIZE];
+float ifftReal[WINDOW_SIZE];
+float ifftImag[WINDOW_SIZE];
 float stitcher[WINDOW_SIZE];
 int stitcherPtr = 0;
 char *curLine;
@@ -63,30 +66,30 @@ int main(int argc, char** argv)
         shiftImag1[i] = 1;
         shiftReal2[i] = 1;
         shiftImag2[i] = 1;
+        ifftReal[i] = 0;
+        ifftImag[i] = 0;
         stitcher[i] = 0;
     }
 
     while (-1 != getline(&curLine, &curLineLen, stdin)) {
 
         // Convert curLine to float
-        inputSamples[inputCurIdx] = strtof(curLine, NULL);
+        inputSamples[inputCurIdx] = strtof(curLine, NULL) * 0.8; // to prevent clipping
 
         // Abstraction: assume all processing takes place in span of 1 sample
         if (inputCurIdx == (inputWindowStart + WINDOW_SIZE) % 
                             (WINDOW_SIZE + HOP_LENGTH)) {
             
-            hannify(inputSamples, inputWindowStart, postHann);
+            // Initial Hann Windowing
+            hannify(inputSamples, inputWindowStart, hanned1);
 
+            // Perform FFT
             for (int i = 0; i < WINDOW_SIZE; i++) {
-                fftRealBufs[fftBufIdx][i] = postHann[i];
+                fftRealBufs[fftBufIdx][i] = hanned1[i];
                 fftImagBufs[fftBufIdx][i] = 0;
             }
             rearrange(fftRealBufs[fftBufIdx], fftImagBufs[fftBufIdx], WINDOW_SIZE);
             compute(fftRealBufs[fftBufIdx], fftImagBufs[fftBufIdx], WINDOW_SIZE);
-
-            for (int i = 0; i < WINDOW_SIZE; i++) {
-                // printf("Pre-transform: %f, %f\n", fftRealBufs[fftBufIdx][i], fftImagBufs[fftBufIdx][i]);
-            }
 
             // Shift phase
             processTransformed(fftRealBufs[(fftBufIdx + 1) % 2],
@@ -98,38 +101,27 @@ int main(int argc, char** argv)
                                shiftRealBufs[fftBufIdx],
                                shiftImagBufs[fftBufIdx], PHASE_SHIFT_AMOUNT);
 
-            for (int i = 0; i < WINDOW_SIZE; i++) {
-                fftRealBufs[fftBufIdx][i] = shiftRealBufs[fftBufIdx][i];
-                fftImagBufs[fftBufIdx][i] = shiftImagBufs[fftBufIdx][i];
-            }
-
             // Perform IFFT
-            inverseCompute(fftRealBufs[fftBufIdx], fftImagBufs[fftBufIdx], 
-                           WINDOW_SIZE);
-
-            // for (int i = 0; i < WINDOW_SIZE; i++) {
-            //     printf("Post-IFFT: %f, %f\n", fftRealBufs[fftBufIdx][i], fftImagBufs[fftBufIdx][i]);
-            // }
+            for (int i = 0; i < WINDOW_SIZE; i++) {
+                ifftReal[i] = shiftRealBufs[fftBufIdx][i];
+                ifftImag[i] = shiftImagBufs[fftBufIdx][i];
+            }
+            inverseCompute(ifftReal, ifftImag, WINDOW_SIZE);
             
+            // Second Hann Windowing to prevent popping
+            hannify(ifftReal, 0, hanned2);
+
             // Add outputs to stitcher
-            // for (int i = 0; i < WINDOW_SIZE; i++) {
-            //     if (i < WINDOW_SIZE - HOP_LENGTH)
-            //         stitcher[(stitcherPtr + i) % WINDOW_SIZE] += 
-            //         (postHann[i] / 2.0);
-            //     else
-            //         stitcher[(stitcherPtr + i) % WINDOW_SIZE] = 
-            //         (postHann[i] / 2.0);
-            // }
             for (int i = 0; i < WINDOW_SIZE; i++) {
                 if (i < WINDOW_SIZE - HOP_LENGTH)
                     stitcher[(stitcherPtr + i) % WINDOW_SIZE] += 
-                    (fftRealBufs[fftBufIdx][i] / 2.0);
+                    (hanned2[i] / 2.0);
                 else
                     stitcher[(stitcherPtr + i) % WINDOW_SIZE] = 
-                    (fftRealBufs[fftBufIdx][i] / 2.0);
+                    (hanned2[i] / 2.0);
             }
 
-            // Output completed stitches to stdout
+            // Yield completed stitches to stdout
             for (int i = 0; i < HOP_LENGTH; i++) {
                 printf("%f\n", stitcher[stitcherPtr + i]);
             }
