@@ -10,8 +10,7 @@
 
 #define WINDOW_SIZE 4096
 #define HOP_LENGTH 1024
-#define SEMITONE_SHIFT 5
-#define PHASE_SHIFT_AMOUNT pow(2.0, (SEMITONE_SHIFT / 12.0))
+#define PHASE_SHIFT_AMOUNT(x) pow(2.0, (x / 12.0))
 
 void hannify(float* inputSamples, int startIdx, float* output) {
     for (size_t i = 0; i < WINDOW_SIZE; ++i) {
@@ -47,6 +46,13 @@ size_t curLineLen = 0;
 
 int main(int argc, char** argv)
 {
+
+    if (argc != 2) {
+        fprintf(stderr, "Usage: %s <semitone-shift> \n", argv[0]);
+        return 1;
+    }
+
+    int semitoneShift = strtol(argv[1], NULL, 10);
 
     fftRealBufs[0] = fftReal1;
     fftImagBufs[0] = fftImag1;
@@ -99,7 +105,7 @@ int main(int argc, char** argv)
                                shiftRealBufs[(fftBufIdx + 1) % 2],
                                shiftImagBufs[(fftBufIdx + 1) % 2],
                                shiftRealBufs[fftBufIdx],
-                               shiftImagBufs[fftBufIdx], PHASE_SHIFT_AMOUNT);
+                               shiftImagBufs[fftBufIdx], PHASE_SHIFT_AMOUNT(semitoneShift));
 
             // Perform IFFT
             for (int i = 0; i < WINDOW_SIZE; i++) {

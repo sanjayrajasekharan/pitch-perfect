@@ -46,7 +46,7 @@ void processTransformed(float* realPrev, float* imagPrev, float* realNew,
         // dPhaseFromExpected = fmodf(fmodf(dPhaseFromExpected, 2 * M_PI) + (2 * M_PI), 2 * M_PI) - M_PI;
         float binDeviation = wrapPhase(dPhaseFromExpected) * WINDOW_SIZE / (2 * M_PI * HOP_LENGTH);
         float newBin = (i + binDeviation) * phaseScaleAmount;
-        int newBinNum = round(newBin);
+        int newBinNum = fmin(round(newBin), WINDOW_SIZE - 1); // round cap at max bin
         float newBinDeviation = newBin - newBinNum;
 
         synthMags[newBinNum] += sqrt((realNew[i] * realNew[i]) + (imagNew[i] * imagNew[i]));

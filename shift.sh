@@ -2,8 +2,8 @@
 
 # Check for arguments
 
-if [ "$#" -ne 2 ]; then
-    echo "Usage: $0 <input_file> <output_file>"
+if [ "$#" -ne 3 ]; then
+    echo "Usage: $0 <shift-amount> <input_file> <output_file>"
     exit 1
 fi
 
@@ -34,18 +34,18 @@ samples_scaled_temp="./.samples_scaled"
 
 trap 'rm -f "$samples_temp" "$samples_scaled_temp"' EXIT
 
-"$PYTHON" converters/txter.py "$1" "$samples_temp"
+"$PYTHON" converters/txter.py "$2" "$samples_temp"
 if [ $? -ne 0 ]; then
     echo "Failed to generate samples, exiting." >&2
     exit 1
 fi
 
-if ! cat "$samples_temp" | realtime/main > "$samples_scaled_temp"; then
+if ! cat "$samples_temp" | realtime/main "$1" > "$samples_scaled_temp"; then
     echo "Scaling failed, exiting." >&2
     exit 1
 fi
 
-"$PYTHON" converters/waver.py "$samples_scaled_temp" "$2"
+"$PYTHON" converters/waver.py "$samples_scaled_temp" "$3"
 if [ $? -ne 0 ]; then
     echo "Failed to process scaled samples, exiting." >&2
     exit 1
