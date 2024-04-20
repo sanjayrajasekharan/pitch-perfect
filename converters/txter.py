@@ -1,23 +1,21 @@
-import wave
+import sys
+from scipy.io import wavfile
 
-def write_samples_to_text(wav_file, text_file):
-    # Open the .wav file
-    with wave.open(wav_file, 'rb') as wav:
-        # Get the number of frames (samples) in the .wav file
-        num_frames = wav.getnframes()
+samplerate, data = wavfile.read(sys.argv[1])
 
-        # Read all the frames (samples) from the .wav file
-        frames = wav.readframes(num_frames)
-
-        # Convert the frames to a list of samples
-        samples = list(frames)
-
-    # Open the text file in write mode
-    with open(text_file, 'w') as txt:
-        # Write each sample to a new line in the text file
-        for sample in samples:
-            txt.write(str(sample) + '\n')
-
-if __name__ == '__main__':
-    import sys
-    write_samples_to_text(sys.argv[1], sys.argv[2])
+# print line count
+print(data.shape)
+if len(sys.argv) > 2:
+    with open(sys.argv[2], 'w') as file:
+        for sample in data:
+            # if sample is a list, write the first element
+            if isinstance(sample, list):
+                file.write(str(sample[0]) + '\n')
+            else:
+                file.write(str(sample) + '\n')
+else:
+    for sample in data:
+        if isinstance(sample, list):
+            print(sample[0])
+        else:
+            print(sample)

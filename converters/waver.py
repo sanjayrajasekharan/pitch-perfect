@@ -4,8 +4,13 @@ import sys
 
 
 def read_samples_from_file(filename):
-    with open(filename, 'r') as file:
-        samples = [float(sample) for sample in file.readlines()]
+    samples = []
+    if filename is not None:
+        with open(filename, 'r') as file:
+            samples = [float(sample) for sample in file.readlines()]
+
+    else:
+        samples = [float(sample) for sample in sys.stdin.readlines()]
     return np.array(samples)
 
 def write_wav_file(samples, filename, sample_rate=48000, amplitude=1):
@@ -26,10 +31,17 @@ def write_wav_file(samples, filename, sample_rate=48000, amplitude=1):
 
 if __name__ == "__main__":
     # Change this to the path of your input file
-    input_filename = sys.argv[1]
+    input_filename = None
+    output_filename = None
+    if len(sys.argv) == 2:
+        output_filename = sys.argv[1]
+    elif len(sys.argv) == 3:
+        input_filename = sys.argv[1]
+        output_filename = sys.argv[2]
 
-    # Change this to the desired output filename
-    output_filename = sys.argv[2]
+    else :
+        # print two usage options: one for reading from stdin and one for reading from a file
+        sys.exit(1)
 
     # Read samples from input file
     samples = read_samples_from_file(input_filename)

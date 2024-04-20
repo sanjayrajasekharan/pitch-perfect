@@ -1,11 +1,9 @@
 """
 vocoder.py
-What I previously though the phase vocoder algorithm for pitch scaling was - 
-scale the phase differences from corresponding bins in previous frame by a 
-constant factor.
 
-Based on https://github.com/JentGent/pitch-shift/blob/main/audios.ipynb with
-commented variable names being corresponding names in the original code
+Pitch scaling algorithm following
+https://github.com/BelaPlatform/bela-online-course/blob/master/lectures/lecture-20/code-examples/fft-pitchshift.zip
+using Python based on https://github.com/JentGent/pitch-shift/blob/main/audios.ipynb
 """
 
 import librosa
@@ -19,36 +17,52 @@ PHASE_SHIFT_AMOUNT = 2 ** (5 / 12) # scaling
 
 waveform, samp_rate = librosa.load(sys.argv[1], sr=None, mono=True) # waveform, sr # used to not be mono
 num_samples = waveform.shape[0] # og_len
-print("Number of samples in the input wav:", num_samples)
-print("Sampling rate of the input wav:", samp_rate)
 
 stft_result = librosa.stft(waveform, n_fft=WINDOW_SIZE, hop_length=HOP_LEN, win_length=WINDOW_SIZE) # anls_stft
 n_fft_bins, n_fft_frames = stft_result.shape # n_anls_freqs, n_anls_frames, used to also have "channels" count
-print("Number of FFT frames:", n_fft_frames)
-print("Number of frequency bins in each FFT:", n_fft_bins)
 
-# fft_freqs = np.arange(n_fft_bins) # anls_freqs [0, 1, ..., n_fft_bins - 1]
-# new_n_fft_bins = int(min(n_fft_bins, n_fft_bins * PHASE_SHIFT_AMOUNT)) # apparently this throws away anything above nyquist?
-# synth_fft_freqs = np.arange(new_n_fft_bins) # synth_freqs [0, 1, ..., (min(n_fft_bins, n_fft_bins * PHASE_SHIFT_AMOUNT) - 1]
-# og_idxs = synth_fft_freqs / PHASE_SHIFT_AMOUNT # og_idxs
+stft_result = np.transpose(stft_result)
 
-mags = np.abs(stft_result)
-phases = np.angle(stft_result)
+stft_result_scaled = []
+prev_anal_phases = np.zeros(n_fft_bins)
+prev_synth_phases = np.zeros(n_fft_bins)
 
-prev_phases = np.concatenate((np.zeros((n_fft_bins, 1)), phases[:, :-1]), axis=1)
-# print(phases.shape, phases[:, :-1].shape)
-# print(prev_phases[500,100])
-# print(phases[500,99])
-# print((phases[500,100] - phases[500,99] + (2 * np.pi)) % (2 * np.pi))
-# print((phases[500,99] - phases[500,98] + (2 * np.pi)) % (2 * np.pi))
-# print((phases[500,98] - phases[500,97] + (2 * np.pi)) % (2 * np.pi))
-# print((phases[500,97] - phases[500,96] + (2 * np.pi)) % (2 * np.pi))
-dphase_from_prev = phases - prev_phases
-dphase_from_prev = np.mod(dphase_from_prev, 2 * np.pi)
-scaled_phase_shifts = dphase_from_prev * PHASE_SHIFT_AMOUNT
-total_phase_shifts = np.cumsum(scaled_phase_shifts, axis=1)
+for idx, frame in enumerate(stft_result):
+    
+    if idx == 0:
+        pass
+    
+    mags = np.abs(frame)
+    phases = np.angle(frame)
 
-stft_result_scaled = mags * np.exp(total_phase_shifts * 1j)
+    dphases_from_prev = phases - prev_anal_phases
+
+    bin_center_freqs = np.arange(n_fft_bins) * 2 * np.pi / WINDOW_SIZE # how much each bin should move per sample
+    dphases_from_expected = dphases_from_prev - (bin_center_freqs * HOP_LEN)
+    dphases_from_expected = np.mod(dphases_from_expected + (3 * np.pi), 2 * np.pi) - np.pi # wrap to [-pi, pi]
+
+    bin_deviations = (dphases_from_expected * WINDOW_SIZE) / (2 * np.pi * HOP_LEN) # how many bins we should change (over a whole bin length)
+    new_bins = (np.arange(n_fft_bins) + bin_deviations) * PHASE_SHIFT_AMOUNT
+    new_bin_nums = np.rint(new_bins)
+
+    synth_mags = np.zeros(n_fft_bins)
+    synth_deviations = np.zeros(n_fft_bins)
+    for old_idx, new_bin_num in enumerate(new_bin_nums):
+        if new_bin_num >= 0 and new_bin_num < n_fft_bins:
+            synth_mags[int(new_bin_num)] += mags[old_idx]
+            synth_deviations[int(new_bin_num)] += new_bins[old_idx] - new_bin_nums[old_idx]
+
+    phase_remainders = ((synth_deviations) * 2 * np.pi * HOP_LEN) / WINDOW_SIZE
+    synth_phases = prev_synth_phases + phase_remainders + (2 * np.pi * bin_center_freqs * HOP_LEN)
+    synth_phases = np.mod(synth_phases + (3 * np.pi), 2 * np.pi) - np.pi # wrap to [-pi, pi]
+
+    stft_result_scaled.append(synth_mags * np.exp(synth_phases * 1j))
+
+    prev_anal_phases = phases
+    prev_synth_phases = synth_phases
+
+stft_result_scaled = np.array(stft_result_scaled)
+stft_result_scaled = np.transpose(stft_result_scaled)
 
 new_waveform = librosa.istft(stft_result_scaled, n_fft=WINDOW_SIZE, hop_length=HOP_LEN, win_length=WINDOW_SIZE)
 
