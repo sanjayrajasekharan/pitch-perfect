@@ -32,7 +32,7 @@ check_scaling_main
 samples_temp="./.samples"
 samples_scaled_temp="./.samples_scaled"
 
-trap 'rm -f "$samples_temp" "$samples_scaled_temp"' EXIT
+# trap 'rm -f "$samples_temp" "$samples_scaled_temp"' EXIT
 
 "$PYTHON" converters/txter.py "$2" "$samples_temp"
 if [ $? -ne 0 ]; then
