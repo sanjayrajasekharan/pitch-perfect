@@ -44,6 +44,25 @@ int stitcherPtr = 0;
 char *curLine;
 size_t curLineLen = 0;
 
+
+void convertToPolar(float* real, float* imag) {
+    // in place conversion
+    for (int i = 0; i < WINDOW_SIZE / 2; i++) {
+        float mag = sqrt((real[i] * real[i]) + (imag[i] * imag[i]));
+        float phase = atan2(imag[i], real[i]);
+        real[i] = mag;
+        imag[i] = phase;
+    }
+}
+
+void convertToCart(float* mag, float* phase, float* real, float* imag) {
+    for (int i = 0; i < WINDOW_SIZE / 2; i++) {
+        real[i] = mag[i] * cos(phase[i]);
+        imag[i] = mag[i] * sin(phase[i]);
+    
+    }
+}
+
 int main(int argc, char** argv)
 {
 
@@ -97,6 +116,9 @@ int main(int argc, char** argv)
             rearrange(fftRealBufs[fftBufIdx], fftImagBufs[fftBufIdx], WINDOW_SIZE);
             compute(fftRealBufs[fftBufIdx], fftImagBufs[fftBufIdx], WINDOW_SIZE);
 
+            // Convert to polar
+            convertToPolar(fftRealBufs[fftBufIdx], fftImagBufs[fftBufIdx]);
+
             // Shift phase
             processTransformed(fftRealBufs[(fftBufIdx + 1) % 2],
                                fftImagBufs[(fftBufIdx + 1) % 2],
@@ -108,10 +130,8 @@ int main(int argc, char** argv)
                                shiftImagBufs[fftBufIdx], PHASE_SHIFT_AMOUNT(semitoneShift));
 
             // Perform IFFT
-            for (int i = 0; i < WINDOW_SIZE; i++) {
-                ifftReal[i] = shiftRealBufs[fftBufIdx][i];
-                ifftImag[i] = shiftImagBufs[fftBufIdx][i];
-            }
+            convertToCart(shiftRealBufs[fftBufIdx], shiftImagBufs[fftBufIdx], 
+                          ifftReal, ifftImag);
             inverseCompute(ifftReal, ifftImag, WINDOW_SIZE);
             
             // Second Hann Windowing to prevent popping
