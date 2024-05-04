@@ -44,7 +44,6 @@ int stitcherPtr = 0;
 char *curLine;
 size_t curLineLen = 0;
 
-
 void convertToPolar(float* real, float* imag) {
     // in place conversion
     for (int i = 0; i < WINDOW_SIZE / 2; i++) {

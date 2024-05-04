@@ -3,7 +3,7 @@
 #include "fixedpoint.h"
 
 fixedpoint floatToFixed(float x) {
-    return (fixedpoint) 0;
+    return (fixedpoint) (x * (1 << FIXEDPOINT_FRACTIONAL_BITS));
 }
 
 float fixedToFloat(fixedpoint x) {
