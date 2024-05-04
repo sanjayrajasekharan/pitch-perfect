@@ -25,6 +25,14 @@
          type = "int";
       }
    }
+   element audio_piper_0
+   {
+      datum _sortIndex
+      {
+         value = "6";
+         type = "int";
+      }
+   }
    element audio_pll_0
    {
       datum _sortIndex
@@ -122,6 +130,7 @@
   <parameter name="sampling_rate" value="48 kHz" />
   <parameter name="video_format" value="NTSC" />
  </module>
+ <module name="audio_piper_0" kind="audio_piper" version="1.0" enabled="1" />
  <module
    name="audio_pll_0"
    kind="altera_up_avalon_audio_pll"
@@ -680,10 +689,25 @@
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
+   kind="avalon_streaming"
+   version="21.1"
+   start="audio_piper_0.left_out"
+   end="audio_piper_0.left_in" />
+ <connection
+   kind="avalon_streaming"
+   version="21.1"
+   start="audio_piper_0.right_out"
+   end="audio_0.avalon_right_channel_sink" />
+ <connection
    kind="clock"
    version="21.1"
    start="audio_pll_0.audio_clk"
    end="audio_0.clk" />
+ <connection
+   kind="clock"
+   version="21.1"
+   start="audio_pll_0.audio_clk"
+   end="audio_piper_0.clock" />
  <connection
    kind="clock"
    version="21.1"
@@ -730,6 +754,11 @@
    version="21.1"
    start="audio_pll_0.reset_source"
    end="audio_0.reset" />
+ <connection
+   kind="reset"
+   version="21.1"
+   start="audio_pll_0.reset_source"
+   end="audio_piper_0.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />

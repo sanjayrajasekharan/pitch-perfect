@@ -1,5 +1,7 @@
 
 module soc_system (
+	audio_and_video_config_0_external_interface_SDAT,
+	audio_and_video_config_0_external_interface_SCLK,
 	clk_clk,
 	hps_hps_io_emac1_inst_TX_CLK,
 	hps_hps_io_emac1_inst_TXD0,
@@ -66,10 +68,10 @@ module soc_system (
 	hps_ddr3_mem_odt,
 	hps_ddr3_mem_dm,
 	hps_ddr3_oct_rzqin,
-	reset_reset_n,
-	audio_and_video_config_0_external_interface_SDAT,
-	audio_and_video_config_0_external_interface_SCLK);	
+	reset_reset_n);	
 
+	inout		audio_and_video_config_0_external_interface_SDAT;
+	output		audio_and_video_config_0_external_interface_SCLK;
 	input		clk_clk;
 	output		hps_hps_io_emac1_inst_TX_CLK;
 	output		hps_hps_io_emac1_inst_TXD0;
@@ -137,6 +139,4 @@ module soc_system (
 	output	[3:0]	hps_ddr3_mem_dm;
 	input		hps_ddr3_oct_rzqin;
 	input		reset_reset_n;
-	inout		audio_and_video_config_0_external_interface_SDAT;
-	output		audio_and_video_config_0_external_interface_SCLK;
 endmodule

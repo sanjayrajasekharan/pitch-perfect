@@ -1,5 +1,7 @@
 	component soc_system is
 		port (
+			audio_and_video_config_0_external_interface_SDAT : inout std_logic                     := 'X';             -- SDAT
+			audio_and_video_config_0_external_interface_SCLK : out   std_logic;                                        -- SCLK
 			clk_clk                                          : in    std_logic                     := 'X';             -- clk
 			hps_hps_io_emac1_inst_TX_CLK                     : out   std_logic;                                        -- hps_io_emac1_inst_TX_CLK
 			hps_hps_io_emac1_inst_TXD0                       : out   std_logic;                                        -- hps_io_emac1_inst_TXD0
@@ -66,14 +68,14 @@
 			hps_ddr3_mem_odt                                 : out   std_logic;                                        -- mem_odt
 			hps_ddr3_mem_dm                                  : out   std_logic_vector(3 downto 0);                     -- mem_dm
 			hps_ddr3_oct_rzqin                               : in    std_logic                     := 'X';             -- oct_rzqin
-			reset_reset_n                                    : in    std_logic                     := 'X';             -- reset_n
-			audio_and_video_config_0_external_interface_SDAT : inout std_logic                     := 'X';             -- SDAT
-			audio_and_video_config_0_external_interface_SCLK : out   std_logic                                         -- SCLK
+			reset_reset_n                                    : in    std_logic                     := 'X'              -- reset_n
 		);
 	end component soc_system;
 
 	u0 : component soc_system
 		port map (
+			audio_and_video_config_0_external_interface_SDAT => CONNECTED_TO_audio_and_video_config_0_external_interface_SDAT, -- audio_and_video_config_0_external_interface.SDAT
+			audio_and_video_config_0_external_interface_SCLK => CONNECTED_TO_audio_and_video_config_0_external_interface_SCLK, --                                            .SCLK
 			clk_clk                                          => CONNECTED_TO_clk_clk,                                          --                                         clk.clk
 			hps_hps_io_emac1_inst_TX_CLK                     => CONNECTED_TO_hps_hps_io_emac1_inst_TX_CLK,                     --                                         hps.hps_io_emac1_inst_TX_CLK
 			hps_hps_io_emac1_inst_TXD0                       => CONNECTED_TO_hps_hps_io_emac1_inst_TXD0,                       --                                            .hps_io_emac1_inst_TXD0
@@ -140,8 +142,6 @@
 			hps_ddr3_mem_odt                                 => CONNECTED_TO_hps_ddr3_mem_odt,                                 --                                            .mem_odt
 			hps_ddr3_mem_dm                                  => CONNECTED_TO_hps_ddr3_mem_dm,                                  --                                            .mem_dm
 			hps_ddr3_oct_rzqin                               => CONNECTED_TO_hps_ddr3_oct_rzqin,                               --                                            .oct_rzqin
-			reset_reset_n                                    => CONNECTED_TO_reset_reset_n,                                    --                                       reset.reset_n
-			audio_and_video_config_0_external_interface_SDAT => CONNECTED_TO_audio_and_video_config_0_external_interface_SDAT, -- audio_and_video_config_0_external_interface.SDAT
-			audio_and_video_config_0_external_interface_SCLK => CONNECTED_TO_audio_and_video_config_0_external_interface_SCLK  --                                            .SCLK
+			reset_reset_n                                    => CONNECTED_TO_reset_reset_n                                     --                                       reset.reset_n
 		);
 

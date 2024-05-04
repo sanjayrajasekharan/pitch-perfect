@@ -75,10 +75,16 @@ module soc_system (
 		input  wire        reset_reset_n                                     //                                       reset.reset_n
 	);
 
-	wire         audio_pll_0_audio_clk_clk;          // audio_pll_0:audio_clk_clk -> [audio_0:clk, rst_controller:clk]
+	wire         audio_piper_0_left_out_valid;       // audio_piper_0:left_out_valid -> audio_piper_0:left_in_valid
+	wire  [15:0] audio_piper_0_left_out_data;        // audio_piper_0:left_out_data -> audio_piper_0:left_in_data
+	wire         audio_piper_0_left_out_ready;       // audio_piper_0:left_in_ready -> audio_piper_0:left_out_ready
+	wire         audio_piper_0_right_out_valid;      // audio_piper_0:right_out_valid -> audio_0:to_dac_right_channel_valid
+	wire  [15:0] audio_piper_0_right_out_data;       // audio_piper_0:right_out_data -> audio_0:to_dac_right_channel_data
+	wire         audio_piper_0_right_out_ready;      // audio_0:to_dac_right_channel_ready -> audio_piper_0:right_out_ready
+	wire         audio_pll_0_audio_clk_clk;          // audio_pll_0:audio_clk_clk -> [audio_0:clk, audio_piper_0:clk, rst_controller:clk]
 	wire  [31:0] hps_0_f2h_irq0_irq;                 // irq_mapper:sender_irq -> hps_0:f2h_irq_p0
 	wire  [31:0] hps_0_f2h_irq1_irq;                 // irq_mapper_001:sender_irq -> hps_0:f2h_irq_p1
-	wire         rst_controller_reset_out_reset;     // rst_controller:reset_out -> audio_0:reset
+	wire         rst_controller_reset_out_reset;     // rst_controller:reset_out -> [audio_0:reset, audio_piper_0:reset]
 	wire         audio_pll_0_reset_source_reset;     // audio_pll_0:reset_source_reset -> rst_controller:reset_in0
 	wire         rst_controller_001_reset_out_reset; // rst_controller_001:reset_out -> audio_and_video_config_0:reset
 
@@ -94,9 +100,9 @@ module soc_system (
 		.to_dac_left_channel_data     (),                               //    avalon_left_channel_sink.data
 		.to_dac_left_channel_valid    (),                               //                            .valid
 		.to_dac_left_channel_ready    (),                               //                            .ready
-		.to_dac_right_channel_data    (),                               //   avalon_right_channel_sink.data
-		.to_dac_right_channel_valid   (),                               //                            .valid
-		.to_dac_right_channel_ready   (),                               //                            .ready
+		.to_dac_right_channel_data    (audio_piper_0_right_out_data),   //   avalon_right_channel_sink.data
+		.to_dac_right_channel_valid   (audio_piper_0_right_out_valid),  //                            .valid
+		.to_dac_right_channel_ready   (audio_piper_0_right_out_ready),  //                            .ready
 		.AUD_ADCDAT                   (),                               //          external_interface.export
 		.AUD_ADCLRCK                  (),                               //                            .export
 		.AUD_BCLK                     (),                               //                            .export
@@ -116,6 +122,20 @@ module soc_system (
 		.waitrequest (),                                                 //                       .waitrequest
 		.I2C_SDAT    (audio_and_video_config_0_external_interface_SDAT), //     external_interface.export
 		.I2C_SCLK    (audio_and_video_config_0_external_interface_SCLK)  //                       .export
+	);
+
+	audio_piper audio_piper_0 (
+		.clk             (audio_pll_0_audio_clk_clk),      //     clock.clk
+		.reset           (rst_controller_reset_out_reset), //     reset.reset
+		.left_out_data   (audio_piper_0_left_out_data),    //  left_out.data
+		.left_out_ready  (audio_piper_0_left_out_ready),   //          .ready
+		.left_out_valid  (audio_piper_0_left_out_valid),   //          .valid
+		.right_out_data  (audio_piper_0_right_out_data),   // right_out.data
+		.right_out_ready (audio_piper_0_right_out_ready),  //          .ready
+		.right_out_valid (audio_piper_0_right_out_valid),  //          .valid
+		.left_in_data    (audio_piper_0_left_out_data),    //   left_in.data
+		.left_in_ready   (audio_piper_0_left_out_ready),   //          .ready
+		.left_in_valid   (audio_piper_0_left_out_valid)    //          .valid
 	);
 
 	soc_system_audio_pll_0 audio_pll_0 (

@@ -18,13 +18,12 @@ preplace inst soc_system.hps_0.i2c1 -pg 1
 preplace inst soc_system.hps_0.fpgamgr -pg 1
 preplace inst soc_system.hps_0.bridges -pg 1
 preplace inst soc_system.hps_0.hps_io -pg 1
-preplace inst soc_system.audio_pll_0.audio_pll -pg 1
-preplace inst soc_system.vga_ball_0 -pg 1 -lvl 3 -y 320
 preplace inst soc_system.hps_0.i2c2 -pg 1
 preplace inst soc_system.hps_0.wd_timer0 -pg 1
 preplace inst soc_system.hps_0.rstmgr -pg 1
 preplace inst soc_system.hps_0.dma -pg 1
 preplace inst soc_system.hps_0.f2s_sdram_ref_clk -pg 1
+preplace inst soc_system.audio_pll_0.audio_pll -pg 1
 preplace inst soc_system.hps_0.i2c3 -pg 1
 preplace inst soc_system.hps_0.wd_timer1 -pg 1
 preplace inst soc_system.hps_0.timer0 -pg 1
@@ -43,32 +42,30 @@ preplace inst soc_system.hps_0.spim1 -pg 1
 preplace inst soc_system.hps_0.gpio0 -pg 1
 preplace inst soc_system.hps_0.timer2 -pg 1
 preplace inst soc_system.hps_0.arm_a9_0 -pg 1
-preplace inst soc_system.audio_pll_0.reset_from_locked -pg 1
-preplace inst soc_system.audio_pll_0 -pg 1 -lvl 2 -y 90
-preplace inst soc_system.audio_and_video_config_0 -pg 1 -lvl 3 -y 160
 preplace inst soc_system.hps_0.timer -pg 1
 preplace inst soc_system.hps_0.gpio1 -pg 1
 preplace inst soc_system.hps_0.timer3 -pg 1
 preplace inst soc_system.hps_0.arm_a9_1 -pg 1
+preplace inst soc_system.audio_pll_0.reset_from_locked -pg 1
+preplace inst soc_system.audio_pll_0 -pg 1 -lvl 2 -y 90
+preplace inst soc_system.audio_and_video_config_0 -pg 1 -lvl 3 -y 160
 preplace inst soc_system.hps_0.nand0 -pg 1
 preplace inst soc_system.hps_0.gpio2 -pg 1
 preplace inst soc_system.hps_0.arm_gic_0 -pg 1
 preplace inst soc_system.hps_0 -pg 1 -lvl 2 -y 260
 preplace inst soc_system.clk_0 -pg 1 -lvl 1 -y 300
-preplace inst soc_system.audio_0 -pg 1 -lvl 3 -y 30
 preplace inst soc_system.hps_0.f2s_periph_ref_clk -pg 1
 preplace inst soc_system.hps_0.fpga_interfaces -pg 1
+preplace inst soc_system.audio_0 -pg 1 -lvl 3 -y 30
 preplace inst soc_system.hps_0.axi_sdram -pg 1
 preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)clk_0.clk_in_reset,(SLAVE)soc_system.reset) 1 0 1 NJ
-preplace netloc FAN_OUT<net_container>soc_system</net_container>(SLAVE)hps_0.h2f_axi_clock,(SLAVE)audio_pll_0.ref_clk,(SLAVE)hps_0.f2h_axi_clock,(MASTER)clk_0.clk,(SLAVE)vga_ball_0.clock,(SLAVE)audio_and_video_config_0.clk,(SLAVE)hps_0.h2f_lw_axi_clock) 1 1 2 440 200 830
+preplace netloc FAN_OUT<net_container>soc_system</net_container>(SLAVE)hps_0.h2f_axi_clock,(MASTER)clk_0.clk,(SLAVE)audio_pll_0.ref_clk,(SLAVE)hps_0.f2h_axi_clock,(SLAVE)audio_and_video_config_0.clk,(SLAVE)hps_0.h2f_lw_axi_clock) 1 1 2 430 170 NJ
 preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.hps_ddr3,(SLAVE)hps_0.memory) 1 0 2 NJ 370 NJ
 preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.clk,(SLAVE)clk_0.clk_in) 1 0 1 NJ
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)audio_0.clk,(MASTER)audio_pll_0.audio_clk) 1 2 1 830
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)vga_ball_0.avalon_slave_0,(MASTER)hps_0.h2f_lw_axi_master) 1 2 1 N
-preplace netloc FAN_OUT<net_container>soc_system</net_container>(MASTER)clk_0.clk_reset,(SLAVE)audio_pll_0.ref_reset,(SLAVE)audio_and_video_config_0.reset,(SLAVE)vga_ball_0.reset) 1 1 2 420 220 790
-preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.vga,(SLAVE)vga_ball_0.vga) 1 0 3 NJ 430 NJ 430 NJ
-preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)audio_and_video_config_0.external_interface,(SLAVE)soc_system.audio_and_video_config_0_external_interface) 1 0 3 NJ 180 NJ 180 NJ
+preplace netloc FAN_OUT<net_container>soc_system</net_container>(SLAVE)audio_pll_0.ref_reset,(SLAVE)audio_and_video_config_0.reset,(MASTER)clk_0.clk_reset) 1 1 2 410 220 NJ
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)audio_0.clk,(MASTER)audio_pll_0.audio_clk) 1 2 1 810
 preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)hps_0.hps_io,(SLAVE)soc_system.hps) 1 0 2 NJ 290 NJ
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)audio_and_video_config_0.external_interface,(SLAVE)soc_system.audio_and_video_config_0_external_interface) 1 0 3 NJ 190 NJ 190 NJ
 preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(MASTER)audio_pll_0.reset_source,(SLAVE)audio_0.reset) 1 2 1 N
-levelinfo -pg 1 0 210 1240
-levelinfo -hier soc_system 220 250 590 860 1230
+levelinfo -pg 1 0 200 1210
+levelinfo -hier soc_system 210 240 580 850 1200

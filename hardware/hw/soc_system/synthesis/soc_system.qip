@@ -2,7 +2,7 @@ set_global_assignment -entity "soc_system" -library "soc_system" -name IP_TOOL_N
 set_global_assignment -entity "soc_system" -library "soc_system" -name IP_TOOL_VERSION "21.1"
 set_global_assignment -entity "soc_system" -library "soc_system" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -library "soc_system" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../soc_system.sopcinfo"]
-set_global_assignment -entity "soc_system" -library "soc_system" -name SLD_INFO "QSYS_NAME soc_system HAS_SOPCINFO 1 GENERATION_ID 1714848833"
+set_global_assignment -entity "soc_system" -library "soc_system" -name SLD_INFO "QSYS_NAME soc_system HAS_SOPCINFO 1 GENERATION_ID 1714853262"
 set_global_assignment -library "soc_system" -name MISC_FILE [file join $::quartus(qip_path) "../soc_system.cmp"]
 set_global_assignment -library "soc_system" -name SLD_FILE [file join $::quartus(qip_path) "soc_system.regmap"]
 set_global_assignment -library "soc_system" -name MISC_FILE [file join $::quartus(qip_path) "soc_system_hps_0_hps.svd"]
@@ -17,7 +17,7 @@ set_global_assignment -entity "soc_system" -library "soc_system" -name IP_COMPON
 set_global_assignment -entity "soc_system" -library "soc_system" -name IP_COMPONENT_REPORT_HIERARCHY "On"
 set_global_assignment -entity "soc_system" -library "soc_system" -name IP_COMPONENT_INTERNAL "Off"
 set_global_assignment -entity "soc_system" -library "soc_system" -name IP_COMPONENT_VERSION "MS4w"
-set_global_assignment -entity "soc_system" -library "soc_system" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTcxNDg0ODgzMw==::QXV0byBHRU5FUkFUSU9OX0lE"
+set_global_assignment -entity "soc_system" -library "soc_system" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTcxNDg1MzI2Mg==::QXV0byBHRU5FUkFUSU9OX0lE"
 set_global_assignment -entity "soc_system" -library "soc_system" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfRkFNSUxZ::Q3ljbG9uZSBW::QXV0byBERVZJQ0VfRkFNSUxZ"
 set_global_assignment -entity "soc_system" -library "soc_system" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0U=::NUNTRU1BNUYzMUM2::QXV0byBERVZJQ0U="
 set_global_assignment -entity "soc_system" -library "soc_system" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfU1BFRURHUkFERQ==::Ng==::QXV0byBERVZJQ0VfU1BFRURHUkFERQ=="
@@ -6144,6 +6144,11 @@ set_global_assignment -entity "soc_system_audio_pll_0_audio_pll" -library "soc_s
 set_global_assignment -entity "soc_system_audio_pll_0_audio_pll" -library "soc_system" -name IP_COMPONENT_PARAMETER "Z3VpX3JlZmNsa19zd2l0Y2g=::ZmFsc2U=::Q3JlYXRlIGEgc2Vjb25kIGlucHV0IGNsayAncmVmY2xrMSc="
 set_global_assignment -entity "soc_system_audio_pll_0_audio_pll" -library "soc_system" -name IP_COMPONENT_PARAMETER "Z3VpX2VuYWJsZV9jYXNjYWRlX291dA==::ZmFsc2U=::Q3JlYXRlIGEgJ2Nhc2NhZGVfb3V0JyBzaWduYWwgdG8gY29ubmVjdCB3aXRoIGEgZG93bnN0cmVhbSBQTEw="
 set_global_assignment -entity "soc_system_audio_pll_0_audio_pll" -library "soc_system" -name IP_COMPONENT_PARAMETER "Z3VpX2VuYWJsZV9jYXNjYWRlX2lu::ZmFsc2U=::Q3JlYXRlIGFuIGFkanBsbGluIG9yIGNjbGsgc2lnbmFsIHRvIGNvbm5lY3Qgd2l0aCBhbiB1cHN0cmVhbSBQTEw="
+set_global_assignment -entity "audio_piper" -library "soc_system" -name IP_COMPONENT_NAME "YXVkaW9fcGlwZXI="
+set_global_assignment -entity "audio_piper" -library "soc_system" -name IP_COMPONENT_DISPLAY_NAME "QXVkaW8gUGlwZXI="
+set_global_assignment -entity "audio_piper" -library "soc_system" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
+set_global_assignment -entity "audio_piper" -library "soc_system" -name IP_COMPONENT_INTERNAL "Off"
+set_global_assignment -entity "audio_piper" -library "soc_system" -name IP_COMPONENT_VERSION "MS4w"
 set_global_assignment -entity "soc_system_audio_and_video_config_0" -library "soc_system" -name IP_COMPONENT_NAME "c29jX3N5c3RlbV9hdWRpb19hbmRfdmlkZW9fY29uZmlnXzA="
 set_global_assignment -entity "soc_system_audio_and_video_config_0" -library "soc_system" -name IP_COMPONENT_DISPLAY_NAME "QXVkaW8gYW5kIFZpZGVvIENvbmZpZw=="
 set_global_assignment -entity "soc_system_audio_and_video_config_0" -library "soc_system" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
@@ -6251,6 +6256,7 @@ set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::qua
 set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_up_avalon_reset_from_locked_signal.v"]
 set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/soc_system_audio_pll_0_audio_pll.v"]
 set_global_assignment -library "soc_system" -name QIP_FILE [file join $::quartus(qip_path) "submodules/soc_system_audio_pll_0_audio_pll.qip"]
+set_global_assignment -library "soc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/audio_piper.sv"]
 set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_up_av_config_serial_bus_controller.v"]
 set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_up_slow_clock_generator.v"]
 set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_up_av_config_auto_init.v"]

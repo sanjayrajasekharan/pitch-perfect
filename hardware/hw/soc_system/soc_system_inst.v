@@ -1,4 +1,6 @@
 	soc_system u0 (
+		.audio_and_video_config_0_external_interface_SDAT (<connected-to-audio_and_video_config_0_external_interface_SDAT>), // audio_and_video_config_0_external_interface.SDAT
+		.audio_and_video_config_0_external_interface_SCLK (<connected-to-audio_and_video_config_0_external_interface_SCLK>), //                                            .SCLK
 		.clk_clk                                          (<connected-to-clk_clk>),                                          //                                         clk.clk
 		.hps_hps_io_emac1_inst_TX_CLK                     (<connected-to-hps_hps_io_emac1_inst_TX_CLK>),                     //                                         hps.hps_io_emac1_inst_TX_CLK
 		.hps_hps_io_emac1_inst_TXD0                       (<connected-to-hps_hps_io_emac1_inst_TXD0>),                       //                                            .hps_io_emac1_inst_TXD0
@@ -65,8 +67,6 @@
 		.hps_ddr3_mem_odt                                 (<connected-to-hps_ddr3_mem_odt>),                                 //                                            .mem_odt
 		.hps_ddr3_mem_dm                                  (<connected-to-hps_ddr3_mem_dm>),                                  //                                            .mem_dm
 		.hps_ddr3_oct_rzqin                               (<connected-to-hps_ddr3_oct_rzqin>),                               //                                            .oct_rzqin
-		.reset_reset_n                                    (<connected-to-reset_reset_n>),                                    //                                       reset.reset_n
-		.audio_and_video_config_0_external_interface_SDAT (<connected-to-audio_and_video_config_0_external_interface_SDAT>), // audio_and_video_config_0_external_interface.SDAT
-		.audio_and_video_config_0_external_interface_SCLK (<connected-to-audio_and_video_config_0_external_interface_SCLK>)  //                                            .SCLK
+		.reset_reset_n                                    (<connected-to-reset_reset_n>)                                     //                                       reset.reset_n
 	);
 

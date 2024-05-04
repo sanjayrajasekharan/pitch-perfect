@@ -3,11 +3,10 @@
  <debug showDebugMenu="0" />
  <systemtable filter="All Interfaces">
   <columns>
-   <connections preferredWidth="223" />
+   <connections preferredWidth="255" />
    <irq preferredWidth="47" />
   </columns>
  </systemtable>
- <library
-   expandedCategories="Library/University Program/Clock,Library/University Program,Project,Library/Interface Protocols,Library,Library/Interface Protocols/Audio &amp; Video" />
+ <library expandedCategories="Project,Library" />
  <window width="1100" height="798" x="148" y="447" />
 </preferences>
