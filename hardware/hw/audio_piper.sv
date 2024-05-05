@@ -34,6 +34,11 @@ module audio_piper(
     );
 
     logic [15:0] data = 0;
+    logic [9:0] ctr1 = 0;
+    logic [9:0] ctr2 = 0;
+    logic [9:0] ctr3 = 0;
+    logic [9:0] ctr4 = 0;
+    logic [9:0] ctr5 = 0;
 
     always_ff @(posedge clk) begin
         if (left_in_valid) begin
@@ -65,9 +70,15 @@ module audio_piper(
         end
 
         if (left_in_valid)
-            lights[0] <= 1;
+	    if (ctr1 == 0)
+                lights[0] <= 1;
+	    else
+		ctr1 <= ctr1 + 1;
         else
-            lights[0] <= 0;
+	    if (ctr2 == 0)
+                lights[0] <= 0;
+	    else
+		ctr2 <= ctr2 + 1;
 
         if (right_in_valid)
             lights[1] <= 1;
@@ -84,9 +95,12 @@ module audio_piper(
         else
             lights[3] <= 0;
 
-        if (lights[9])
-            lights[9] <= 0;
+    	if (ctr3 == 0)
+            if (lights[9])
+                lights[9] <= 0;
+	    else
+		lights[9] <= 1;
         else
-            lights[9] <= 1;
+            ctr3 <= ctr3 + 1;
     end
 endmodule

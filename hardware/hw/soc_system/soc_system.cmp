@@ -7,6 +7,7 @@
 			audio_0_external_interface_DACLRCK               : in    std_logic                     := 'X';             -- DACLRCK
 			audio_and_video_config_0_external_interface_SDAT : inout std_logic                     := 'X';             -- SDAT
 			audio_and_video_config_0_external_interface_SCLK : out   std_logic;                                        -- SCLK
+			audio_piper_0_lights_conduit_readdata            : out   std_logic_vector(9 downto 0);                     -- readdata
 			clk_clk                                          : in    std_logic                     := 'X';             -- clk
 			hps_hps_io_emac1_inst_TX_CLK                     : out   std_logic;                                        -- hps_io_emac1_inst_TX_CLK
 			hps_hps_io_emac1_inst_TXD0                       : out   std_logic;                                        -- hps_io_emac1_inst_TXD0

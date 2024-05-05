@@ -73,6 +73,14 @@
          type = "String";
       }
    }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
    element software_interface_0
    {
       datum _sortIndex
@@ -118,6 +126,11 @@
  <interface
    name="audio_and_video_config_0_external_interface"
    internal="audio_and_video_config_0.external_interface"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="audio_piper_0_lights_conduit"
+   internal="audio_piper_0.lights_conduit"
    type="conduit"
    dir="end" />
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />

@@ -266,7 +266,9 @@ module soc_system_top(
      .hps_hps_io_gpio_inst_GPIO48  ( HPS_I2C_CONTROL ),
      .hps_hps_io_gpio_inst_GPIO53  ( HPS_LED ),
      .hps_hps_io_gpio_inst_GPIO54  ( HPS_KEY ),
-     .hps_hps_io_gpio_inst_GPIO61  ( HPS_GSENSOR_INT )
+     .hps_hps_io_gpio_inst_GPIO61  ( HPS_GSENSOR_INT ),
+
+     .audio_piper_0_lights_conduit_readdata (LEDR)
   );
 
    // The following quiet the "no driver" warnings for output
@@ -305,7 +307,7 @@ module soc_system_top(
 
    assign IRDA_TXD = SW[0];
 
-   assign LEDR = { 10{SW[7]} };
+   // assign LEDR = { 10{SW[7]} };
 
    assign PS2_CLK = SW[1] ? SW[0] : 1'bZ;
    assign PS2_CLK2 = SW[1] ? SW[0] : 1'bZ;

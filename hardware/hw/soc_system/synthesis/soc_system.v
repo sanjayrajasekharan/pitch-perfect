@@ -11,6 +11,7 @@ module soc_system (
 		input  wire        audio_0_external_interface_DACLRCK,               //                                            .DACLRCK
 		inout  wire        audio_and_video_config_0_external_interface_SDAT, // audio_and_video_config_0_external_interface.SDAT
 		output wire        audio_and_video_config_0_external_interface_SCLK, //                                            .SCLK
+		output wire [9:0]  audio_piper_0_lights_conduit_readdata,            //                audio_piper_0_lights_conduit.readdata
 		input  wire        clk_clk,                                          //                                         clk.clk
 		output wire        hps_hps_io_emac1_inst_TX_CLK,                     //                                         hps.hps_io_emac1_inst_TX_CLK
 		output wire        hps_hps_io_emac1_inst_TXD0,                       //                                            .hps_io_emac1_inst_TXD0
@@ -193,20 +194,21 @@ module soc_system (
 	);
 
 	audio_piper audio_piper_0 (
-		.clk             (audio_pll_0_audio_clk_clk),                 //     clock.clk
-		.reset           (rst_controller_reset_out_reset),            //     reset.reset
-		.left_out_data   (audio_piper_0_left_out_data),               //  left_out.data
-		.left_out_ready  (audio_piper_0_left_out_ready),              //          .ready
-		.left_out_valid  (audio_piper_0_left_out_valid),              //          .valid
-		.right_out_data  (audio_piper_0_right_out_data),              // right_out.data
-		.right_out_ready (audio_piper_0_right_out_ready),             //          .ready
-		.right_out_valid (audio_piper_0_right_out_valid),             //          .valid
-		.left_in_data    (audio_0_avalon_left_channel_source_data),   //   left_in.data
-		.left_in_ready   (audio_0_avalon_left_channel_source_ready),  //          .ready
-		.left_in_valid   (audio_0_avalon_left_channel_source_valid),  //          .valid
-		.right_in_data   (audio_0_avalon_right_channel_source_data),  //  right_in.data
-		.right_in_ready  (audio_0_avalon_right_channel_source_ready), //          .ready
-		.right_in_valid  (audio_0_avalon_right_channel_source_valid)  //          .valid
+		.clk             (audio_pll_0_audio_clk_clk),                 //          clock.clk
+		.reset           (rst_controller_reset_out_reset),            //          reset.reset
+		.left_out_data   (audio_piper_0_left_out_data),               //       left_out.data
+		.left_out_ready  (audio_piper_0_left_out_ready),              //               .ready
+		.left_out_valid  (audio_piper_0_left_out_valid),              //               .valid
+		.right_out_data  (audio_piper_0_right_out_data),              //      right_out.data
+		.right_out_ready (audio_piper_0_right_out_ready),             //               .ready
+		.right_out_valid (audio_piper_0_right_out_valid),             //               .valid
+		.left_in_data    (audio_0_avalon_left_channel_source_data),   //        left_in.data
+		.left_in_ready   (audio_0_avalon_left_channel_source_ready),  //               .ready
+		.left_in_valid   (audio_0_avalon_left_channel_source_valid),  //               .valid
+		.right_in_data   (audio_0_avalon_right_channel_source_data),  //       right_in.data
+		.right_in_ready  (audio_0_avalon_right_channel_source_ready), //               .ready
+		.right_in_valid  (audio_0_avalon_right_channel_source_valid), //               .valid
+		.lights          (audio_piper_0_lights_conduit_readdata)      // lights_conduit.readdata
 	);
 
 	soc_system_audio_pll_0 audio_pll_0 (
