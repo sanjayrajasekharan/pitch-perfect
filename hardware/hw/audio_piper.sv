@@ -28,7 +28,9 @@ module audio_piper(
         // to avalon_right_channel_sink in audio codec
         output logic [15:0] right_out_data = 0,
         output logic        right_out_valid = 0,
-        input logic         right_out_ready
+        input logic         right_out_ready,
+
+        output logic [9:0]  lights = 0
     );
 
     logic [15:0] data = 0;
@@ -61,5 +63,30 @@ module audio_piper(
         if (right_out_valid) begin
             right_out_valid <= 0;
         end
+
+        if (left_in_valid)
+            lights[0] <= 1;
+        else
+            lights[0] <= 0;
+
+        if (right_in_valid)
+            lights[1] <= 1;
+        else
+            lights[1] <= 0;
+
+        if (left_out_ready)
+            lights[2] <= 1;
+        else
+            lights[2] <= 0;
+
+        if (right_out_ready)
+            lights[3] <= 1;
+        else
+            lights[3] <= 0;
+
+        if (lights[9])
+            lights[9] <= 0;
+        else
+            lights[9] <= 1;
     end
 endmodule
