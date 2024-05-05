@@ -15,6 +15,11 @@ module audio_piper(
         input logic 	    left_in_valid,
         output logic        left_in_ready = 0,
 
+        // from avalon_right_channel_source from audio codec
+        input logic [15:0]  right_in_data,
+        input logic 	    right_in_valid,
+        output logic        right_in_ready = 0,
+
         // to avalon_left_channel_sink in audio codec
         output logic [15:0] left_out_data = 0,
         output logic        left_out_valid = 0,
