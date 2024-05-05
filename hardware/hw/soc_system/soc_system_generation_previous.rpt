@@ -14,6 +14,8 @@ Progress: Adding clk_0 [clock_source 21.1]
 Progress: Parameterizing module clk_0
 Progress: Adding hps_0 [altera_hps 21.1]
 Progress: Parameterizing module hps_0
+Progress: Adding software_interface_0 [software_interface 1.0]
+Progress: Parameterizing module software_interface_0
 Progress: Adding vga_ball_0 [vga_ball 1.0]
 Progress: Parameterizing module vga_ball_0
 Progress: Building connections
@@ -22,10 +24,11 @@ Progress: Validating
 Progress: Done reading input file
 Info: soc_system.hps_0: HPS Main PLL counter settings: n = 0  m = 73
 Info: soc_system.hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
-Warning: soc_system.audio_0.avalon_right_channel_source: audio_0.avalon_right_channel_source must be connected to an Avalon-ST sink
 Warning: soc_system.audio_0: audio_0.external_interface must be exported, or connected to a matching conduit.
-Warning: soc_system.audio_and_video_config_0: audio_and_video_config_0.external_interface must be exported, or connected to a matching conduit.
+Warning: soc_system.software_interface_0: software_interface_0.shift_amt_conduit must be exported, or connected to a matching conduit.
 Warning: soc_system.audio_and_video_config_0: audio_and_video_config_0.avalon_av_config_slave must be connected to an Avalon-MM master
+Warning: soc_system.software_interface_0: software_interface_0.avalon_slave must be connected to an Avalon-MM master
+Warning: soc_system.software_interface_0: software_interface_0.avalon_master must be connected to an Avalon-MM slave
 Info: qsys-generate succeeded.
 Info: Finished: Create block symbol file (.bsf)
 Info: 
@@ -45,6 +48,8 @@ Progress: Adding clk_0 [clock_source 21.1]
 Progress: Parameterizing module clk_0
 Progress: Adding hps_0 [altera_hps 21.1]
 Progress: Parameterizing module hps_0
+Progress: Adding software_interface_0 [software_interface 1.0]
+Progress: Parameterizing module software_interface_0
 Progress: Adding vga_ball_0 [vga_ball 1.0]
 Progress: Parameterizing module vga_ball_0
 Progress: Building connections
@@ -53,10 +58,11 @@ Progress: Validating
 Progress: Done reading input file
 Info: soc_system.hps_0: HPS Main PLL counter settings: n = 0  m = 73
 Info: soc_system.hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
-Warning: soc_system.audio_0.avalon_right_channel_source: audio_0.avalon_right_channel_source must be connected to an Avalon-ST sink
 Warning: soc_system.audio_0: audio_0.external_interface must be exported, or connected to a matching conduit.
-Warning: soc_system.audio_and_video_config_0: audio_and_video_config_0.external_interface must be exported, or connected to a matching conduit.
+Warning: soc_system.software_interface_0: software_interface_0.shift_amt_conduit must be exported, or connected to a matching conduit.
 Warning: soc_system.audio_and_video_config_0: audio_and_video_config_0.avalon_av_config_slave must be connected to an Avalon-MM master
+Warning: soc_system.software_interface_0: software_interface_0.avalon_slave must be connected to an Avalon-MM master
+Warning: soc_system.software_interface_0: software_interface_0.avalon_master must be connected to an Avalon-MM slave
 Info: soc_system: Generating soc_system "soc_system" for QUARTUS_SYNTH
 Warning: hps_0.f2h_irq0: Cannot connect clock for irq_mapper.sender
 Warning: hps_0.f2h_irq0: Cannot connect reset for irq_mapper.sender
@@ -72,6 +78,7 @@ Info: hps_0: "Running  for module: hps_0"
 Info: hps_0: HPS Main PLL counter settings: n = 0  m = 73
 Info: hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
 Info: hps_0: "soc_system" instantiated altera_hps "hps_0"
+Info: software_interface_0: "soc_system" instantiated software_interface "software_interface_0"
 Info: irq_mapper: "soc_system" instantiated altera_irq_mapper "irq_mapper"
 Info: rst_controller: "soc_system" instantiated altera_reset_controller "rst_controller"
 Info: audio_pll: "audio_pll_0" instantiated altera_pll "audio_pll"
@@ -79,6 +86,6 @@ Info: reset_from_locked: "audio_pll_0" instantiated altera_up_avalon_reset_from_
 Info: fpga_interfaces: "hps_0" instantiated altera_interface_generator "fpga_interfaces"
 Info: hps_io: "hps_0" instantiated altera_hps_io "hps_io"
 Info: border: "hps_io" instantiated altera_interface_generator "border"
-Info: soc_system: Done "soc_system" with 13 modules, 79 files
+Info: soc_system: Done "soc_system" with 14 modules, 80 files
 Info: qsys-generate succeeded.
 Info: Finished: Create HDL design files for synthesis

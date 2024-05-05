@@ -1,5 +1,7 @@
 
 module soc_system (
+	audio_and_video_config_0_external_interface_SDAT,
+	audio_and_video_config_0_external_interface_SCLK,
 	clk_clk,
 	hps_hps_io_emac1_inst_TX_CLK,
 	hps_hps_io_emac1_inst_TXD0,
@@ -67,15 +69,15 @@ module soc_system (
 	hps_ddr3_mem_dm,
 	hps_ddr3_oct_rzqin,
 	reset_reset_n,
-	vga_b,
-	vga_blank_n,
-	vga_clk,
-	vga_g,
-	vga_hs,
-	vga_r,
-	vga_sync_n,
-	vga_vs);	
+	audio_0_external_interface_ADCDAT,
+	audio_0_external_interface_ADCLRCK,
+	audio_0_external_interface_BCLK,
+	audio_0_external_interface_DACDAT,
+	audio_0_external_interface_DACLRCK,
+	software_interface_0_shift_amt_conduit_readdata);	
 
+	inout		audio_and_video_config_0_external_interface_SDAT;
+	output		audio_and_video_config_0_external_interface_SCLK;
 	input		clk_clk;
 	output		hps_hps_io_emac1_inst_TX_CLK;
 	output		hps_hps_io_emac1_inst_TXD0;
@@ -143,12 +145,10 @@ module soc_system (
 	output	[3:0]	hps_ddr3_mem_dm;
 	input		hps_ddr3_oct_rzqin;
 	input		reset_reset_n;
-	output	[7:0]	vga_b;
-	output		vga_blank_n;
-	output		vga_clk;
-	output	[7:0]	vga_g;
-	output		vga_hs;
-	output	[7:0]	vga_r;
-	output		vga_sync_n;
-	output		vga_vs;
+	input		audio_0_external_interface_ADCDAT;
+	input		audio_0_external_interface_ADCLRCK;
+	input		audio_0_external_interface_BCLK;
+	output		audio_0_external_interface_DACDAT;
+	input		audio_0_external_interface_DACLRCK;
+	output	[7:0]	software_interface_0_shift_amt_conduit_readdata;
 endmodule

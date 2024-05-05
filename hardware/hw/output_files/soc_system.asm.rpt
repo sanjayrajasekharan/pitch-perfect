@@ -1,5 +1,5 @@
 Assembler report for soc_system
-Sun May  5 15:04:33 2024
+Sun May  5 18:17:13 2024
 Quartus Prime Version 21.1.0 Build 842 10/21/2021 SJ Lite Edition
 
 
@@ -38,7 +38,7 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Sun May  5 15:04:33 2024 ;
+; Assembler Status      ; Successful - Sun May  5 18:17:13 2024 ;
 ; Revision Name         ; soc_system                            ;
 ; Top-level Entity Name ; soc_system_top                        ;
 ; Family                ; Cyclone V                             ;
@@ -120,14 +120,14 @@ Info: Running Quartus Prime Assembler
     Info: Intel and sold by Intel or its authorized distributors.  Please
     Info: refer to the applicable agreement for further details, at
     Info: https://fpgasoftware.intel.com/eula.
-    Info: Processing started: Sun May  5 15:04:17 2024
+    Info: Processing started: Sun May  5 18:16:54 2024
 Info: Command: quartus_asm soc_system
 Info (115030): Assembler is generating device programming files
 Info (11878): Hard Processor Subsystem configuration has not changed and a Preloader software update is not required
 Info: Quartus Prime Assembler was successful. 0 errors, 0 warnings
-    Info: Peak virtual memory: 813 megabytes
-    Info: Processing ended: Sun May  5 15:04:33 2024
-    Info: Elapsed time: 00:00:16
+    Info: Peak virtual memory: 811 megabytes
+    Info: Processing ended: Sun May  5 18:17:13 2024
+    Info: Elapsed time: 00:00:19
     Info: Total CPU time (on all processors): 00:00:13
 
 

@@ -662,7 +662,14 @@ VGA_VS <= SW[0].DB_MAX_OUTPUT_PORT_TYPE
 
 
 |soc_system_top|soc_system:soc_system0
-clk_clk => clk_clk.IN9
+audio_0_external_interface_ADCDAT => audio_0_external_interface_ADCDAT.IN1
+audio_0_external_interface_ADCLRCK => audio_0_external_interface_ADCLRCK.IN1
+audio_0_external_interface_BCLK => audio_0_external_interface_BCLK.IN1
+audio_0_external_interface_DACDAT <= soc_system_audio_0:audio_0.AUD_DACDAT
+audio_0_external_interface_DACLRCK => audio_0_external_interface_DACLRCK.IN1
+audio_and_video_config_0_external_interface_SDAT <> soc_system_audio_and_video_config_0:audio_and_video_config_0.I2C_SDAT
+audio_and_video_config_0_external_interface_SCLK <= soc_system_audio_and_video_config_0:audio_and_video_config_0.I2C_SCLK
+clk_clk => clk_clk.IN10
 hps_hps_io_emac1_inst_TX_CLK <= soc_system_hps_0:hps_0.hps_io_emac1_inst_TX_CLK
 hps_hps_io_emac1_inst_TXD0 <= soc_system_hps_0:hps_0.hps_io_emac1_inst_TXD0
 hps_hps_io_emac1_inst_TXD1 <= soc_system_hps_0:hps_0.hps_io_emac1_inst_TXD1
@@ -786,35 +793,14 @@ hps_ddr3_mem_dm[3] <= soc_system_hps_0:hps_0.mem_dm
 hps_ddr3_oct_rzqin => hps_ddr3_oct_rzqin.IN1
 reset_reset_n => _.IN1
 reset_reset_n => _.IN1
-vga_b[0] <= vga_ball:vga_ball_0.VGA_B
-vga_b[1] <= vga_ball:vga_ball_0.VGA_B
-vga_b[2] <= vga_ball:vga_ball_0.VGA_B
-vga_b[3] <= vga_ball:vga_ball_0.VGA_B
-vga_b[4] <= vga_ball:vga_ball_0.VGA_B
-vga_b[5] <= vga_ball:vga_ball_0.VGA_B
-vga_b[6] <= vga_ball:vga_ball_0.VGA_B
-vga_b[7] <= vga_ball:vga_ball_0.VGA_B
-vga_blank_n <= vga_ball:vga_ball_0.VGA_BLANK_n
-vga_clk <= vga_ball:vga_ball_0.VGA_CLK
-vga_g[0] <= vga_ball:vga_ball_0.VGA_G
-vga_g[1] <= vga_ball:vga_ball_0.VGA_G
-vga_g[2] <= vga_ball:vga_ball_0.VGA_G
-vga_g[3] <= vga_ball:vga_ball_0.VGA_G
-vga_g[4] <= vga_ball:vga_ball_0.VGA_G
-vga_g[5] <= vga_ball:vga_ball_0.VGA_G
-vga_g[6] <= vga_ball:vga_ball_0.VGA_G
-vga_g[7] <= vga_ball:vga_ball_0.VGA_G
-vga_hs <= vga_ball:vga_ball_0.VGA_HS
-vga_r[0] <= vga_ball:vga_ball_0.VGA_R
-vga_r[1] <= vga_ball:vga_ball_0.VGA_R
-vga_r[2] <= vga_ball:vga_ball_0.VGA_R
-vga_r[3] <= vga_ball:vga_ball_0.VGA_R
-vga_r[4] <= vga_ball:vga_ball_0.VGA_R
-vga_r[5] <= vga_ball:vga_ball_0.VGA_R
-vga_r[6] <= vga_ball:vga_ball_0.VGA_R
-vga_r[7] <= vga_ball:vga_ball_0.VGA_R
-vga_sync_n <= vga_ball:vga_ball_0.VGA_SYNC_n
-vga_vs <= vga_ball:vga_ball_0.VGA_VS
+software_interface_0_shift_amt_conduit_readdata[0] <= software_interface:software_interface_0.shift_amt
+software_interface_0_shift_amt_conduit_readdata[1] <= software_interface:software_interface_0.shift_amt
+software_interface_0_shift_amt_conduit_readdata[2] <= software_interface:software_interface_0.shift_amt
+software_interface_0_shift_amt_conduit_readdata[3] <= software_interface:software_interface_0.shift_amt
+software_interface_0_shift_amt_conduit_readdata[4] <= software_interface:software_interface_0.shift_amt
+software_interface_0_shift_amt_conduit_readdata[5] <= software_interface:software_interface_0.shift_amt
+software_interface_0_shift_amt_conduit_readdata[6] <= software_interface:software_interface_0.shift_amt
+software_interface_0_shift_amt_conduit_readdata[7] <= software_interface:software_interface_0.shift_amt
 
 
 |soc_system_top|soc_system:soc_system0|soc_system_audio_0:audio_0
@@ -4585,6 +4571,24 @@ left_in_valid => data[13].ENA
 left_in_valid => data[14].ENA
 left_in_valid => data[15].ENA
 left_in_ready <= left_in_ready~reg0.DB_MAX_OUTPUT_PORT_TYPE
+right_in_data[0] => ~NO_FANOUT~
+right_in_data[1] => ~NO_FANOUT~
+right_in_data[2] => ~NO_FANOUT~
+right_in_data[3] => ~NO_FANOUT~
+right_in_data[4] => ~NO_FANOUT~
+right_in_data[5] => ~NO_FANOUT~
+right_in_data[6] => ~NO_FANOUT~
+right_in_data[7] => ~NO_FANOUT~
+right_in_data[8] => ~NO_FANOUT~
+right_in_data[9] => ~NO_FANOUT~
+right_in_data[10] => ~NO_FANOUT~
+right_in_data[11] => ~NO_FANOUT~
+right_in_data[12] => ~NO_FANOUT~
+right_in_data[13] => ~NO_FANOUT~
+right_in_data[14] => ~NO_FANOUT~
+right_in_data[15] => ~NO_FANOUT~
+right_in_valid => ~NO_FANOUT~
+right_in_ready <= <GND>
 left_out_data[0] <= left_out_data[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 left_out_data[1] <= left_out_data[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 left_out_data[2] <= left_out_data[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
@@ -15546,189 +15550,659 @@ dll_delayctrl[5] <= dll_wys_m.DELAYCTRLOUT5
 dll_delayctrl[6] <= dll_wys_m.DELAYCTRLOUT6
 
 
-|soc_system_top|soc_system:soc_system0|vga_ball:vga_ball_0
-clk => vga_counters:counters.clk50
-clk => background_b[0].CLK
-clk => background_b[1].CLK
-clk => background_b[2].CLK
-clk => background_b[3].CLK
-clk => background_b[4].CLK
-clk => background_b[5].CLK
-clk => background_b[6].CLK
-clk => background_b[7].CLK
-clk => background_g[0].CLK
-clk => background_g[1].CLK
-clk => background_g[2].CLK
-clk => background_g[3].CLK
-clk => background_g[4].CLK
-clk => background_g[5].CLK
-clk => background_g[6].CLK
-clk => background_g[7].CLK
-clk => background_r[0].CLK
-clk => background_r[1].CLK
-clk => background_r[2].CLK
-clk => background_r[3].CLK
-clk => background_r[4].CLK
-clk => background_r[5].CLK
-clk => background_r[6].CLK
-clk => background_r[7].CLK
-reset => vga_counters:counters.reset
-reset => background_r.OUTPUTSELECT
-reset => background_r.OUTPUTSELECT
-reset => background_r.OUTPUTSELECT
-reset => background_r.OUTPUTSELECT
-reset => background_r.OUTPUTSELECT
-reset => background_r.OUTPUTSELECT
-reset => background_r.OUTPUTSELECT
-reset => background_r.OUTPUTSELECT
-reset => background_g.OUTPUTSELECT
-reset => background_g.OUTPUTSELECT
-reset => background_g.OUTPUTSELECT
-reset => background_g.OUTPUTSELECT
-reset => background_g.OUTPUTSELECT
-reset => background_g.OUTPUTSELECT
-reset => background_g.OUTPUTSELECT
-reset => background_g.OUTPUTSELECT
-reset => background_b.OUTPUTSELECT
-reset => background_b.OUTPUTSELECT
-reset => background_b.OUTPUTSELECT
-reset => background_b.OUTPUTSELECT
-reset => background_b.OUTPUTSELECT
-reset => background_b.OUTPUTSELECT
-reset => background_b.OUTPUTSELECT
-reset => background_b.OUTPUTSELECT
-writedata[0] => background_b.DATAB
-writedata[0] => background_g.DATAB
-writedata[0] => background_r.DATAB
-writedata[1] => background_b.DATAB
-writedata[1] => background_g.DATAB
-writedata[1] => background_r.DATAB
-writedata[2] => background_b.DATAB
-writedata[2] => background_g.DATAB
-writedata[2] => background_r.DATAB
-writedata[3] => background_b.DATAB
-writedata[3] => background_g.DATAB
-writedata[3] => background_r.DATAB
-writedata[4] => background_b.DATAB
-writedata[4] => background_g.DATAB
-writedata[4] => background_r.DATAB
-writedata[5] => background_b.DATAB
-writedata[5] => background_g.DATAB
-writedata[5] => background_r.DATAB
-writedata[6] => background_b.DATAB
-writedata[6] => background_g.DATAB
-writedata[6] => background_r.DATAB
-writedata[7] => background_b.DATAB
-writedata[7] => background_g.DATAB
-writedata[7] => background_r.DATAB
+|soc_system_top|soc_system:soc_system0|software_interface:software_interface_0
+clk => shift_amt[0]~reg0.CLK
+clk => shift_amt[1]~reg0.CLK
+clk => shift_amt[2]~reg0.CLK
+clk => shift_amt[3]~reg0.CLK
+clk => shift_amt[4]~reg0.CLK
+clk => shift_amt[5]~reg0.CLK
+clk => shift_amt[6]~reg0.CLK
+clk => shift_amt[7]~reg0.CLK
+reset => ~NO_FANOUT~
+writedata[0] => shift_amt[0]~reg0.DATAIN
+writedata[1] => shift_amt[1]~reg0.DATAIN
+writedata[2] => shift_amt[2]~reg0.DATAIN
+writedata[3] => shift_amt[3]~reg0.DATAIN
+writedata[4] => shift_amt[4]~reg0.DATAIN
+writedata[5] => shift_amt[5]~reg0.DATAIN
+writedata[6] => shift_amt[6]~reg0.DATAIN
+writedata[7] => shift_amt[7]~reg0.DATAIN
 write => always0.IN0
 chipselect => always0.IN1
-address[0] => Decoder0.IN2
-address[1] => Decoder0.IN1
-address[2] => Decoder0.IN0
-VGA_R[0] <= VGA_R.DB_MAX_OUTPUT_PORT_TYPE
-VGA_R[1] <= VGA_R.DB_MAX_OUTPUT_PORT_TYPE
-VGA_R[2] <= VGA_R.DB_MAX_OUTPUT_PORT_TYPE
-VGA_R[3] <= VGA_R.DB_MAX_OUTPUT_PORT_TYPE
-VGA_R[4] <= VGA_R.DB_MAX_OUTPUT_PORT_TYPE
-VGA_R[5] <= VGA_R.DB_MAX_OUTPUT_PORT_TYPE
-VGA_R[6] <= VGA_R.DB_MAX_OUTPUT_PORT_TYPE
-VGA_R[7] <= VGA_R.DB_MAX_OUTPUT_PORT_TYPE
-VGA_G[0] <= VGA_G.DB_MAX_OUTPUT_PORT_TYPE
-VGA_G[1] <= VGA_G.DB_MAX_OUTPUT_PORT_TYPE
-VGA_G[2] <= VGA_G.DB_MAX_OUTPUT_PORT_TYPE
-VGA_G[3] <= VGA_G.DB_MAX_OUTPUT_PORT_TYPE
-VGA_G[4] <= VGA_G.DB_MAX_OUTPUT_PORT_TYPE
-VGA_G[5] <= VGA_G.DB_MAX_OUTPUT_PORT_TYPE
-VGA_G[6] <= VGA_G.DB_MAX_OUTPUT_PORT_TYPE
-VGA_G[7] <= VGA_G.DB_MAX_OUTPUT_PORT_TYPE
-VGA_B[0] <= VGA_B.DB_MAX_OUTPUT_PORT_TYPE
-VGA_B[1] <= VGA_B.DB_MAX_OUTPUT_PORT_TYPE
-VGA_B[2] <= VGA_B.DB_MAX_OUTPUT_PORT_TYPE
-VGA_B[3] <= VGA_B.DB_MAX_OUTPUT_PORT_TYPE
-VGA_B[4] <= VGA_B.DB_MAX_OUTPUT_PORT_TYPE
-VGA_B[5] <= VGA_B.DB_MAX_OUTPUT_PORT_TYPE
-VGA_B[6] <= VGA_B.DB_MAX_OUTPUT_PORT_TYPE
-VGA_B[7] <= VGA_B.DB_MAX_OUTPUT_PORT_TYPE
-VGA_CLK <= vga_counters:counters.VGA_CLK
-VGA_HS <= vga_counters:counters.VGA_HS
-VGA_VS <= vga_counters:counters.VGA_VS
-VGA_BLANK_n <= vga_counters:counters.VGA_BLANK_n
-VGA_SYNC_n <= vga_counters:counters.VGA_SYNC_n
-
-
-|soc_system_top|soc_system:soc_system0|vga_ball:vga_ball_0|vga_counters:counters
-clk50 => vcount[0]~reg0.CLK
-clk50 => vcount[1]~reg0.CLK
-clk50 => vcount[2]~reg0.CLK
-clk50 => vcount[3]~reg0.CLK
-clk50 => vcount[4]~reg0.CLK
-clk50 => vcount[5]~reg0.CLK
-clk50 => vcount[6]~reg0.CLK
-clk50 => vcount[7]~reg0.CLK
-clk50 => vcount[8]~reg0.CLK
-clk50 => vcount[9]~reg0.CLK
-clk50 => hcount[0]~reg0.CLK
-clk50 => hcount[1]~reg0.CLK
-clk50 => hcount[2]~reg0.CLK
-clk50 => hcount[3]~reg0.CLK
-clk50 => hcount[4]~reg0.CLK
-clk50 => hcount[5]~reg0.CLK
-clk50 => hcount[6]~reg0.CLK
-clk50 => hcount[7]~reg0.CLK
-clk50 => hcount[8]~reg0.CLK
-clk50 => hcount[9]~reg0.CLK
-clk50 => hcount[10]~reg0.CLK
-reset => vcount[0]~reg0.ACLR
-reset => vcount[1]~reg0.ACLR
-reset => vcount[2]~reg0.ACLR
-reset => vcount[3]~reg0.ACLR
-reset => vcount[4]~reg0.ACLR
-reset => vcount[5]~reg0.ACLR
-reset => vcount[6]~reg0.ACLR
-reset => vcount[7]~reg0.ACLR
-reset => vcount[8]~reg0.ACLR
-reset => vcount[9]~reg0.ACLR
-reset => hcount[0]~reg0.ACLR
-reset => hcount[1]~reg0.ACLR
-reset => hcount[2]~reg0.ACLR
-reset => hcount[3]~reg0.ACLR
-reset => hcount[4]~reg0.ACLR
-reset => hcount[5]~reg0.ACLR
-reset => hcount[6]~reg0.ACLR
-reset => hcount[7]~reg0.ACLR
-reset => hcount[8]~reg0.ACLR
-reset => hcount[9]~reg0.ACLR
-reset => hcount[10]~reg0.ACLR
-hcount[0] <= hcount[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-hcount[1] <= hcount[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-hcount[2] <= hcount[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-hcount[3] <= hcount[3]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-hcount[4] <= hcount[4]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-hcount[5] <= hcount[5]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-hcount[6] <= hcount[6]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-hcount[7] <= hcount[7]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-hcount[8] <= hcount[8]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-hcount[9] <= hcount[9]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-hcount[10] <= hcount[10]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-vcount[0] <= vcount[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-vcount[1] <= vcount[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-vcount[2] <= vcount[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-vcount[3] <= vcount[3]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-vcount[4] <= vcount[4]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-vcount[5] <= vcount[5]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-vcount[6] <= vcount[6]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-vcount[7] <= vcount[7]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-vcount[8] <= vcount[8]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-vcount[9] <= vcount[9]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-VGA_CLK <= hcount[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-VGA_HS <= VGA_HS.DB_MAX_OUTPUT_PORT_TYPE
-VGA_VS <= Equal4.DB_MAX_OUTPUT_PORT_TYPE
-VGA_BLANK_n <= VGA_BLANK_n.DB_MAX_OUTPUT_PORT_TYPE
-VGA_SYNC_n <= <GND>
+address[0] => ~NO_FANOUT~
+address[1] => ~NO_FANOUT~
+address[2] => ~NO_FANOUT~
+shift_amt[0] <= shift_amt[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+shift_amt[1] <= shift_amt[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+shift_amt[2] <= shift_amt[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+shift_amt[3] <= shift_amt[3]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+shift_amt[4] <= shift_amt[4]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+shift_amt[5] <= shift_amt[5]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+shift_amt[6] <= shift_amt[6]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+shift_amt[7] <= shift_amt[7]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+av_config_slave_address[0] <= <GND>
+av_config_slave_address[1] <= <GND>
+av_config_slave_byteenable[0] <= <GND>
+av_config_slave_byteenable[1] <= <GND>
+av_config_slave_byteenable[2] <= <GND>
+av_config_slave_byteenable[3] <= <GND>
+av_config_slave_read <= <GND>
+av_config_slave_write <= <GND>
+av_config_slave_writedata[0] <= <GND>
+av_config_slave_writedata[1] <= <GND>
+av_config_slave_writedata[2] <= <GND>
+av_config_slave_writedata[3] <= <GND>
+av_config_slave_writedata[4] <= <GND>
+av_config_slave_writedata[5] <= <GND>
+av_config_slave_writedata[6] <= <GND>
+av_config_slave_writedata[7] <= <GND>
+av_config_slave_writedata[8] <= <GND>
+av_config_slave_writedata[9] <= <GND>
+av_config_slave_writedata[10] <= <GND>
+av_config_slave_writedata[11] <= <GND>
+av_config_slave_writedata[12] <= <GND>
+av_config_slave_writedata[13] <= <GND>
+av_config_slave_writedata[14] <= <GND>
+av_config_slave_writedata[15] <= <GND>
+av_config_slave_writedata[16] <= <GND>
+av_config_slave_writedata[17] <= <GND>
+av_config_slave_writedata[18] <= <GND>
+av_config_slave_writedata[19] <= <GND>
+av_config_slave_writedata[20] <= <GND>
+av_config_slave_writedata[21] <= <GND>
+av_config_slave_writedata[22] <= <GND>
+av_config_slave_writedata[23] <= <GND>
+av_config_slave_writedata[24] <= <GND>
+av_config_slave_writedata[25] <= <GND>
+av_config_slave_writedata[26] <= <GND>
+av_config_slave_writedata[27] <= <GND>
+av_config_slave_writedata[28] <= <GND>
+av_config_slave_writedata[29] <= <GND>
+av_config_slave_writedata[30] <= <GND>
+av_config_slave_writedata[31] <= <GND>
+av_config_slave_readdata[0] => ~NO_FANOUT~
+av_config_slave_readdata[1] => ~NO_FANOUT~
+av_config_slave_readdata[2] => ~NO_FANOUT~
+av_config_slave_readdata[3] => ~NO_FANOUT~
+av_config_slave_readdata[4] => ~NO_FANOUT~
+av_config_slave_readdata[5] => ~NO_FANOUT~
+av_config_slave_readdata[6] => ~NO_FANOUT~
+av_config_slave_readdata[7] => ~NO_FANOUT~
+av_config_slave_readdata[8] => ~NO_FANOUT~
+av_config_slave_readdata[9] => ~NO_FANOUT~
+av_config_slave_readdata[10] => ~NO_FANOUT~
+av_config_slave_readdata[11] => ~NO_FANOUT~
+av_config_slave_readdata[12] => ~NO_FANOUT~
+av_config_slave_readdata[13] => ~NO_FANOUT~
+av_config_slave_readdata[14] => ~NO_FANOUT~
+av_config_slave_readdata[15] => ~NO_FANOUT~
+av_config_slave_readdata[16] => ~NO_FANOUT~
+av_config_slave_readdata[17] => ~NO_FANOUT~
+av_config_slave_readdata[18] => ~NO_FANOUT~
+av_config_slave_readdata[19] => ~NO_FANOUT~
+av_config_slave_readdata[20] => ~NO_FANOUT~
+av_config_slave_readdata[21] => ~NO_FANOUT~
+av_config_slave_readdata[22] => ~NO_FANOUT~
+av_config_slave_readdata[23] => ~NO_FANOUT~
+av_config_slave_readdata[24] => ~NO_FANOUT~
+av_config_slave_readdata[25] => ~NO_FANOUT~
+av_config_slave_readdata[26] => ~NO_FANOUT~
+av_config_slave_readdata[27] => ~NO_FANOUT~
+av_config_slave_readdata[28] => ~NO_FANOUT~
+av_config_slave_readdata[29] => ~NO_FANOUT~
+av_config_slave_readdata[30] => ~NO_FANOUT~
+av_config_slave_readdata[31] => ~NO_FANOUT~
+av_config_slave_waitrequest => ~NO_FANOUT~
 
 
 |soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0
+clk_0_clk_clk => clk_0_clk_clk.IN2
+software_interface_0_reset_reset_bridge_in_reset_reset => software_interface_0_reset_reset_bridge_in_reset_reset.IN2
+software_interface_0_avalon_master_address[0] => software_interface_0_avalon_master_address[0].IN1
+software_interface_0_avalon_master_address[1] => software_interface_0_avalon_master_address[1].IN1
+software_interface_0_avalon_master_address[2] => software_interface_0_avalon_master_address[2].IN1
+software_interface_0_avalon_master_address[3] => software_interface_0_avalon_master_address[3].IN1
+software_interface_0_avalon_master_waitrequest <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_waitrequest
+software_interface_0_avalon_master_byteenable[0] => software_interface_0_avalon_master_byteenable[0].IN1
+software_interface_0_avalon_master_byteenable[1] => software_interface_0_avalon_master_byteenable[1].IN1
+software_interface_0_avalon_master_byteenable[2] => software_interface_0_avalon_master_byteenable[2].IN1
+software_interface_0_avalon_master_byteenable[3] => software_interface_0_avalon_master_byteenable[3].IN1
+software_interface_0_avalon_master_read => software_interface_0_avalon_master_read.IN1
+software_interface_0_avalon_master_readdata[0] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[1] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[2] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[3] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[4] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[5] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[6] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[7] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[8] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[9] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[10] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[11] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[12] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[13] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[14] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[15] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[16] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[17] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[18] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[19] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[20] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[21] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[22] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[23] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[24] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[25] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[26] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[27] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[28] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[29] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[30] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_readdata[31] <= altera_merlin_master_translator:software_interface_0_avalon_master_translator.av_readdata
+software_interface_0_avalon_master_write => software_interface_0_avalon_master_write.IN1
+software_interface_0_avalon_master_writedata[0] => software_interface_0_avalon_master_writedata[0].IN1
+software_interface_0_avalon_master_writedata[1] => software_interface_0_avalon_master_writedata[1].IN1
+software_interface_0_avalon_master_writedata[2] => software_interface_0_avalon_master_writedata[2].IN1
+software_interface_0_avalon_master_writedata[3] => software_interface_0_avalon_master_writedata[3].IN1
+software_interface_0_avalon_master_writedata[4] => software_interface_0_avalon_master_writedata[4].IN1
+software_interface_0_avalon_master_writedata[5] => software_interface_0_avalon_master_writedata[5].IN1
+software_interface_0_avalon_master_writedata[6] => software_interface_0_avalon_master_writedata[6].IN1
+software_interface_0_avalon_master_writedata[7] => software_interface_0_avalon_master_writedata[7].IN1
+software_interface_0_avalon_master_writedata[8] => software_interface_0_avalon_master_writedata[8].IN1
+software_interface_0_avalon_master_writedata[9] => software_interface_0_avalon_master_writedata[9].IN1
+software_interface_0_avalon_master_writedata[10] => software_interface_0_avalon_master_writedata[10].IN1
+software_interface_0_avalon_master_writedata[11] => software_interface_0_avalon_master_writedata[11].IN1
+software_interface_0_avalon_master_writedata[12] => software_interface_0_avalon_master_writedata[12].IN1
+software_interface_0_avalon_master_writedata[13] => software_interface_0_avalon_master_writedata[13].IN1
+software_interface_0_avalon_master_writedata[14] => software_interface_0_avalon_master_writedata[14].IN1
+software_interface_0_avalon_master_writedata[15] => software_interface_0_avalon_master_writedata[15].IN1
+software_interface_0_avalon_master_writedata[16] => software_interface_0_avalon_master_writedata[16].IN1
+software_interface_0_avalon_master_writedata[17] => software_interface_0_avalon_master_writedata[17].IN1
+software_interface_0_avalon_master_writedata[18] => software_interface_0_avalon_master_writedata[18].IN1
+software_interface_0_avalon_master_writedata[19] => software_interface_0_avalon_master_writedata[19].IN1
+software_interface_0_avalon_master_writedata[20] => software_interface_0_avalon_master_writedata[20].IN1
+software_interface_0_avalon_master_writedata[21] => software_interface_0_avalon_master_writedata[21].IN1
+software_interface_0_avalon_master_writedata[22] => software_interface_0_avalon_master_writedata[22].IN1
+software_interface_0_avalon_master_writedata[23] => software_interface_0_avalon_master_writedata[23].IN1
+software_interface_0_avalon_master_writedata[24] => software_interface_0_avalon_master_writedata[24].IN1
+software_interface_0_avalon_master_writedata[25] => software_interface_0_avalon_master_writedata[25].IN1
+software_interface_0_avalon_master_writedata[26] => software_interface_0_avalon_master_writedata[26].IN1
+software_interface_0_avalon_master_writedata[27] => software_interface_0_avalon_master_writedata[27].IN1
+software_interface_0_avalon_master_writedata[28] => software_interface_0_avalon_master_writedata[28].IN1
+software_interface_0_avalon_master_writedata[29] => software_interface_0_avalon_master_writedata[29].IN1
+software_interface_0_avalon_master_writedata[30] => software_interface_0_avalon_master_writedata[30].IN1
+software_interface_0_avalon_master_writedata[31] => software_interface_0_avalon_master_writedata[31].IN1
+audio_and_video_config_0_avalon_av_config_slave_address[0] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_address
+audio_and_video_config_0_avalon_av_config_slave_address[1] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_address
+audio_and_video_config_0_avalon_av_config_slave_write <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_write
+audio_and_video_config_0_avalon_av_config_slave_read <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_read
+audio_and_video_config_0_avalon_av_config_slave_readdata[0] => audio_and_video_config_0_avalon_av_config_slave_readdata[0].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[1] => audio_and_video_config_0_avalon_av_config_slave_readdata[1].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[2] => audio_and_video_config_0_avalon_av_config_slave_readdata[2].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[3] => audio_and_video_config_0_avalon_av_config_slave_readdata[3].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[4] => audio_and_video_config_0_avalon_av_config_slave_readdata[4].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[5] => audio_and_video_config_0_avalon_av_config_slave_readdata[5].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[6] => audio_and_video_config_0_avalon_av_config_slave_readdata[6].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[7] => audio_and_video_config_0_avalon_av_config_slave_readdata[7].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[8] => audio_and_video_config_0_avalon_av_config_slave_readdata[8].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[9] => audio_and_video_config_0_avalon_av_config_slave_readdata[9].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[10] => audio_and_video_config_0_avalon_av_config_slave_readdata[10].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[11] => audio_and_video_config_0_avalon_av_config_slave_readdata[11].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[12] => audio_and_video_config_0_avalon_av_config_slave_readdata[12].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[13] => audio_and_video_config_0_avalon_av_config_slave_readdata[13].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[14] => audio_and_video_config_0_avalon_av_config_slave_readdata[14].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[15] => audio_and_video_config_0_avalon_av_config_slave_readdata[15].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[16] => audio_and_video_config_0_avalon_av_config_slave_readdata[16].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[17] => audio_and_video_config_0_avalon_av_config_slave_readdata[17].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[18] => audio_and_video_config_0_avalon_av_config_slave_readdata[18].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[19] => audio_and_video_config_0_avalon_av_config_slave_readdata[19].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[20] => audio_and_video_config_0_avalon_av_config_slave_readdata[20].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[21] => audio_and_video_config_0_avalon_av_config_slave_readdata[21].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[22] => audio_and_video_config_0_avalon_av_config_slave_readdata[22].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[23] => audio_and_video_config_0_avalon_av_config_slave_readdata[23].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[24] => audio_and_video_config_0_avalon_av_config_slave_readdata[24].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[25] => audio_and_video_config_0_avalon_av_config_slave_readdata[25].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[26] => audio_and_video_config_0_avalon_av_config_slave_readdata[26].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[27] => audio_and_video_config_0_avalon_av_config_slave_readdata[27].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[28] => audio_and_video_config_0_avalon_av_config_slave_readdata[28].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[29] => audio_and_video_config_0_avalon_av_config_slave_readdata[29].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[30] => audio_and_video_config_0_avalon_av_config_slave_readdata[30].IN1
+audio_and_video_config_0_avalon_av_config_slave_readdata[31] => audio_and_video_config_0_avalon_av_config_slave_readdata[31].IN1
+audio_and_video_config_0_avalon_av_config_slave_writedata[0] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[1] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[2] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[3] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[4] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[5] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[6] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[7] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[8] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[9] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[10] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[11] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[12] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[13] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[14] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[15] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[16] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[17] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[18] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[19] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[20] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[21] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[22] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[23] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[24] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[25] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[26] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[27] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[28] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[29] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[30] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_writedata[31] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_writedata
+audio_and_video_config_0_avalon_av_config_slave_byteenable[0] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_byteenable
+audio_and_video_config_0_avalon_av_config_slave_byteenable[1] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_byteenable
+audio_and_video_config_0_avalon_av_config_slave_byteenable[2] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_byteenable
+audio_and_video_config_0_avalon_av_config_slave_byteenable[3] <= altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator.av_byteenable
+audio_and_video_config_0_avalon_av_config_slave_waitrequest => audio_and_video_config_0_avalon_av_config_slave_waitrequest.IN1
+
+
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_master_translator:software_interface_0_avalon_master_translator
+clk => read_accepted.CLK
+reset => read_accepted.ACLR
+uav_write <= av_write.DB_MAX_OUTPUT_PORT_TYPE
+uav_read <= uav_read.DB_MAX_OUTPUT_PORT_TYPE
+uav_address[0] <= av_address[0].DB_MAX_OUTPUT_PORT_TYPE
+uav_address[1] <= av_address[1].DB_MAX_OUTPUT_PORT_TYPE
+uav_address[2] <= av_address[2].DB_MAX_OUTPUT_PORT_TYPE
+uav_address[3] <= av_address[3].DB_MAX_OUTPUT_PORT_TYPE
+uav_burstcount[0] <= <GND>
+uav_burstcount[1] <= <GND>
+uav_burstcount[2] <= <VCC>
+uav_byteenable[0] <= av_byteenable[0].DB_MAX_OUTPUT_PORT_TYPE
+uav_byteenable[1] <= av_byteenable[1].DB_MAX_OUTPUT_PORT_TYPE
+uav_byteenable[2] <= av_byteenable[2].DB_MAX_OUTPUT_PORT_TYPE
+uav_byteenable[3] <= av_byteenable[3].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[0] <= av_writedata[0].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[1] <= av_writedata[1].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[2] <= av_writedata[2].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[3] <= av_writedata[3].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[4] <= av_writedata[4].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[5] <= av_writedata[5].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[6] <= av_writedata[6].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[7] <= av_writedata[7].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[8] <= av_writedata[8].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[9] <= av_writedata[9].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[10] <= av_writedata[10].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[11] <= av_writedata[11].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[12] <= av_writedata[12].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[13] <= av_writedata[13].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[14] <= av_writedata[14].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[15] <= av_writedata[15].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[16] <= av_writedata[16].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[17] <= av_writedata[17].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[18] <= av_writedata[18].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[19] <= av_writedata[19].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[20] <= av_writedata[20].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[21] <= av_writedata[21].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[22] <= av_writedata[22].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[23] <= av_writedata[23].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[24] <= av_writedata[24].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[25] <= av_writedata[25].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[26] <= av_writedata[26].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[27] <= av_writedata[27].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[28] <= av_writedata[28].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[29] <= av_writedata[29].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[30] <= av_writedata[30].DB_MAX_OUTPUT_PORT_TYPE
+uav_writedata[31] <= av_writedata[31].DB_MAX_OUTPUT_PORT_TYPE
+uav_lock <= av_lock.DB_MAX_OUTPUT_PORT_TYPE
+uav_debugaccess <= av_debugaccess.DB_MAX_OUTPUT_PORT_TYPE
+uav_clken <= av_clken.DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[0] => av_readdata[0].DATAIN
+uav_readdata[1] => av_readdata[1].DATAIN
+uav_readdata[2] => av_readdata[2].DATAIN
+uav_readdata[3] => av_readdata[3].DATAIN
+uav_readdata[4] => av_readdata[4].DATAIN
+uav_readdata[5] => av_readdata[5].DATAIN
+uav_readdata[6] => av_readdata[6].DATAIN
+uav_readdata[7] => av_readdata[7].DATAIN
+uav_readdata[8] => av_readdata[8].DATAIN
+uav_readdata[9] => av_readdata[9].DATAIN
+uav_readdata[10] => av_readdata[10].DATAIN
+uav_readdata[11] => av_readdata[11].DATAIN
+uav_readdata[12] => av_readdata[12].DATAIN
+uav_readdata[13] => av_readdata[13].DATAIN
+uav_readdata[14] => av_readdata[14].DATAIN
+uav_readdata[15] => av_readdata[15].DATAIN
+uav_readdata[16] => av_readdata[16].DATAIN
+uav_readdata[17] => av_readdata[17].DATAIN
+uav_readdata[18] => av_readdata[18].DATAIN
+uav_readdata[19] => av_readdata[19].DATAIN
+uav_readdata[20] => av_readdata[20].DATAIN
+uav_readdata[21] => av_readdata[21].DATAIN
+uav_readdata[22] => av_readdata[22].DATAIN
+uav_readdata[23] => av_readdata[23].DATAIN
+uav_readdata[24] => av_readdata[24].DATAIN
+uav_readdata[25] => av_readdata[25].DATAIN
+uav_readdata[26] => av_readdata[26].DATAIN
+uav_readdata[27] => av_readdata[27].DATAIN
+uav_readdata[28] => av_readdata[28].DATAIN
+uav_readdata[29] => av_readdata[29].DATAIN
+uav_readdata[30] => av_readdata[30].DATAIN
+uav_readdata[31] => av_readdata[31].DATAIN
+uav_readdatavalid => always6.IN1
+uav_readdatavalid => av_readdatavalid.DATAIN
+uav_readdatavalid => av_waitrequest.DATAB
+uav_waitrequest => av_waitrequest.DATAA
+uav_waitrequest => read_accepted.IN0
+uav_response[0] => ~NO_FANOUT~
+uav_response[1] => ~NO_FANOUT~
+uav_writeresponsevalid => ~NO_FANOUT~
+av_write => uav_write.DATAIN
+av_read => read_accepted.IN1
+av_read => av_waitrequest.OUTPUTSELECT
+av_read => uav_read.IN1
+av_address[0] => uav_address[0].DATAIN
+av_address[1] => uav_address[1].DATAIN
+av_address[2] => uav_address[2].DATAIN
+av_address[3] => uav_address[3].DATAIN
+av_byteenable[0] => uav_byteenable[0].DATAIN
+av_byteenable[1] => uav_byteenable[1].DATAIN
+av_byteenable[2] => uav_byteenable[2].DATAIN
+av_byteenable[3] => uav_byteenable[3].DATAIN
+av_burstcount[0] => ~NO_FANOUT~
+av_writedata[0] => uav_writedata[0].DATAIN
+av_writedata[1] => uav_writedata[1].DATAIN
+av_writedata[2] => uav_writedata[2].DATAIN
+av_writedata[3] => uav_writedata[3].DATAIN
+av_writedata[4] => uav_writedata[4].DATAIN
+av_writedata[5] => uav_writedata[5].DATAIN
+av_writedata[6] => uav_writedata[6].DATAIN
+av_writedata[7] => uav_writedata[7].DATAIN
+av_writedata[8] => uav_writedata[8].DATAIN
+av_writedata[9] => uav_writedata[9].DATAIN
+av_writedata[10] => uav_writedata[10].DATAIN
+av_writedata[11] => uav_writedata[11].DATAIN
+av_writedata[12] => uav_writedata[12].DATAIN
+av_writedata[13] => uav_writedata[13].DATAIN
+av_writedata[14] => uav_writedata[14].DATAIN
+av_writedata[15] => uav_writedata[15].DATAIN
+av_writedata[16] => uav_writedata[16].DATAIN
+av_writedata[17] => uav_writedata[17].DATAIN
+av_writedata[18] => uav_writedata[18].DATAIN
+av_writedata[19] => uav_writedata[19].DATAIN
+av_writedata[20] => uav_writedata[20].DATAIN
+av_writedata[21] => uav_writedata[21].DATAIN
+av_writedata[22] => uav_writedata[22].DATAIN
+av_writedata[23] => uav_writedata[23].DATAIN
+av_writedata[24] => uav_writedata[24].DATAIN
+av_writedata[25] => uav_writedata[25].DATAIN
+av_writedata[26] => uav_writedata[26].DATAIN
+av_writedata[27] => uav_writedata[27].DATAIN
+av_writedata[28] => uav_writedata[28].DATAIN
+av_writedata[29] => uav_writedata[29].DATAIN
+av_writedata[30] => uav_writedata[30].DATAIN
+av_writedata[31] => uav_writedata[31].DATAIN
+av_begintransfer => ~NO_FANOUT~
+av_beginbursttransfer => ~NO_FANOUT~
+av_lock => uav_lock.DATAIN
+av_chipselect => ~NO_FANOUT~
+av_debugaccess => uav_debugaccess.DATAIN
+av_clken => uav_clken.DATAIN
+av_readdata[0] <= uav_readdata[0].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[1] <= uav_readdata[1].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[2] <= uav_readdata[2].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[3] <= uav_readdata[3].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[4] <= uav_readdata[4].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[5] <= uav_readdata[5].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[6] <= uav_readdata[6].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[7] <= uav_readdata[7].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[8] <= uav_readdata[8].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[9] <= uav_readdata[9].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[10] <= uav_readdata[10].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[11] <= uav_readdata[11].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[12] <= uav_readdata[12].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[13] <= uav_readdata[13].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[14] <= uav_readdata[14].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[15] <= uav_readdata[15].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[16] <= uav_readdata[16].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[17] <= uav_readdata[17].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[18] <= uav_readdata[18].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[19] <= uav_readdata[19].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[20] <= uav_readdata[20].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[21] <= uav_readdata[21].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[22] <= uav_readdata[22].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[23] <= uav_readdata[23].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[24] <= uav_readdata[24].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[25] <= uav_readdata[25].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[26] <= uav_readdata[26].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[27] <= uav_readdata[27].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[28] <= uav_readdata[28].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[29] <= uav_readdata[29].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[30] <= uav_readdata[30].DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[31] <= uav_readdata[31].DB_MAX_OUTPUT_PORT_TYPE
+av_readdatavalid <= uav_readdatavalid.DB_MAX_OUTPUT_PORT_TYPE
+av_waitrequest <= av_waitrequest.DB_MAX_OUTPUT_PORT_TYPE
+av_response[0] <= <GND>
+av_response[1] <= <GND>
+av_writeresponsevalid <= <GND>
+
+
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_slave_translator:audio_and_video_config_0_avalon_av_config_slave_translator
+clk => in_transfer.CLK
+clk => end_beginbursttransfer.CLK
+clk => end_begintransfer.CLK
+clk => av_chipselect_pre.CLK
+clk => av_outputenable_pre.CLK
+clk => read_latency_shift_reg[0].CLK
+clk => waitrequest_reset_override.CLK
+reset => in_transfer.ACLR
+reset => end_beginbursttransfer.ACLR
+reset => end_begintransfer.ACLR
+reset => av_chipselect_pre.ACLR
+reset => av_outputenable_pre.ACLR
+reset => read_latency_shift_reg[0].ACLR
+reset => waitrequest_reset_override.PRESET
+uav_address[0] => ~NO_FANOUT~
+uav_address[1] => ~NO_FANOUT~
+uav_address[2] => av_address[0].DATAIN
+uav_address[3] => av_address[1].DATAIN
+uav_writedata[0] => av_writedata[0].DATAIN
+uav_writedata[1] => av_writedata[1].DATAIN
+uav_writedata[2] => av_writedata[2].DATAIN
+uav_writedata[3] => av_writedata[3].DATAIN
+uav_writedata[4] => av_writedata[4].DATAIN
+uav_writedata[5] => av_writedata[5].DATAIN
+uav_writedata[6] => av_writedata[6].DATAIN
+uav_writedata[7] => av_writedata[7].DATAIN
+uav_writedata[8] => av_writedata[8].DATAIN
+uav_writedata[9] => av_writedata[9].DATAIN
+uav_writedata[10] => av_writedata[10].DATAIN
+uav_writedata[11] => av_writedata[11].DATAIN
+uav_writedata[12] => av_writedata[12].DATAIN
+uav_writedata[13] => av_writedata[13].DATAIN
+uav_writedata[14] => av_writedata[14].DATAIN
+uav_writedata[15] => av_writedata[15].DATAIN
+uav_writedata[16] => av_writedata[16].DATAIN
+uav_writedata[17] => av_writedata[17].DATAIN
+uav_writedata[18] => av_writedata[18].DATAIN
+uav_writedata[19] => av_writedata[19].DATAIN
+uav_writedata[20] => av_writedata[20].DATAIN
+uav_writedata[21] => av_writedata[21].DATAIN
+uav_writedata[22] => av_writedata[22].DATAIN
+uav_writedata[23] => av_writedata[23].DATAIN
+uav_writedata[24] => av_writedata[24].DATAIN
+uav_writedata[25] => av_writedata[25].DATAIN
+uav_writedata[26] => av_writedata[26].DATAIN
+uav_writedata[27] => av_writedata[27].DATAIN
+uav_writedata[28] => av_writedata[28].DATAIN
+uav_writedata[29] => av_writedata[29].DATAIN
+uav_writedata[30] => av_writedata[30].DATAIN
+uav_writedata[31] => av_writedata[31].DATAIN
+uav_write => av_writebyteenable.IN0
+uav_write => av_writebyteenable.IN0
+uav_write => av_writebyteenable.IN0
+uav_write => av_writebyteenable.IN0
+uav_write => av_begintransfer.IN0
+uav_write => end_beginbursttransfer.IN1
+uav_write => always21.IN1
+uav_write => in_transfer.OUTPUTSELECT
+uav_write => av_write.DATAIN
+uav_read => read_latency_shift_reg.IN1
+uav_read => av_outputenable.OUTPUTSELECT
+uav_read => av_begintransfer.IN1
+uav_read => av_beginbursttransfer.OUTPUTSELECT
+uav_read => av_read.DATAIN
+uav_read => av_outputenable_pre.DATAIN
+uav_burstcount[0] => Equal0.IN2
+uav_burstcount[1] => Equal0.IN1
+uav_burstcount[2] => av_burstcount[0].DATAIN
+uav_burstcount[2] => Equal0.IN0
+uav_byteenable[0] => av_writebyteenable.IN1
+uav_byteenable[0] => av_byteenable[0].DATAIN
+uav_byteenable[1] => av_writebyteenable.IN1
+uav_byteenable[1] => av_byteenable[1].DATAIN
+uav_byteenable[2] => av_writebyteenable.IN1
+uav_byteenable[2] => av_byteenable[2].DATAIN
+uav_byteenable[3] => av_writebyteenable.IN1
+uav_byteenable[3] => av_byteenable[3].DATAIN
+uav_lock => av_lock.DATAIN
+uav_debugaccess => av_debugaccess.DATAIN
+uav_clken => ~NO_FANOUT~
+uav_readdatavalid <= read_latency_shift_reg[0].DB_MAX_OUTPUT_PORT_TYPE
+uav_waitrequest <= av_waitrequest.DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[0] <= av_readdata[0].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[1] <= av_readdata[1].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[2] <= av_readdata[2].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[3] <= av_readdata[3].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[4] <= av_readdata[4].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[5] <= av_readdata[5].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[6] <= av_readdata[6].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[7] <= av_readdata[7].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[8] <= av_readdata[8].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[9] <= av_readdata[9].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[10] <= av_readdata[10].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[11] <= av_readdata[11].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[12] <= av_readdata[12].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[13] <= av_readdata[13].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[14] <= av_readdata[14].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[15] <= av_readdata[15].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[16] <= av_readdata[16].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[17] <= av_readdata[17].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[18] <= av_readdata[18].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[19] <= av_readdata[19].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[20] <= av_readdata[20].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[21] <= av_readdata[21].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[22] <= av_readdata[22].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[23] <= av_readdata[23].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[24] <= av_readdata[24].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[25] <= av_readdata[25].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[26] <= av_readdata[26].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[27] <= av_readdata[27].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[28] <= av_readdata[28].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[29] <= av_readdata[29].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[30] <= av_readdata[30].DB_MAX_OUTPUT_PORT_TYPE
+uav_readdata[31] <= av_readdata[31].DB_MAX_OUTPUT_PORT_TYPE
+uav_response[0] <= <GND>
+uav_response[1] <= <GND>
+uav_writeresponsevalid <= av_writeresponsevalid.DB_MAX_OUTPUT_PORT_TYPE
+av_address[0] <= uav_address[2].DB_MAX_OUTPUT_PORT_TYPE
+av_address[1] <= uav_address[3].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[0] <= uav_writedata[0].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[1] <= uav_writedata[1].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[2] <= uav_writedata[2].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[3] <= uav_writedata[3].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[4] <= uav_writedata[4].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[5] <= uav_writedata[5].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[6] <= uav_writedata[6].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[7] <= uav_writedata[7].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[8] <= uav_writedata[8].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[9] <= uav_writedata[9].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[10] <= uav_writedata[10].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[11] <= uav_writedata[11].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[12] <= uav_writedata[12].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[13] <= uav_writedata[13].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[14] <= uav_writedata[14].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[15] <= uav_writedata[15].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[16] <= uav_writedata[16].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[17] <= uav_writedata[17].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[18] <= uav_writedata[18].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[19] <= uav_writedata[19].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[20] <= uav_writedata[20].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[21] <= uav_writedata[21].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[22] <= uav_writedata[22].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[23] <= uav_writedata[23].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[24] <= uav_writedata[24].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[25] <= uav_writedata[25].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[26] <= uav_writedata[26].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[27] <= uav_writedata[27].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[28] <= uav_writedata[28].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[29] <= uav_writedata[29].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[30] <= uav_writedata[30].DB_MAX_OUTPUT_PORT_TYPE
+av_writedata[31] <= uav_writedata[31].DB_MAX_OUTPUT_PORT_TYPE
+av_write <= uav_write.DB_MAX_OUTPUT_PORT_TYPE
+av_read <= uav_read.DB_MAX_OUTPUT_PORT_TYPE
+av_burstcount[0] <= uav_burstcount[2].DB_MAX_OUTPUT_PORT_TYPE
+av_byteenable[0] <= uav_byteenable[0].DB_MAX_OUTPUT_PORT_TYPE
+av_byteenable[1] <= uav_byteenable[1].DB_MAX_OUTPUT_PORT_TYPE
+av_byteenable[2] <= uav_byteenable[2].DB_MAX_OUTPUT_PORT_TYPE
+av_byteenable[3] <= uav_byteenable[3].DB_MAX_OUTPUT_PORT_TYPE
+av_writebyteenable[0] <= av_writebyteenable.DB_MAX_OUTPUT_PORT_TYPE
+av_writebyteenable[1] <= av_writebyteenable.DB_MAX_OUTPUT_PORT_TYPE
+av_writebyteenable[2] <= av_writebyteenable.DB_MAX_OUTPUT_PORT_TYPE
+av_writebyteenable[3] <= av_writebyteenable.DB_MAX_OUTPUT_PORT_TYPE
+av_begintransfer <= av_begintransfer.DB_MAX_OUTPUT_PORT_TYPE
+av_chipselect <= av_chipselect.DB_MAX_OUTPUT_PORT_TYPE
+av_beginbursttransfer <= av_beginbursttransfer.DB_MAX_OUTPUT_PORT_TYPE
+av_lock <= uav_lock.DB_MAX_OUTPUT_PORT_TYPE
+av_clken <= <VCC>
+av_debugaccess <= uav_debugaccess.DB_MAX_OUTPUT_PORT_TYPE
+av_outputenable <= av_outputenable.DB_MAX_OUTPUT_PORT_TYPE
+av_readdata[0] => uav_readdata[0].DATAIN
+av_readdata[1] => uav_readdata[1].DATAIN
+av_readdata[2] => uav_readdata[2].DATAIN
+av_readdata[3] => uav_readdata[3].DATAIN
+av_readdata[4] => uav_readdata[4].DATAIN
+av_readdata[5] => uav_readdata[5].DATAIN
+av_readdata[6] => uav_readdata[6].DATAIN
+av_readdata[7] => uav_readdata[7].DATAIN
+av_readdata[8] => uav_readdata[8].DATAIN
+av_readdata[9] => uav_readdata[9].DATAIN
+av_readdata[10] => uav_readdata[10].DATAIN
+av_readdata[11] => uav_readdata[11].DATAIN
+av_readdata[12] => uav_readdata[12].DATAIN
+av_readdata[13] => uav_readdata[13].DATAIN
+av_readdata[14] => uav_readdata[14].DATAIN
+av_readdata[15] => uav_readdata[15].DATAIN
+av_readdata[16] => uav_readdata[16].DATAIN
+av_readdata[17] => uav_readdata[17].DATAIN
+av_readdata[18] => uav_readdata[18].DATAIN
+av_readdata[19] => uav_readdata[19].DATAIN
+av_readdata[20] => uav_readdata[20].DATAIN
+av_readdata[21] => uav_readdata[21].DATAIN
+av_readdata[22] => uav_readdata[22].DATAIN
+av_readdata[23] => uav_readdata[23].DATAIN
+av_readdata[24] => uav_readdata[24].DATAIN
+av_readdata[25] => uav_readdata[25].DATAIN
+av_readdata[26] => uav_readdata[26].DATAIN
+av_readdata[27] => uav_readdata[27].DATAIN
+av_readdata[28] => uav_readdata[28].DATAIN
+av_readdata[29] => uav_readdata[29].DATAIN
+av_readdata[30] => uav_readdata[30].DATAIN
+av_readdata[31] => uav_readdata[31].DATAIN
+av_readdatavalid => ~NO_FANOUT~
+av_waitrequest => always19.IN1
+av_waitrequest => end_begintransfer.OUTPUTSELECT
+av_waitrequest => uav_waitrequest.DATAIN
+av_waitrequest => read_latency_shift_reg.IN1
+av_response[0] => ~NO_FANOUT~
+av_response[1] => ~NO_FANOUT~
+av_writeresponsevalid => uav_writeresponsevalid.DATAIN
+
+
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1
 hps_0_h2f_lw_axi_master_awid[0] => hps_0_h2f_lw_axi_master_awid[0].IN1
 hps_0_h2f_lw_axi_master_awid[1] => hps_0_h2f_lw_axi_master_awid[1].IN1
 hps_0_h2f_lw_axi_master_awid[2] => hps_0_h2f_lw_axi_master_awid[2].IN1
@@ -15953,23 +16427,23 @@ hps_0_h2f_lw_axi_master_rvalid <= altera_merlin_axi_master_ni:hps_0_h2f_lw_axi_m
 hps_0_h2f_lw_axi_master_rready => hps_0_h2f_lw_axi_master_rready.IN1
 clk_0_clk_clk => clk_0_clk_clk.IN18
 hps_0_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset_reset => hps_0_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset_reset.IN6
-vga_ball_0_reset_reset_bridge_in_reset_reset => vga_ball_0_reset_reset_bridge_in_reset_reset.IN11
-vga_ball_0_avalon_slave_0_address[0] <= altera_merlin_slave_translator:vga_ball_0_avalon_slave_0_translator.av_address
-vga_ball_0_avalon_slave_0_address[1] <= altera_merlin_slave_translator:vga_ball_0_avalon_slave_0_translator.av_address
-vga_ball_0_avalon_slave_0_address[2] <= altera_merlin_slave_translator:vga_ball_0_avalon_slave_0_translator.av_address
-vga_ball_0_avalon_slave_0_write <= altera_merlin_slave_translator:vga_ball_0_avalon_slave_0_translator.av_write
-vga_ball_0_avalon_slave_0_writedata[0] <= altera_merlin_slave_translator:vga_ball_0_avalon_slave_0_translator.av_writedata
-vga_ball_0_avalon_slave_0_writedata[1] <= altera_merlin_slave_translator:vga_ball_0_avalon_slave_0_translator.av_writedata
-vga_ball_0_avalon_slave_0_writedata[2] <= altera_merlin_slave_translator:vga_ball_0_avalon_slave_0_translator.av_writedata
-vga_ball_0_avalon_slave_0_writedata[3] <= altera_merlin_slave_translator:vga_ball_0_avalon_slave_0_translator.av_writedata
-vga_ball_0_avalon_slave_0_writedata[4] <= altera_merlin_slave_translator:vga_ball_0_avalon_slave_0_translator.av_writedata
-vga_ball_0_avalon_slave_0_writedata[5] <= altera_merlin_slave_translator:vga_ball_0_avalon_slave_0_translator.av_writedata
-vga_ball_0_avalon_slave_0_writedata[6] <= altera_merlin_slave_translator:vga_ball_0_avalon_slave_0_translator.av_writedata
-vga_ball_0_avalon_slave_0_writedata[7] <= altera_merlin_slave_translator:vga_ball_0_avalon_slave_0_translator.av_writedata
-vga_ball_0_avalon_slave_0_chipselect <= altera_merlin_slave_translator:vga_ball_0_avalon_slave_0_translator.av_chipselect
+software_interface_0_reset_reset_bridge_in_reset_reset => software_interface_0_reset_reset_bridge_in_reset_reset.IN11
+software_interface_0_avalon_slave_address[0] <= altera_merlin_slave_translator:software_interface_0_avalon_slave_translator.av_address
+software_interface_0_avalon_slave_address[1] <= altera_merlin_slave_translator:software_interface_0_avalon_slave_translator.av_address
+software_interface_0_avalon_slave_address[2] <= altera_merlin_slave_translator:software_interface_0_avalon_slave_translator.av_address
+software_interface_0_avalon_slave_write <= altera_merlin_slave_translator:software_interface_0_avalon_slave_translator.av_write
+software_interface_0_avalon_slave_writedata[0] <= altera_merlin_slave_translator:software_interface_0_avalon_slave_translator.av_writedata
+software_interface_0_avalon_slave_writedata[1] <= altera_merlin_slave_translator:software_interface_0_avalon_slave_translator.av_writedata
+software_interface_0_avalon_slave_writedata[2] <= altera_merlin_slave_translator:software_interface_0_avalon_slave_translator.av_writedata
+software_interface_0_avalon_slave_writedata[3] <= altera_merlin_slave_translator:software_interface_0_avalon_slave_translator.av_writedata
+software_interface_0_avalon_slave_writedata[4] <= altera_merlin_slave_translator:software_interface_0_avalon_slave_translator.av_writedata
+software_interface_0_avalon_slave_writedata[5] <= altera_merlin_slave_translator:software_interface_0_avalon_slave_translator.av_writedata
+software_interface_0_avalon_slave_writedata[6] <= altera_merlin_slave_translator:software_interface_0_avalon_slave_translator.av_writedata
+software_interface_0_avalon_slave_writedata[7] <= altera_merlin_slave_translator:software_interface_0_avalon_slave_translator.av_writedata
+software_interface_0_avalon_slave_chipselect <= altera_merlin_slave_translator:software_interface_0_avalon_slave_translator.av_chipselect
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_slave_translator:vga_ball_0_avalon_slave_0_translator
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_slave_translator:software_interface_0_avalon_slave_translator
 clk => in_transfer.CLK
 clk => end_beginbursttransfer.CLK
 clk => end_begintransfer.CLK
@@ -16104,7 +16578,7 @@ av_response[1] => ~NO_FANOUT~
 av_writeresponsevalid => uav_writeresponsevalid.DATAIN
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_axi_master_ni:hps_0_h2f_lw_axi_master_agent
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_axi_master_ni:hps_0_h2f_lw_axi_master_agent
 aclk => aclk.IN1
 aresetn => aresetn.IN1
 awid[0] => write_cp_data[88].DATAIN
@@ -16839,7 +17313,7 @@ read_rp_endofpacket => rlast.DATAIN
 read_rp_ready <= rready.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_axi_master_ni:hps_0_h2f_lw_axi_master_agent|altera_merlin_address_alignment:align_address_to_size
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_axi_master_ni:hps_0_h2f_lw_axi_master_agent|altera_merlin_address_alignment:align_address_to_size
 clk => address_burst[0].CLK
 clk => address_burst[1].CLK
 clk => address_burst[2].CLK
@@ -17021,7 +17495,7 @@ out_data[22] <= LessThan1.DB_MAX_OUTPUT_PORT_TYPE
 out_ready => always2.IN1
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_slave_agent:vga_ball_0_avalon_slave_0_agent
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_slave_agent:software_interface_0_avalon_slave_agent
 clk => clk.IN1
 reset => reset.IN1
 m0_address[0] <= cp_data[9].DB_MAX_OUTPUT_PORT_TYPE
@@ -17508,7 +17982,7 @@ rp_startofpacket <= altera_merlin_burst_uncompressor:uncompressor.source_startof
 rp_endofpacket <= altera_merlin_burst_uncompressor:uncompressor.source_endofpacket
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_slave_agent:vga_ball_0_avalon_slave_0_agent|altera_merlin_burst_uncompressor:uncompressor
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_slave_agent:software_interface_0_avalon_slave_agent|altera_merlin_burst_uncompressor:uncompressor
 clk => burst_uncompress_address_offset[0].CLK
 clk => burst_uncompress_address_offset[1].CLK
 clk => burst_uncompress_address_offset[2].CLK
@@ -17806,7 +18280,7 @@ source_burstsize[1] <= sink_burstsize[1].DB_MAX_OUTPUT_PORT_TYPE
 source_burstsize[2] <= sink_burstsize[2].DB_MAX_OUTPUT_PORT_TYPE
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_avalon_sc_fifo:vga_ball_0_avalon_slave_0_agent_rsp_fifo
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_avalon_sc_fifo:software_interface_0_avalon_slave_agent_rsp_fifo
 clk => csr_readdata[0]~reg0.CLK
 clk => csr_readdata[1]~reg0.CLK
 clk => csr_readdata[2]~reg0.CLK
@@ -18517,7 +18991,7 @@ almost_full_data <= <GND>
 almost_empty_data <= <GND>
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_avalon_sc_fifo:vga_ball_0_avalon_slave_0_agent_rdata_fifo
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_avalon_sc_fifo:software_interface_0_avalon_slave_agent_rdata_fifo
 clk => csr_readdata[0]~reg0.CLK
 clk => csr_readdata[1]~reg0.CLK
 clk => csr_readdata[2]~reg0.CLK
@@ -18776,7 +19250,7 @@ almost_full_data <= <GND>
 almost_empty_data <= <GND>
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|soc_system_mm_interconnect_0_router:router
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|soc_system_mm_interconnect_1_router:router
 clk => ~NO_FANOUT~
 reset => ~NO_FANOUT~
 sink_valid => src_valid.DATAIN
@@ -19018,7 +19492,7 @@ src_endofpacket <= sink_endofpacket.DB_MAX_OUTPUT_PORT_TYPE
 src_ready => sink_ready.DATAIN
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|soc_system_mm_interconnect_0_router:router|soc_system_mm_interconnect_0_router_default_decode:the_default_decode
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|soc_system_mm_interconnect_1_router:router|soc_system_mm_interconnect_1_router_default_decode:the_default_decode
 default_destination_id[0] <= <GND>
 default_wr_channel[0] <= <GND>
 default_wr_channel[1] <= <GND>
@@ -19028,7 +19502,7 @@ default_src_channel[0] <= <VCC>
 default_src_channel[1] <= <GND>
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|soc_system_mm_interconnect_0_router:router_001
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|soc_system_mm_interconnect_1_router:router_001
 clk => ~NO_FANOUT~
 reset => ~NO_FANOUT~
 sink_valid => src_valid.DATAIN
@@ -19270,7 +19744,7 @@ src_endofpacket <= sink_endofpacket.DB_MAX_OUTPUT_PORT_TYPE
 src_ready => sink_ready.DATAIN
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|soc_system_mm_interconnect_0_router:router_001|soc_system_mm_interconnect_0_router_default_decode:the_default_decode
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|soc_system_mm_interconnect_1_router:router_001|soc_system_mm_interconnect_1_router_default_decode:the_default_decode
 default_destination_id[0] <= <GND>
 default_wr_channel[0] <= <GND>
 default_wr_channel[1] <= <GND>
@@ -19280,7 +19754,7 @@ default_src_channel[0] <= <VCC>
 default_src_channel[1] <= <GND>
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|soc_system_mm_interconnect_0_router_002:router_002
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|soc_system_mm_interconnect_1_router_002:router_002
 clk => ~NO_FANOUT~
 reset => ~NO_FANOUT~
 sink_valid => src_valid.DATAIN
@@ -19471,7 +19945,7 @@ src_endofpacket <= sink_endofpacket.DB_MAX_OUTPUT_PORT_TYPE
 src_ready => sink_ready.DATAIN
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|soc_system_mm_interconnect_0_router_002:router_002|soc_system_mm_interconnect_0_router_002_default_decode:the_default_decode
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|soc_system_mm_interconnect_1_router_002:router_002|soc_system_mm_interconnect_1_router_002_default_decode:the_default_decode
 default_destination_id[0] <= <GND>
 default_wr_channel[0] <= <VCC>
 default_wr_channel[1] <= <GND>
@@ -19481,7 +19955,7 @@ default_src_channel[0] <= <GND>
 default_src_channel[1] <= <GND>
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_burst_adapter:vga_ball_0_avalon_slave_0_burst_adapter
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:software_interface_0_avalon_slave_burst_adapter
 clk => clk.IN1
 reset => reset.IN1
 sink0_valid => sink0_valid.IN1
@@ -19668,7 +20142,7 @@ source0_endofpacket <= altera_merlin_burst_adapter_13_1:altera_merlin_burst_adap
 source0_ready => source0_ready.IN1
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_burst_adapter:vga_ball_0_avalon_slave_0_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:software_interface_0_avalon_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter
 clk => clk.IN1
 reset => reset.IN1
 sink0_valid => in_valid.IN1
@@ -19891,7 +20365,7 @@ source0_ready => nxt_out_eop.OUTPUTSELECT
 source0_ready => nxt_uncomp_subburst_byte_cnt.IN1
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_burst_adapter:vga_ball_0_avalon_slave_0_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_address_alignment:align_address_to_size
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:software_interface_0_avalon_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_address_alignment:align_address_to_size
 clk => ~NO_FANOUT~
 reset => ~NO_FANOUT~
 in_data[0] => ~NO_FANOUT~
@@ -19945,7 +20419,7 @@ out_data[20] <= in_data[23].DB_MAX_OUTPUT_PORT_TYPE
 out_ready => ~NO_FANOUT~
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_burst_adapter:vga_ball_0_avalon_slave_0_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_burstwrap_increment:the_burstwrap_increment
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:software_interface_0_avalon_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_burstwrap_increment:the_burstwrap_increment
 mask[0] => inc.IN0
 mask[0] => inc[0].DATAIN
 mask[1] => inc.IN0
@@ -19968,7 +20442,7 @@ inc[5] <= inc.DB_MAX_OUTPUT_PORT_TYPE
 inc[6] <= inc.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_burst_adapter:vga_ball_0_avalon_slave_0_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:software_interface_0_avalon_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min
 clk => ~NO_FANOUT~
 reset => ~NO_FANOUT~
 a[0] => a_reg[0].IN3
@@ -20010,7 +20484,7 @@ result[5] <= Selector1.DB_MAX_OUTPUT_PORT_TYPE
 result[6] <= Selector0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_burst_adapter:vga_ball_0_avalon_slave_0_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min|altera_merlin_burst_adapter_subtractor:ab_sub
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:software_interface_0_avalon_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min|altera_merlin_burst_adapter_subtractor:ab_sub
 a[0] => a[0].IN1
 a[1] => a[1].IN1
 a[2] => a[2].IN1
@@ -20037,7 +20511,7 @@ diff[6] <= altera_merlin_burst_adapter_adder:subtract.sum
 diff[7] <= altera_merlin_burst_adapter_adder:subtract.sum
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_burst_adapter:vga_ball_0_avalon_slave_0_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min|altera_merlin_burst_adapter_subtractor:ab_sub|altera_merlin_burst_adapter_adder:subtract
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:software_interface_0_avalon_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min|altera_merlin_burst_adapter_subtractor:ab_sub|altera_merlin_burst_adapter_adder:subtract
 cin => sum.IN1
 cin => carry.IN0
 cin => carry.IN0
@@ -20095,7 +20569,7 @@ sum[6] <= sum.DB_MAX_OUTPUT_PORT_TYPE
 sum[7] <= sum.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_burst_adapter:vga_ball_0_avalon_slave_0_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min|altera_merlin_burst_adapter_subtractor:ac_sub
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:software_interface_0_avalon_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min|altera_merlin_burst_adapter_subtractor:ac_sub
 a[0] => a[0].IN1
 a[1] => a[1].IN1
 a[2] => a[2].IN1
@@ -20122,7 +20596,7 @@ diff[6] <= altera_merlin_burst_adapter_adder:subtract.sum
 diff[7] <= altera_merlin_burst_adapter_adder:subtract.sum
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_burst_adapter:vga_ball_0_avalon_slave_0_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min|altera_merlin_burst_adapter_subtractor:ac_sub|altera_merlin_burst_adapter_adder:subtract
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:software_interface_0_avalon_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min|altera_merlin_burst_adapter_subtractor:ac_sub|altera_merlin_burst_adapter_adder:subtract
 cin => sum.IN1
 cin => carry.IN0
 cin => carry.IN0
@@ -20180,7 +20654,7 @@ sum[6] <= sum.DB_MAX_OUTPUT_PORT_TYPE
 sum[7] <= sum.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_burst_adapter:vga_ball_0_avalon_slave_0_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min|altera_merlin_burst_adapter_subtractor:bc_sub
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:software_interface_0_avalon_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min|altera_merlin_burst_adapter_subtractor:bc_sub
 a[0] => a[0].IN1
 a[1] => a[1].IN1
 a[2] => a[2].IN1
@@ -20207,7 +20681,7 @@ diff[6] <= altera_merlin_burst_adapter_adder:subtract.sum
 diff[7] <= altera_merlin_burst_adapter_adder:subtract.sum
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_burst_adapter:vga_ball_0_avalon_slave_0_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min|altera_merlin_burst_adapter_subtractor:bc_sub|altera_merlin_burst_adapter_adder:subtract
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:software_interface_0_avalon_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min|altera_merlin_burst_adapter_subtractor:bc_sub|altera_merlin_burst_adapter_adder:subtract
 cin => sum.IN1
 cin => carry.IN0
 cin => carry.IN0
@@ -20265,7 +20739,7 @@ sum[6] <= sum.DB_MAX_OUTPUT_PORT_TYPE
 sum[7] <= sum.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_burst_adapter:vga_ball_0_avalon_slave_0_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min|altera_merlin_burst_adapter_subtractor:da_sub
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:software_interface_0_avalon_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min|altera_merlin_burst_adapter_subtractor:da_sub
 a[0] => a[0].IN1
 a[1] => a[1].IN1
 a[2] => a[2].IN1
@@ -20292,7 +20766,7 @@ diff[6] <= altera_merlin_burst_adapter_adder:subtract.sum
 diff[7] <= altera_merlin_burst_adapter_adder:subtract.sum
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_burst_adapter:vga_ball_0_avalon_slave_0_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min|altera_merlin_burst_adapter_subtractor:da_sub|altera_merlin_burst_adapter_adder:subtract
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:software_interface_0_avalon_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min|altera_merlin_burst_adapter_subtractor:da_sub|altera_merlin_burst_adapter_adder:subtract
 cin => sum.IN1
 cin => carry.IN0
 cin => carry.IN0
@@ -20350,7 +20824,7 @@ sum[6] <= sum.DB_MAX_OUTPUT_PORT_TYPE
 sum[7] <= sum.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_burst_adapter:vga_ball_0_avalon_slave_0_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min|altera_merlin_burst_adapter_subtractor:db_sub
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:software_interface_0_avalon_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min|altera_merlin_burst_adapter_subtractor:db_sub
 a[0] => a[0].IN1
 a[1] => a[1].IN1
 a[2] => a[2].IN1
@@ -20377,7 +20851,7 @@ diff[6] <= altera_merlin_burst_adapter_adder:subtract.sum
 diff[7] <= altera_merlin_burst_adapter_adder:subtract.sum
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_burst_adapter:vga_ball_0_avalon_slave_0_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min|altera_merlin_burst_adapter_subtractor:db_sub|altera_merlin_burst_adapter_adder:subtract
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:software_interface_0_avalon_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min|altera_merlin_burst_adapter_subtractor:db_sub|altera_merlin_burst_adapter_adder:subtract
 cin => sum.IN1
 cin => carry.IN0
 cin => carry.IN0
@@ -20435,7 +20909,7 @@ sum[6] <= sum.DB_MAX_OUTPUT_PORT_TYPE
 sum[7] <= sum.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_burst_adapter:vga_ball_0_avalon_slave_0_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min|altera_merlin_burst_adapter_subtractor:dc_sub
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:software_interface_0_avalon_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min|altera_merlin_burst_adapter_subtractor:dc_sub
 a[0] => a[0].IN1
 a[1] => a[1].IN1
 a[2] => a[2].IN1
@@ -20462,7 +20936,7 @@ diff[6] <= altera_merlin_burst_adapter_adder:subtract.sum
 diff[7] <= altera_merlin_burst_adapter_adder:subtract.sum
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_burst_adapter:vga_ball_0_avalon_slave_0_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min|altera_merlin_burst_adapter_subtractor:dc_sub|altera_merlin_burst_adapter_adder:subtract
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:software_interface_0_avalon_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|altera_merlin_burst_adapter_min:the_min|altera_merlin_burst_adapter_subtractor:dc_sub|altera_merlin_burst_adapter_adder:subtract
 cin => sum.IN1
 cin => carry.IN0
 cin => carry.IN0
@@ -20520,7 +20994,7 @@ sum[6] <= sum.DB_MAX_OUTPUT_PORT_TYPE
 sum[7] <= sum.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|soc_system_mm_interconnect_0_cmd_demux:cmd_demux
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|soc_system_mm_interconnect_1_cmd_demux:cmd_demux
 sink_valid[0] => src0_valid.IN0
 sink_data[0] => src0_data[0].DATAIN
 sink_data[1] => src0_data[1].DATAIN
@@ -20762,7 +21236,7 @@ clk => ~NO_FANOUT~
 reset => ~NO_FANOUT~
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|soc_system_mm_interconnect_0_cmd_demux:cmd_demux_001
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|soc_system_mm_interconnect_1_cmd_demux:cmd_demux_001
 sink_valid[0] => src0_valid.IN0
 sink_data[0] => src0_data[0].DATAIN
 sink_data[1] => src0_data[1].DATAIN
@@ -21004,7 +21478,7 @@ clk => ~NO_FANOUT~
 reset => ~NO_FANOUT~
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|soc_system_mm_interconnect_0_cmd_mux:cmd_mux
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|soc_system_mm_interconnect_1_cmd_mux:cmd_mux
 sink0_valid => request.IN1
 sink0_valid => src_valid.IN1
 sink0_data[0] => src_payload.IN1
@@ -21369,7 +21843,7 @@ clk => clk.IN1
 reset => reset.IN1
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|soc_system_mm_interconnect_0_cmd_mux:cmd_mux|altera_merlin_arbitrator:arb
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|soc_system_mm_interconnect_1_cmd_mux:cmd_mux|altera_merlin_arbitrator:arb
 clk => top_priority_reg[0].CLK
 clk => top_priority_reg[1].CLK
 reset => top_priority_reg[0].PRESET
@@ -21391,7 +21865,7 @@ increment_top_priority => top_priority_reg.OUTPUTSELECT
 save_top_priority => ~NO_FANOUT~
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|soc_system_mm_interconnect_0_cmd_mux:cmd_mux|altera_merlin_arbitrator:arb|altera_merlin_arb_adder:adder
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|soc_system_mm_interconnect_1_cmd_mux:cmd_mux|altera_merlin_arbitrator:arb|altera_merlin_arb_adder:adder
 a[0] => sum.IN0
 a[0] => full_adder.cout[0].IN0
 a[1] => cout.IN0
@@ -21412,7 +21886,7 @@ sum[2] <= sum.DB_MAX_OUTPUT_PORT_TYPE
 sum[3] <= sum.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|soc_system_mm_interconnect_0_rsp_demux:rsp_demux
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|soc_system_mm_interconnect_1_rsp_demux:rsp_demux
 sink_valid[0] => src0_valid.IN0
 sink_valid[0] => src1_valid.IN0
 sink_data[0] => src1_data[0].DATAIN
@@ -21888,7 +22362,7 @@ clk => ~NO_FANOUT~
 reset => ~NO_FANOUT~
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|soc_system_mm_interconnect_0_rsp_mux:rsp_mux
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|soc_system_mm_interconnect_1_rsp_mux:rsp_mux
 sink0_valid => src_valid.DATAIN
 sink0_data[0] => src_data[0].DATAIN
 sink0_data[1] => src_data[1].DATAIN
@@ -22129,7 +22603,7 @@ clk => ~NO_FANOUT~
 reset => ~NO_FANOUT~
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|soc_system_mm_interconnect_0_rsp_mux:rsp_mux_001
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|soc_system_mm_interconnect_1_rsp_mux:rsp_mux_001
 sink0_valid => src_valid.DATAIN
 sink0_data[0] => src_data[0].DATAIN
 sink0_data[1] => src_data[1].DATAIN
@@ -22370,7 +22844,7 @@ clk => ~NO_FANOUT~
 reset => ~NO_FANOUT~
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_width_adapter:vga_ball_0_avalon_slave_0_rsp_width_adapter
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_width_adapter:software_interface_0_avalon_slave_rsp_width_adapter
 clk => clk.IN1
 reset => reset.IN1
 in_ready <= in_ready.DB_MAX_OUTPUT_PORT_TYPE
@@ -22600,7 +23074,7 @@ in_command_size_data[1] => ~NO_FANOUT~
 in_command_size_data[2] => ~NO_FANOUT~
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_width_adapter:vga_ball_0_avalon_slave_0_rsp_width_adapter|altera_merlin_burst_uncompressor:uncompressor
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_width_adapter:software_interface_0_avalon_slave_rsp_width_adapter|altera_merlin_burst_uncompressor:uncompressor
 clk => burst_uncompress_address_offset[0].CLK
 clk => burst_uncompress_address_offset[1].CLK
 clk => burst_uncompress_address_offset[2].CLK
@@ -22898,7 +23372,7 @@ source_burstsize[1] <= sink_burstsize[1].DB_MAX_OUTPUT_PORT_TYPE
 source_burstsize[2] <= sink_burstsize[2].DB_MAX_OUTPUT_PORT_TYPE
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_width_adapter:vga_ball_0_avalon_slave_0_cmd_width_adapter
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_width_adapter:software_interface_0_avalon_slave_cmd_width_adapter
 clk => clk.IN1
 reset => reset.IN1
 in_ready <= in_ready.DB_MAX_OUTPUT_PORT_TYPE
@@ -23156,7 +23630,7 @@ in_command_size_data[1] => ~NO_FANOUT~
 in_command_size_data[2] => ~NO_FANOUT~
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|altera_merlin_width_adapter:vga_ball_0_avalon_slave_0_cmd_width_adapter|altera_merlin_address_alignment:check_and_align_address_to_size
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_width_adapter:software_interface_0_avalon_slave_cmd_width_adapter|altera_merlin_address_alignment:check_and_align_address_to_size
 clk => ~NO_FANOUT~
 reset => ~NO_FANOUT~
 in_data[0] => LessThan0.IN6
@@ -23223,7 +23697,7 @@ out_data[22] <= LessThan1.DB_MAX_OUTPUT_PORT_TYPE
 out_ready => ~NO_FANOUT~
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|soc_system_mm_interconnect_0_avalon_st_adapter:avalon_st_adapter
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|soc_system_mm_interconnect_1_avalon_st_adapter:avalon_st_adapter
 in_clk_0_clk => in_clk_0_clk.IN1
 in_rst_0_reset => _.IN1
 in_0_data[0] => in_0_data[0].IN1
@@ -23237,23 +23711,23 @@ in_0_data[7] => in_0_data[7].IN1
 in_0_data[8] => in_0_data[8].IN1
 in_0_data[9] => in_0_data[9].IN1
 in_0_valid => in_0_valid.IN1
-in_0_ready <= soc_system_mm_interconnect_0_avalon_st_adapter_error_adapter_0:error_adapter_0.in_ready
-out_0_data[0] <= soc_system_mm_interconnect_0_avalon_st_adapter_error_adapter_0:error_adapter_0.out_data
-out_0_data[1] <= soc_system_mm_interconnect_0_avalon_st_adapter_error_adapter_0:error_adapter_0.out_data
-out_0_data[2] <= soc_system_mm_interconnect_0_avalon_st_adapter_error_adapter_0:error_adapter_0.out_data
-out_0_data[3] <= soc_system_mm_interconnect_0_avalon_st_adapter_error_adapter_0:error_adapter_0.out_data
-out_0_data[4] <= soc_system_mm_interconnect_0_avalon_st_adapter_error_adapter_0:error_adapter_0.out_data
-out_0_data[5] <= soc_system_mm_interconnect_0_avalon_st_adapter_error_adapter_0:error_adapter_0.out_data
-out_0_data[6] <= soc_system_mm_interconnect_0_avalon_st_adapter_error_adapter_0:error_adapter_0.out_data
-out_0_data[7] <= soc_system_mm_interconnect_0_avalon_st_adapter_error_adapter_0:error_adapter_0.out_data
-out_0_data[8] <= soc_system_mm_interconnect_0_avalon_st_adapter_error_adapter_0:error_adapter_0.out_data
-out_0_data[9] <= soc_system_mm_interconnect_0_avalon_st_adapter_error_adapter_0:error_adapter_0.out_data
-out_0_valid <= soc_system_mm_interconnect_0_avalon_st_adapter_error_adapter_0:error_adapter_0.out_valid
+in_0_ready <= soc_system_mm_interconnect_1_avalon_st_adapter_error_adapter_0:error_adapter_0.in_ready
+out_0_data[0] <= soc_system_mm_interconnect_1_avalon_st_adapter_error_adapter_0:error_adapter_0.out_data
+out_0_data[1] <= soc_system_mm_interconnect_1_avalon_st_adapter_error_adapter_0:error_adapter_0.out_data
+out_0_data[2] <= soc_system_mm_interconnect_1_avalon_st_adapter_error_adapter_0:error_adapter_0.out_data
+out_0_data[3] <= soc_system_mm_interconnect_1_avalon_st_adapter_error_adapter_0:error_adapter_0.out_data
+out_0_data[4] <= soc_system_mm_interconnect_1_avalon_st_adapter_error_adapter_0:error_adapter_0.out_data
+out_0_data[5] <= soc_system_mm_interconnect_1_avalon_st_adapter_error_adapter_0:error_adapter_0.out_data
+out_0_data[6] <= soc_system_mm_interconnect_1_avalon_st_adapter_error_adapter_0:error_adapter_0.out_data
+out_0_data[7] <= soc_system_mm_interconnect_1_avalon_st_adapter_error_adapter_0:error_adapter_0.out_data
+out_0_data[8] <= soc_system_mm_interconnect_1_avalon_st_adapter_error_adapter_0:error_adapter_0.out_data
+out_0_data[9] <= soc_system_mm_interconnect_1_avalon_st_adapter_error_adapter_0:error_adapter_0.out_data
+out_0_valid <= soc_system_mm_interconnect_1_avalon_st_adapter_error_adapter_0:error_adapter_0.out_valid
 out_0_ready => out_0_ready.IN1
-out_0_error[0] <= soc_system_mm_interconnect_0_avalon_st_adapter_error_adapter_0:error_adapter_0.out_error
+out_0_error[0] <= soc_system_mm_interconnect_1_avalon_st_adapter_error_adapter_0:error_adapter_0.out_error
 
 
-|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_0:mm_interconnect_0|soc_system_mm_interconnect_0_avalon_st_adapter:avalon_st_adapter|soc_system_mm_interconnect_0_avalon_st_adapter_error_adapter_0:error_adapter_0
+|soc_system_top|soc_system:soc_system0|soc_system_mm_interconnect_1:mm_interconnect_1|soc_system_mm_interconnect_1_avalon_st_adapter:avalon_st_adapter|soc_system_mm_interconnect_1_avalon_st_adapter_error_adapter_0:error_adapter_0
 in_ready <= out_ready.DB_MAX_OUTPUT_PORT_TYPE
 in_valid => out_valid.DATAIN
 in_data[0] => out_data[0].DATAIN
