@@ -268,7 +268,10 @@ module soc_system_top(
      .hps_hps_io_gpio_inst_GPIO54  ( HPS_KEY ),
      .hps_hps_io_gpio_inst_GPIO61  ( HPS_GSENSOR_INT ),
 
-     .audio_piper_0_lights_conduit_readdata (LEDR)
+     .audio_piper_0_lights_conduit_readdata (LEDR),
+
+     .audio_and_video_config_0_external_interface_SDAT (FPGA_I2C_SDAT),
+     .audio_and_video_config_0_external_interface_SCLK (FPGA_I2C_SCLK)
   );
 
    // The following quiet the "no driver" warnings for output
@@ -292,8 +295,8 @@ module soc_system_top(
 
    assign FAN_CTRL = SW[0];
 
-   assign FPGA_I2C_SCLK = SW[0];
-   assign FPGA_I2C_SDAT = SW[1] ? SW[0] : 1'bZ;
+   //assign FPGA_I2C_SCLK = SW[0];
+   //assign FPGA_I2C_SDAT = SW[1] ? SW[0] : 1'bZ;
 
    assign GPIO_0 = SW[1] ? { 36{ SW[0] } } : 36'bZ;
    assign GPIO_1 = SW[1] ? { 36{ SW[0] } } : 36'bZ;
