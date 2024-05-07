@@ -70,13 +70,17 @@ module audio_piper(
         end
 
         if (left_in_valid)
-	    if (ctr1 == 0)
+		if (ctr1 == 0) begin
                 lights[0] <= 1;
+		ctr1 <= ctr1 + 1;
+	end
 	    else
 		ctr1 <= ctr1 + 1;
         else
-	    if (ctr2 == 0)
+		if (ctr2 == 0) begin
                 lights[0] <= 0;
+		ctr2 <= ctr2 + 1;
+	end
 	    else
 		ctr2 <= ctr2 + 1;
 
@@ -95,11 +99,13 @@ module audio_piper(
         else
             lights[3] <= 0;
 
-    	if (ctr3 == 0)
+    if (ctr3 == 0) begin
+            ctr3 <= ctr3 + 1;
             if (lights[9])
                 lights[9] <= 0;
 	    else
 		lights[9] <= 1;
+end
         else
             ctr3 <= ctr3 + 1;
     end

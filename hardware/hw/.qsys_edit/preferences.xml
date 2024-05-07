@@ -7,6 +7,7 @@
    <irq preferredWidth="47" />
   </columns>
  </systemtable>
- <library expandedCategories="Library,Project" />
- <window width="930" height="548" x="0" y="27" />
+ <library
+   expandedCategories="Library/Basic Functions/Bridges and Adaptors,Library/Basic Functions/Bridges and Adaptors/Memory Mapped,Library/University Program/Memory,Library/Basic Functions/On Chip Memory,Library/Memory Interfaces and Controllers,Library/University Program,Library/Basic Functions,Library/Qsys Interconnect/Memory-Mapped,Library/Processors and Peripherals,Library,Project,Library/Memory Interfaces and Controllers/Flash,Library/Qsys Interconnect,Library/Processors and Peripherals/Hard Processor Components,Library/Basic Functions/Simulation; Debug and Verification,Library/Memory Interfaces and Controllers/Memory Interfaces with AltMemPHY,Library/Qsys Interconnect/Memory-Mapped Alpha,Library/Memory Interfaces and Controllers/Memory Interfaces with UniPHY,Library/Basic Functions/Simulation; Debug and Verification/Simulation" />
+ <window width="1198" height="916" x="0" y="27" />
 </preferences>
