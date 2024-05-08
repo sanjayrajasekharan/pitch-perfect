@@ -101,10 +101,10 @@ module audio_piper(
 
     if (ctr3 == 0) begin
             ctr3 <= ctr3 + 1;
-            if (lights[9])
-                lights[9] <= 0;
+            if (lights[8])
+                lights[8] <= 0;
 	    else
-		lights[9] <= 1;
+		lights[8] <= 1;
 end
         else
             ctr3 <= ctr3 + 1;

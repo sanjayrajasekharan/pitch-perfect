@@ -49,6 +49,14 @@
          type = "int";
       }
    }
+   element hann_to_fft_buf
+   {
+      datum _sortIndex
+      {
+         value = "8";
+         type = "int";
+      }
+   }
    element hps_0
    {
       datum _sortIndex
@@ -120,34 +128,36 @@
  <instanceScript></instanceScript>
  <interface
    name="audio_0_external_interface"
-   internal="audio_0.external_interface"
-   type="conduit"
-   dir="end" />
+   internal="audio_0.external_interface" />
  <interface
    name="audio_and_video_config_0_external_interface"
-   internal="audio_and_video_config_0.external_interface"
+   internal="audio_and_video_config_0.external_interface" />
+ <interface
+   name="audio_piper_0_lights_conduit"
+   internal="audio_piper_0.lights_conduit" />
+ <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
+ <interface
+   name="hann_to_fft_buf_memreader"
+   internal="hann_to_fft_buf.memreader"
    type="conduit"
    dir="end" />
  <interface
-   name="audio_piper_0_lights_conduit"
-   internal="audio_piper_0.lights_conduit"
+   name="hann_to_fft_buf_memwriter"
+   internal="hann_to_fft_buf.memwriter"
    type="conduit"
    dir="end" />
- <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
  <interface name="hps" internal="hps_0.hps_io" type="conduit" dir="end" />
  <interface name="hps_ddr3" internal="hps_0.memory" type="conduit" dir="end" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
  <interface
    name="software_interface_0_shift_amt_conduit"
-   internal="software_interface_0.shift_amt_conduit"
-   type="conduit"
-   dir="end" />
+   internal="software_interface_0.shift_amt_conduit" />
  <interface name="vga" internal="vga_ball_0.vga" />
  <module
    name="audio_0"
    kind="altera_up_avalon_audio"
    version="18.0"
-   enabled="1">
+   enabled="0">
   <parameter name="AUTO_CLK_CLOCK_RATE" value="12288135" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="audio_in" value="true" />
@@ -159,7 +169,7 @@
    name="audio_and_video_config_0"
    kind="altera_up_avalon_audio_and_video_config"
    version="18.0"
-   enabled="1">
+   enabled="0">
   <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="audio_in" value="Line In to ADC" />
@@ -177,12 +187,12 @@
   <parameter name="sampling_rate" value="48 kHz" />
   <parameter name="video_format" value="NTSC" />
  </module>
- <module name="audio_piper_0" kind="audio_piper" version="1.0" enabled="1" />
+ <module name="audio_piper_0" kind="audio_piper" version="1.0" enabled="0" />
  <module
    name="audio_pll_0"
    kind="altera_up_avalon_audio_pll"
    version="18.0"
-   enabled="1">
+   enabled="0">
   <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
   <parameter name="audio_clk_freq" value="12.288" />
@@ -195,6 +205,7 @@
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
+ <module name="hann_to_fft_buf" kind="window_mem" version="1.0" enabled="1" />
  <module name="hps_0" kind="altera_hps" version="21.1" enabled="1">
   <parameter name="ABSTRACT_REAL_COMPARE_TEST" value="false" />
   <parameter name="ABS_RAM_MEM_INIT_FILENAME" value="meminit" />
@@ -729,7 +740,7 @@
    name="software_interface_0"
    kind="software_interface"
    version="1.0"
-   enabled="1" />
+   enabled="0" />
  <module name="vga_ball_0" kind="vga_ball" version="1.0" enabled="0" />
  <connection
    kind="avalon"
@@ -799,6 +810,11 @@
    version="21.1"
    start="clk_0.clk"
    end="software_interface_0.clock" />
+ <connection
+   kind="clock"
+   version="21.1"
+   start="clk_0.clk"
+   end="hann_to_fft_buf.clock" />
  <connection
    kind="clock"
    version="21.1"
