@@ -1,5 +1,10 @@
 	soc_system u0 (
 		.clk_clk                         (<connected-to-clk_clk>),                         //                       clk.clk
+		.hann_to_fft_buf_memreader_addr  (<connected-to-hann_to_fft_buf_memreader_addr>),  // hann_to_fft_buf_memreader.addr
+		.hann_to_fft_buf_memreader_data  (<connected-to-hann_to_fft_buf_memreader_data>),  //                          .data
+		.hann_to_fft_buf_memwriter_data  (<connected-to-hann_to_fft_buf_memwriter_data>),  // hann_to_fft_buf_memwriter.data
+		.hann_to_fft_buf_memwriter_addr  (<connected-to-hann_to_fft_buf_memwriter_addr>),  //                          .addr
+		.hann_to_fft_buf_memwriter_valid (<connected-to-hann_to_fft_buf_memwriter_valid>), //                          .valid
 		.hps_hps_io_emac1_inst_TX_CLK    (<connected-to-hps_hps_io_emac1_inst_TX_CLK>),    //                       hps.hps_io_emac1_inst_TX_CLK
 		.hps_hps_io_emac1_inst_TXD0      (<connected-to-hps_hps_io_emac1_inst_TXD0>),      //                          .hps_io_emac1_inst_TXD0
 		.hps_hps_io_emac1_inst_TXD1      (<connected-to-hps_hps_io_emac1_inst_TXD1>),      //                          .hps_io_emac1_inst_TXD1
@@ -65,11 +70,6 @@
 		.hps_ddr3_mem_odt                (<connected-to-hps_ddr3_mem_odt>),                //                          .mem_odt
 		.hps_ddr3_mem_dm                 (<connected-to-hps_ddr3_mem_dm>),                 //                          .mem_dm
 		.hps_ddr3_oct_rzqin              (<connected-to-hps_ddr3_oct_rzqin>),              //                          .oct_rzqin
-		.reset_reset_n                   (<connected-to-reset_reset_n>),                   //                     reset.reset_n
-		.hann_to_fft_buf_memwriter_data  (<connected-to-hann_to_fft_buf_memwriter_data>),  // hann_to_fft_buf_memwriter.data
-		.hann_to_fft_buf_memwriter_addr  (<connected-to-hann_to_fft_buf_memwriter_addr>),  //                          .addr
-		.hann_to_fft_buf_memwriter_valid (<connected-to-hann_to_fft_buf_memwriter_valid>), //                          .valid
-		.hann_to_fft_buf_memreader_addr  (<connected-to-hann_to_fft_buf_memreader_addr>),  // hann_to_fft_buf_memreader.addr
-		.hann_to_fft_buf_memreader_data  (<connected-to-hann_to_fft_buf_memreader_data>)   //                          .data
+		.reset_reset_n                   (<connected-to-reset_reset_n>)                    //                     reset.reset_n
 	);
 

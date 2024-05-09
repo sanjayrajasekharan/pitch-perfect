@@ -39,7 +39,7 @@ add_fileset QUARTUS_SYNTH QUARTUS_SYNTH "" ""
 set_fileset_property QUARTUS_SYNTH TOP_LEVEL audio_piper
 set_fileset_property QUARTUS_SYNTH ENABLE_RELATIVE_INCLUDE_PATHS false
 set_fileset_property QUARTUS_SYNTH ENABLE_FILE_OVERWRITE_MODE false
-add_fileset_file audio_piper.sv SYSTEM_VERILOG PATH audio_piper.sv TOP_LEVEL_FILE
+add_fileset_file audio_piper.sv SYSTEM_VERILOG PATH components/audio_piper/audio_piper.sv TOP_LEVEL_FILE
 
 
 # 

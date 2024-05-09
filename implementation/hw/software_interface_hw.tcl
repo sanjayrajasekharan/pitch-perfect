@@ -39,7 +39,7 @@ add_fileset QUARTUS_SYNTH QUARTUS_SYNTH "" ""
 set_fileset_property QUARTUS_SYNTH TOP_LEVEL software_interface
 set_fileset_property QUARTUS_SYNTH ENABLE_RELATIVE_INCLUDE_PATHS false
 set_fileset_property QUARTUS_SYNTH ENABLE_FILE_OVERWRITE_MODE false
-add_fileset_file software_interface.sv SYSTEM_VERILOG PATH software_interface.sv TOP_LEVEL_FILE
+add_fileset_file software_interface.sv SYSTEM_VERILOG PATH components/software_interface/software_interface.sv TOP_LEVEL_FILE
 
 
 # 

@@ -39,9 +39,9 @@ add_fileset QUARTUS_SYNTH QUARTUS_SYNTH "" ""
 set_fileset_property QUARTUS_SYNTH TOP_LEVEL windowmem
 set_fileset_property QUARTUS_SYNTH ENABLE_RELATIVE_INCLUDE_PATHS false
 set_fileset_property QUARTUS_SYNTH ENABLE_FILE_OVERWRITE_MODE false
-add_fileset_file windowmem.v VERILOG PATH memblocks/windowmem.v
-add_fileset_file windowmem_bb.v VERILOG PATH memblocks/windowmem_bb.v
-add_fileset_file windowmem_inst.v VERILOG PATH memblocks/windowmem_inst.v
+add_fileset_file windowmem.v VERILOG PATH components/memblocks/window_mem/windowmem.v
+add_fileset_file windowmem_bb.v VERILOG PATH components/memblocks/window_mem/windowmem_bb.v
+add_fileset_file windowmem_inst.v VERILOG PATH components/memblocks/window_mem/windowmem_inst.v
 
 
 # 

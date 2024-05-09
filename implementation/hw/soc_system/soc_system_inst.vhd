@@ -1,6 +1,11 @@
 	component soc_system is
 		port (
 			clk_clk                         : in    std_logic                     := 'X';             -- clk
+			hann_to_fft_buf_memreader_addr  : in    std_logic_vector(11 downto 0) := (others => 'X'); -- addr
+			hann_to_fft_buf_memreader_data  : out   std_logic_vector(15 downto 0);                    -- data
+			hann_to_fft_buf_memwriter_data  : in    std_logic_vector(15 downto 0) := (others => 'X'); -- data
+			hann_to_fft_buf_memwriter_addr  : in    std_logic_vector(11 downto 0) := (others => 'X'); -- addr
+			hann_to_fft_buf_memwriter_valid : in    std_logic                     := 'X';             -- valid
 			hps_hps_io_emac1_inst_TX_CLK    : out   std_logic;                                        -- hps_io_emac1_inst_TX_CLK
 			hps_hps_io_emac1_inst_TXD0      : out   std_logic;                                        -- hps_io_emac1_inst_TXD0
 			hps_hps_io_emac1_inst_TXD1      : out   std_logic;                                        -- hps_io_emac1_inst_TXD1
@@ -66,18 +71,18 @@
 			hps_ddr3_mem_odt                : out   std_logic;                                        -- mem_odt
 			hps_ddr3_mem_dm                 : out   std_logic_vector(3 downto 0);                     -- mem_dm
 			hps_ddr3_oct_rzqin              : in    std_logic                     := 'X';             -- oct_rzqin
-			reset_reset_n                   : in    std_logic                     := 'X';             -- reset_n
-			hann_to_fft_buf_memwriter_data  : in    std_logic_vector(15 downto 0) := (others => 'X'); -- data
-			hann_to_fft_buf_memwriter_addr  : in    std_logic_vector(11 downto 0) := (others => 'X'); -- addr
-			hann_to_fft_buf_memwriter_valid : in    std_logic                     := 'X';             -- valid
-			hann_to_fft_buf_memreader_addr  : in    std_logic_vector(11 downto 0) := (others => 'X'); -- addr
-			hann_to_fft_buf_memreader_data  : out   std_logic_vector(15 downto 0)                     -- data
+			reset_reset_n                   : in    std_logic                     := 'X'              -- reset_n
 		);
 	end component soc_system;
 
 	u0 : component soc_system
 		port map (
 			clk_clk                         => CONNECTED_TO_clk_clk,                         --                       clk.clk
+			hann_to_fft_buf_memreader_addr  => CONNECTED_TO_hann_to_fft_buf_memreader_addr,  -- hann_to_fft_buf_memreader.addr
+			hann_to_fft_buf_memreader_data  => CONNECTED_TO_hann_to_fft_buf_memreader_data,  --                          .data
+			hann_to_fft_buf_memwriter_data  => CONNECTED_TO_hann_to_fft_buf_memwriter_data,  -- hann_to_fft_buf_memwriter.data
+			hann_to_fft_buf_memwriter_addr  => CONNECTED_TO_hann_to_fft_buf_memwriter_addr,  --                          .addr
+			hann_to_fft_buf_memwriter_valid => CONNECTED_TO_hann_to_fft_buf_memwriter_valid, --                          .valid
 			hps_hps_io_emac1_inst_TX_CLK    => CONNECTED_TO_hps_hps_io_emac1_inst_TX_CLK,    --                       hps.hps_io_emac1_inst_TX_CLK
 			hps_hps_io_emac1_inst_TXD0      => CONNECTED_TO_hps_hps_io_emac1_inst_TXD0,      --                          .hps_io_emac1_inst_TXD0
 			hps_hps_io_emac1_inst_TXD1      => CONNECTED_TO_hps_hps_io_emac1_inst_TXD1,      --                          .hps_io_emac1_inst_TXD1
@@ -143,11 +148,6 @@
 			hps_ddr3_mem_odt                => CONNECTED_TO_hps_ddr3_mem_odt,                --                          .mem_odt
 			hps_ddr3_mem_dm                 => CONNECTED_TO_hps_ddr3_mem_dm,                 --                          .mem_dm
 			hps_ddr3_oct_rzqin              => CONNECTED_TO_hps_ddr3_oct_rzqin,              --                          .oct_rzqin
-			reset_reset_n                   => CONNECTED_TO_reset_reset_n,                   --                     reset.reset_n
-			hann_to_fft_buf_memwriter_data  => CONNECTED_TO_hann_to_fft_buf_memwriter_data,  -- hann_to_fft_buf_memwriter.data
-			hann_to_fft_buf_memwriter_addr  => CONNECTED_TO_hann_to_fft_buf_memwriter_addr,  --                          .addr
-			hann_to_fft_buf_memwriter_valid => CONNECTED_TO_hann_to_fft_buf_memwriter_valid, --                          .valid
-			hann_to_fft_buf_memreader_addr  => CONNECTED_TO_hann_to_fft_buf_memreader_addr,  -- hann_to_fft_buf_memreader.addr
-			hann_to_fft_buf_memreader_data  => CONNECTED_TO_hann_to_fft_buf_memreader_data   --                          .data
+			reset_reset_n                   => CONNECTED_TO_reset_reset_n                    --                     reset.reset_n
 		);
 
