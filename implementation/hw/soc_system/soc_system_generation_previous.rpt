@@ -12,6 +12,8 @@ Progress: Adding audio_pll_0 [altera_up_avalon_audio_pll 18.0]
 Progress: Parameterizing module audio_pll_0
 Progress: Adding clk_0 [clock_source 21.1]
 Progress: Parameterizing module clk_0
+Progress: Adding first_hannifier [first_hannifier 1.0]
+Progress: Parameterizing module first_hannifier
 Progress: Adding hann_to_fft_buf [window_mem 1.0]
 Progress: Parameterizing module hann_to_fft_buf
 Progress: Adding hps_0 [altera_hps 21.1]
@@ -26,6 +28,11 @@ Progress: Validating
 Progress: Done reading input file
 Info: soc_system.hps_0: HPS Main PLL counter settings: n = 0  m = 73
 Info: soc_system.hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
+Warning: soc_system.first_hannifier: first_hannifier.sampler_to_first_hannifier must be exported, or connected to a matching conduit.
+Warning: soc_system.first_hannifier: first_hannifier.first_hannifier_to_ffter must be exported, or connected to a matching conduit.
+Warning: soc_system.first_hannifier: first_hannifier.hann_rom_reader must be exported, or connected to a matching conduit.
+Warning: soc_system.first_hannifier: first_hannifier.ring_buf_reader must be exported, or connected to a matching conduit.
+Warning: soc_system.hann_to_fft_buf: hann_to_fft_buf.memreader must be exported, or connected to a matching conduit.
 Info: qsys-generate succeeded.
 Info: Finished: Create block symbol file (.bsf)
 Info: 
@@ -43,6 +50,8 @@ Progress: Adding audio_pll_0 [altera_up_avalon_audio_pll 18.0]
 Progress: Parameterizing module audio_pll_0
 Progress: Adding clk_0 [clock_source 21.1]
 Progress: Parameterizing module clk_0
+Progress: Adding first_hannifier [first_hannifier 1.0]
+Progress: Parameterizing module first_hannifier
 Progress: Adding hann_to_fft_buf [window_mem 1.0]
 Progress: Parameterizing module hann_to_fft_buf
 Progress: Adding hps_0 [altera_hps 21.1]
@@ -57,11 +66,17 @@ Progress: Validating
 Progress: Done reading input file
 Info: soc_system.hps_0: HPS Main PLL counter settings: n = 0  m = 73
 Info: soc_system.hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
+Warning: soc_system.first_hannifier: first_hannifier.sampler_to_first_hannifier must be exported, or connected to a matching conduit.
+Warning: soc_system.first_hannifier: first_hannifier.first_hannifier_to_ffter must be exported, or connected to a matching conduit.
+Warning: soc_system.first_hannifier: first_hannifier.hann_rom_reader must be exported, or connected to a matching conduit.
+Warning: soc_system.first_hannifier: first_hannifier.ring_buf_reader must be exported, or connected to a matching conduit.
+Warning: soc_system.hann_to_fft_buf: hann_to_fft_buf.memreader must be exported, or connected to a matching conduit.
 Info: soc_system: Generating soc_system "soc_system" for QUARTUS_SYNTH
 Warning: hps_0.f2h_irq0: Cannot connect clock for irq_mapper.sender
 Warning: hps_0.f2h_irq0: Cannot connect reset for irq_mapper.sender
 Warning: hps_0.f2h_irq1: Cannot connect clock for irq_mapper_001.sender
 Warning: hps_0.f2h_irq1: Cannot connect reset for irq_mapper_001.sender
+Info: first_hannifier: "soc_system" instantiated first_hannifier "first_hannifier"
 Info: hann_to_fft_buf: "soc_system" instantiated window_mem "hann_to_fft_buf"
 Info: hps_0: "Running  for module: hps_0"
 Info: hps_0: HPS Main PLL counter settings: n = 0  m = 73
@@ -71,6 +86,6 @@ Info: irq_mapper: "soc_system" instantiated altera_irq_mapper "irq_mapper"
 Info: fpga_interfaces: "hps_0" instantiated altera_interface_generator "fpga_interfaces"
 Info: hps_io: "hps_0" instantiated altera_hps_io "hps_io"
 Info: border: "hps_io" instantiated altera_interface_generator "border"
-Info: soc_system: Done "soc_system" with 7 modules, 53 files
+Info: soc_system: Done "soc_system" with 8 modules, 54 files
 Info: qsys-generate succeeded.
 Info: Finished: Create HDL design files for synthesis

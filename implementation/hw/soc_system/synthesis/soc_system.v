@@ -4,90 +4,93 @@
 
 `timescale 1 ps / 1 ps
 module soc_system (
-		input  wire        clk_clk,                         //                       clk.clk
-		input  wire [11:0] hann_to_fft_buf_memreader_addr,  // hann_to_fft_buf_memreader.addr
-		output wire [15:0] hann_to_fft_buf_memreader_data,  //                          .data
-		input  wire [15:0] hann_to_fft_buf_memwriter_data,  // hann_to_fft_buf_memwriter.data
-		input  wire [11:0] hann_to_fft_buf_memwriter_addr,  //                          .addr
-		input  wire        hann_to_fft_buf_memwriter_valid, //                          .valid
-		output wire        hps_hps_io_emac1_inst_TX_CLK,    //                       hps.hps_io_emac1_inst_TX_CLK
-		output wire        hps_hps_io_emac1_inst_TXD0,      //                          .hps_io_emac1_inst_TXD0
-		output wire        hps_hps_io_emac1_inst_TXD1,      //                          .hps_io_emac1_inst_TXD1
-		output wire        hps_hps_io_emac1_inst_TXD2,      //                          .hps_io_emac1_inst_TXD2
-		output wire        hps_hps_io_emac1_inst_TXD3,      //                          .hps_io_emac1_inst_TXD3
-		input  wire        hps_hps_io_emac1_inst_RXD0,      //                          .hps_io_emac1_inst_RXD0
-		inout  wire        hps_hps_io_emac1_inst_MDIO,      //                          .hps_io_emac1_inst_MDIO
-		output wire        hps_hps_io_emac1_inst_MDC,       //                          .hps_io_emac1_inst_MDC
-		input  wire        hps_hps_io_emac1_inst_RX_CTL,    //                          .hps_io_emac1_inst_RX_CTL
-		output wire        hps_hps_io_emac1_inst_TX_CTL,    //                          .hps_io_emac1_inst_TX_CTL
-		input  wire        hps_hps_io_emac1_inst_RX_CLK,    //                          .hps_io_emac1_inst_RX_CLK
-		input  wire        hps_hps_io_emac1_inst_RXD1,      //                          .hps_io_emac1_inst_RXD1
-		input  wire        hps_hps_io_emac1_inst_RXD2,      //                          .hps_io_emac1_inst_RXD2
-		input  wire        hps_hps_io_emac1_inst_RXD3,      //                          .hps_io_emac1_inst_RXD3
-		inout  wire        hps_hps_io_sdio_inst_CMD,        //                          .hps_io_sdio_inst_CMD
-		inout  wire        hps_hps_io_sdio_inst_D0,         //                          .hps_io_sdio_inst_D0
-		inout  wire        hps_hps_io_sdio_inst_D1,         //                          .hps_io_sdio_inst_D1
-		output wire        hps_hps_io_sdio_inst_CLK,        //                          .hps_io_sdio_inst_CLK
-		inout  wire        hps_hps_io_sdio_inst_D2,         //                          .hps_io_sdio_inst_D2
-		inout  wire        hps_hps_io_sdio_inst_D3,         //                          .hps_io_sdio_inst_D3
-		inout  wire        hps_hps_io_usb1_inst_D0,         //                          .hps_io_usb1_inst_D0
-		inout  wire        hps_hps_io_usb1_inst_D1,         //                          .hps_io_usb1_inst_D1
-		inout  wire        hps_hps_io_usb1_inst_D2,         //                          .hps_io_usb1_inst_D2
-		inout  wire        hps_hps_io_usb1_inst_D3,         //                          .hps_io_usb1_inst_D3
-		inout  wire        hps_hps_io_usb1_inst_D4,         //                          .hps_io_usb1_inst_D4
-		inout  wire        hps_hps_io_usb1_inst_D5,         //                          .hps_io_usb1_inst_D5
-		inout  wire        hps_hps_io_usb1_inst_D6,         //                          .hps_io_usb1_inst_D6
-		inout  wire        hps_hps_io_usb1_inst_D7,         //                          .hps_io_usb1_inst_D7
-		input  wire        hps_hps_io_usb1_inst_CLK,        //                          .hps_io_usb1_inst_CLK
-		output wire        hps_hps_io_usb1_inst_STP,        //                          .hps_io_usb1_inst_STP
-		input  wire        hps_hps_io_usb1_inst_DIR,        //                          .hps_io_usb1_inst_DIR
-		input  wire        hps_hps_io_usb1_inst_NXT,        //                          .hps_io_usb1_inst_NXT
-		output wire        hps_hps_io_spim1_inst_CLK,       //                          .hps_io_spim1_inst_CLK
-		output wire        hps_hps_io_spim1_inst_MOSI,      //                          .hps_io_spim1_inst_MOSI
-		input  wire        hps_hps_io_spim1_inst_MISO,      //                          .hps_io_spim1_inst_MISO
-		output wire        hps_hps_io_spim1_inst_SS0,       //                          .hps_io_spim1_inst_SS0
-		input  wire        hps_hps_io_uart0_inst_RX,        //                          .hps_io_uart0_inst_RX
-		output wire        hps_hps_io_uart0_inst_TX,        //                          .hps_io_uart0_inst_TX
-		inout  wire        hps_hps_io_i2c0_inst_SDA,        //                          .hps_io_i2c0_inst_SDA
-		inout  wire        hps_hps_io_i2c0_inst_SCL,        //                          .hps_io_i2c0_inst_SCL
-		inout  wire        hps_hps_io_i2c1_inst_SDA,        //                          .hps_io_i2c1_inst_SDA
-		inout  wire        hps_hps_io_i2c1_inst_SCL,        //                          .hps_io_i2c1_inst_SCL
-		inout  wire        hps_hps_io_gpio_inst_GPIO09,     //                          .hps_io_gpio_inst_GPIO09
-		inout  wire        hps_hps_io_gpio_inst_GPIO35,     //                          .hps_io_gpio_inst_GPIO35
-		inout  wire        hps_hps_io_gpio_inst_GPIO40,     //                          .hps_io_gpio_inst_GPIO40
-		inout  wire        hps_hps_io_gpio_inst_GPIO48,     //                          .hps_io_gpio_inst_GPIO48
-		inout  wire        hps_hps_io_gpio_inst_GPIO53,     //                          .hps_io_gpio_inst_GPIO53
-		inout  wire        hps_hps_io_gpio_inst_GPIO54,     //                          .hps_io_gpio_inst_GPIO54
-		inout  wire        hps_hps_io_gpio_inst_GPIO61,     //                          .hps_io_gpio_inst_GPIO61
-		output wire [14:0] hps_ddr3_mem_a,                  //                  hps_ddr3.mem_a
-		output wire [2:0]  hps_ddr3_mem_ba,                 //                          .mem_ba
-		output wire        hps_ddr3_mem_ck,                 //                          .mem_ck
-		output wire        hps_ddr3_mem_ck_n,               //                          .mem_ck_n
-		output wire        hps_ddr3_mem_cke,                //                          .mem_cke
-		output wire        hps_ddr3_mem_cs_n,               //                          .mem_cs_n
-		output wire        hps_ddr3_mem_ras_n,              //                          .mem_ras_n
-		output wire        hps_ddr3_mem_cas_n,              //                          .mem_cas_n
-		output wire        hps_ddr3_mem_we_n,               //                          .mem_we_n
-		output wire        hps_ddr3_mem_reset_n,            //                          .mem_reset_n
-		inout  wire [31:0] hps_ddr3_mem_dq,                 //                          .mem_dq
-		inout  wire [3:0]  hps_ddr3_mem_dqs,                //                          .mem_dqs
-		inout  wire [3:0]  hps_ddr3_mem_dqs_n,              //                          .mem_dqs_n
-		output wire        hps_ddr3_mem_odt,                //                          .mem_odt
-		output wire [3:0]  hps_ddr3_mem_dm,                 //                          .mem_dm
-		input  wire        hps_ddr3_oct_rzqin,              //                          .oct_rzqin
-		input  wire        reset_reset_n                    //                     reset.reset_n
+		input  wire        clk_clk,                      //      clk.clk
+		output wire        hps_hps_io_emac1_inst_TX_CLK, //      hps.hps_io_emac1_inst_TX_CLK
+		output wire        hps_hps_io_emac1_inst_TXD0,   //         .hps_io_emac1_inst_TXD0
+		output wire        hps_hps_io_emac1_inst_TXD1,   //         .hps_io_emac1_inst_TXD1
+		output wire        hps_hps_io_emac1_inst_TXD2,   //         .hps_io_emac1_inst_TXD2
+		output wire        hps_hps_io_emac1_inst_TXD3,   //         .hps_io_emac1_inst_TXD3
+		input  wire        hps_hps_io_emac1_inst_RXD0,   //         .hps_io_emac1_inst_RXD0
+		inout  wire        hps_hps_io_emac1_inst_MDIO,   //         .hps_io_emac1_inst_MDIO
+		output wire        hps_hps_io_emac1_inst_MDC,    //         .hps_io_emac1_inst_MDC
+		input  wire        hps_hps_io_emac1_inst_RX_CTL, //         .hps_io_emac1_inst_RX_CTL
+		output wire        hps_hps_io_emac1_inst_TX_CTL, //         .hps_io_emac1_inst_TX_CTL
+		input  wire        hps_hps_io_emac1_inst_RX_CLK, //         .hps_io_emac1_inst_RX_CLK
+		input  wire        hps_hps_io_emac1_inst_RXD1,   //         .hps_io_emac1_inst_RXD1
+		input  wire        hps_hps_io_emac1_inst_RXD2,   //         .hps_io_emac1_inst_RXD2
+		input  wire        hps_hps_io_emac1_inst_RXD3,   //         .hps_io_emac1_inst_RXD3
+		inout  wire        hps_hps_io_sdio_inst_CMD,     //         .hps_io_sdio_inst_CMD
+		inout  wire        hps_hps_io_sdio_inst_D0,      //         .hps_io_sdio_inst_D0
+		inout  wire        hps_hps_io_sdio_inst_D1,      //         .hps_io_sdio_inst_D1
+		output wire        hps_hps_io_sdio_inst_CLK,     //         .hps_io_sdio_inst_CLK
+		inout  wire        hps_hps_io_sdio_inst_D2,      //         .hps_io_sdio_inst_D2
+		inout  wire        hps_hps_io_sdio_inst_D3,      //         .hps_io_sdio_inst_D3
+		inout  wire        hps_hps_io_usb1_inst_D0,      //         .hps_io_usb1_inst_D0
+		inout  wire        hps_hps_io_usb1_inst_D1,      //         .hps_io_usb1_inst_D1
+		inout  wire        hps_hps_io_usb1_inst_D2,      //         .hps_io_usb1_inst_D2
+		inout  wire        hps_hps_io_usb1_inst_D3,      //         .hps_io_usb1_inst_D3
+		inout  wire        hps_hps_io_usb1_inst_D4,      //         .hps_io_usb1_inst_D4
+		inout  wire        hps_hps_io_usb1_inst_D5,      //         .hps_io_usb1_inst_D5
+		inout  wire        hps_hps_io_usb1_inst_D6,      //         .hps_io_usb1_inst_D6
+		inout  wire        hps_hps_io_usb1_inst_D7,      //         .hps_io_usb1_inst_D7
+		input  wire        hps_hps_io_usb1_inst_CLK,     //         .hps_io_usb1_inst_CLK
+		output wire        hps_hps_io_usb1_inst_STP,     //         .hps_io_usb1_inst_STP
+		input  wire        hps_hps_io_usb1_inst_DIR,     //         .hps_io_usb1_inst_DIR
+		input  wire        hps_hps_io_usb1_inst_NXT,     //         .hps_io_usb1_inst_NXT
+		output wire        hps_hps_io_spim1_inst_CLK,    //         .hps_io_spim1_inst_CLK
+		output wire        hps_hps_io_spim1_inst_MOSI,   //         .hps_io_spim1_inst_MOSI
+		input  wire        hps_hps_io_spim1_inst_MISO,   //         .hps_io_spim1_inst_MISO
+		output wire        hps_hps_io_spim1_inst_SS0,    //         .hps_io_spim1_inst_SS0
+		input  wire        hps_hps_io_uart0_inst_RX,     //         .hps_io_uart0_inst_RX
+		output wire        hps_hps_io_uart0_inst_TX,     //         .hps_io_uart0_inst_TX
+		inout  wire        hps_hps_io_i2c0_inst_SDA,     //         .hps_io_i2c0_inst_SDA
+		inout  wire        hps_hps_io_i2c0_inst_SCL,     //         .hps_io_i2c0_inst_SCL
+		inout  wire        hps_hps_io_i2c1_inst_SDA,     //         .hps_io_i2c1_inst_SDA
+		inout  wire        hps_hps_io_i2c1_inst_SCL,     //         .hps_io_i2c1_inst_SCL
+		inout  wire        hps_hps_io_gpio_inst_GPIO09,  //         .hps_io_gpio_inst_GPIO09
+		inout  wire        hps_hps_io_gpio_inst_GPIO35,  //         .hps_io_gpio_inst_GPIO35
+		inout  wire        hps_hps_io_gpio_inst_GPIO40,  //         .hps_io_gpio_inst_GPIO40
+		inout  wire        hps_hps_io_gpio_inst_GPIO48,  //         .hps_io_gpio_inst_GPIO48
+		inout  wire        hps_hps_io_gpio_inst_GPIO53,  //         .hps_io_gpio_inst_GPIO53
+		inout  wire        hps_hps_io_gpio_inst_GPIO54,  //         .hps_io_gpio_inst_GPIO54
+		inout  wire        hps_hps_io_gpio_inst_GPIO61,  //         .hps_io_gpio_inst_GPIO61
+		output wire [14:0] hps_ddr3_mem_a,               // hps_ddr3.mem_a
+		output wire [2:0]  hps_ddr3_mem_ba,              //         .mem_ba
+		output wire        hps_ddr3_mem_ck,              //         .mem_ck
+		output wire        hps_ddr3_mem_ck_n,            //         .mem_ck_n
+		output wire        hps_ddr3_mem_cke,             //         .mem_cke
+		output wire        hps_ddr3_mem_cs_n,            //         .mem_cs_n
+		output wire        hps_ddr3_mem_ras_n,           //         .mem_ras_n
+		output wire        hps_ddr3_mem_cas_n,           //         .mem_cas_n
+		output wire        hps_ddr3_mem_we_n,            //         .mem_we_n
+		output wire        hps_ddr3_mem_reset_n,         //         .mem_reset_n
+		inout  wire [31:0] hps_ddr3_mem_dq,              //         .mem_dq
+		inout  wire [3:0]  hps_ddr3_mem_dqs,             //         .mem_dqs
+		inout  wire [3:0]  hps_ddr3_mem_dqs_n,           //         .mem_dqs_n
+		output wire        hps_ddr3_mem_odt,             //         .mem_odt
+		output wire [3:0]  hps_ddr3_mem_dm,              //         .mem_dm
+		input  wire        hps_ddr3_oct_rzqin,           //         .oct_rzqin
+		input  wire        reset_reset_n                 //    reset.reset_n
 	);
 
-	wire  [31:0] hps_0_f2h_irq0_irq; // irq_mapper:sender_irq -> hps_0:f2h_irq_p0
-	wire  [31:0] hps_0_f2h_irq1_irq; // irq_mapper_001:sender_irq -> hps_0:f2h_irq_p1
+	wire         first_hannifier_pre_fft_buf_writer_valid; // first_hannifier:out_buf_wren -> pre_fft_buf:wren
+	wire  [15:0] first_hannifier_pre_fft_buf_writer_data;  // first_hannifier:out_buf_data -> pre_fft_buf:data
+	wire  [11:0] first_hannifier_pre_fft_buf_writer_addr;  // first_hannifier:out_buf_addr -> pre_fft_buf:wraddress
+	wire  [31:0] hps_0_f2h_irq0_irq;                       // irq_mapper:sender_irq -> hps_0:f2h_irq_p0
+	wire  [31:0] hps_0_f2h_irq1_irq;                       // irq_mapper_001:sender_irq -> hps_0:f2h_irq_p1
 
-	windowmem hann_to_fft_buf (
-		.data      (hann_to_fft_buf_memwriter_data),  // memwriter.data
-		.wraddress (hann_to_fft_buf_memwriter_addr),  //          .addr
-		.wren      (hann_to_fft_buf_memwriter_valid), //          .valid
-		.rdaddress (hann_to_fft_buf_memreader_addr),  // memreader.addr
-		.q         (hann_to_fft_buf_memreader_data),  //          .data
-		.clock     (clk_clk)                          //     clock.clk
+	first_hannifier first_hannifier (
+		.clk           (clk_clk),                                  //                      clock.clk
+		.window_start  (),                                         // sampler_to_first_hannifier.data
+		.go_in         (),                                         //                           .valid
+		.go_out        (),                                         //   first_hannifier_to_ffter.data
+		.hann_rom_data (),                                         //            hann_rom_reader.data
+		.hann_rom_addr (),                                         //                           .addr
+		.ring_buf_addr (),                                         //            ring_buf_reader.addr
+		.ring_buf_data (),                                         //                           .data
+		.out_buf_addr  (first_hannifier_pre_fft_buf_writer_addr),  //         pre_fft_buf_writer.addr
+		.out_buf_data  (first_hannifier_pre_fft_buf_writer_data),  //                           .data
+		.out_buf_wren  (first_hannifier_pre_fft_buf_writer_valid)  //                           .valid
 	);
 
 	soc_system_hps_0 #(
@@ -276,6 +279,15 @@ module soc_system (
 		.h2f_lw_RREADY            (),                             //                  .rready
 		.f2h_irq_p0               (hps_0_f2h_irq0_irq),           //          f2h_irq0.irq
 		.f2h_irq_p1               (hps_0_f2h_irq1_irq)            //          f2h_irq1.irq
+	);
+
+	windowmem pre_fft_buf (
+		.data      (first_hannifier_pre_fft_buf_writer_data),  // memwriter.data
+		.wraddress (first_hannifier_pre_fft_buf_writer_addr),  //          .addr
+		.wren      (first_hannifier_pre_fft_buf_writer_valid), //          .valid
+		.rdaddress (),                                         // memreader.addr
+		.q         (),                                         //          .data
+		.clock     (clk_clk)                                   //     clock.clk
 	);
 
 	soc_system_irq_mapper irq_mapper (
