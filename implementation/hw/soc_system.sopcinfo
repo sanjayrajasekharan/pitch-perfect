@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="soc_system" kind="soc_system" version="1.0" fabric="QSYS">
  <!-- Format version 21.1 842 (Future versions may contain additional information.) -->
- <!-- 2024.05.09.14:21:53 -->
+ <!-- 2024.05.09.16:04:04 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1715278910</value>
+  <value>1715285041</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -332,9 +332,15 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>hann_to_fft_buf</moduleName>
+    <moduleName>pre_fft_buf</moduleName>
     <slaveName>clock</slaveName>
-    <name>hann_to_fft_buf.clock</name>
+    <name>pre_fft_buf.clock</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>first_hannifier</moduleName>
+    <slaveName>clock</slaveName>
+    <name>first_hannifier.clock</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
@@ -418,10 +424,10 @@ parameters are a RESULT of the module parameters. -->
   </interface>
  </module>
  <module
-   name="hann_to_fft_buf"
-   kind="window_mem"
+   name="first_hannifier"
+   kind="first_hannifier"
    version="1.0"
-   path="hann_to_fft_buf">
+   path="first_hannifier">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <parameter name="deviceFamily">
@@ -440,114 +446,6 @@ the requested settings for a module instance. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <interface name="memwriter" kind="conduit_end" version="21.1">
-   <!-- The connection points exposed by a module instance for the
-particular module parameters. Connection points and their
-parameters are a RESULT of the module parameters. -->
-   <parameter name="associatedClock">
-    <type>java.lang.String</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="associatedReset">
-    <type>java.lang.String</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="deviceFamily">
-    <type>java.lang.String</type>
-    <value>UNKNOWN</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="generateLegacySim">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <type>conduit</type>
-   <isStart>false</isStart>
-   <port>
-    <name>data</name>
-    <direction>Input</direction>
-    <width>16</width>
-    <role>data</role>
-   </port>
-   <port>
-    <name>wraddress</name>
-    <direction>Input</direction>
-    <width>12</width>
-    <role>addr</role>
-   </port>
-   <port>
-    <name>wren</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>valid</role>
-   </port>
-  </interface>
-  <interface name="memreader" kind="conduit_end" version="21.1">
-   <!-- The connection points exposed by a module instance for the
-particular module parameters. Connection points and their
-parameters are a RESULT of the module parameters. -->
-   <parameter name="associatedClock">
-    <type>java.lang.String</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="associatedReset">
-    <type>java.lang.String</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="deviceFamily">
-    <type>java.lang.String</type>
-    <value>UNKNOWN</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="generateLegacySim">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <type>conduit</type>
-   <isStart>false</isStart>
-   <port>
-    <name>rdaddress</name>
-    <direction>Input</direction>
-    <width>12</width>
-    <role>addr</role>
-   </port>
-   <port>
-    <name>q</name>
-    <direction>Output</direction>
-    <width>16</width>
-    <role>data</role>
-   </port>
-  </interface>
   <interface name="clock" kind="clock_sink" version="21.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
@@ -587,10 +485,265 @@ parameters are a RESULT of the module parameters. -->
    <type>clock</type>
    <isStart>false</isStart>
    <port>
-    <name>clock</name>
+    <name>clk</name>
     <direction>Input</direction>
     <width>1</width>
     <role>clk</role>
+   </port>
+  </interface>
+  <interface name="sampler_to_first_hannifier" kind="conduit_end" version="21.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>window_start</name>
+    <direction>Input</direction>
+    <width>3</width>
+    <role>data</role>
+   </port>
+   <port>
+    <name>go_in</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>valid</role>
+   </port>
+  </interface>
+  <interface name="first_hannifier_to_ffter" kind="conduit_end" version="21.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>go_out</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>data</role>
+   </port>
+  </interface>
+  <interface name="hann_rom_reader" kind="conduit_end" version="21.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>hann_rom_data</name>
+    <direction>Input</direction>
+    <width>16</width>
+    <role>data</role>
+   </port>
+   <port>
+    <name>hann_rom_addr</name>
+    <direction>Output</direction>
+    <width>12</width>
+    <role>addr</role>
+   </port>
+  </interface>
+  <interface name="ring_buf_reader" kind="conduit_end" version="21.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>ring_buf_addr</name>
+    <direction>Output</direction>
+    <width>13</width>
+    <role>addr</role>
+   </port>
+   <port>
+    <name>ring_buf_data</name>
+    <direction>Input</direction>
+    <width>16</width>
+    <role>data</role>
+   </port>
+  </interface>
+  <interface name="pre_fft_buf_writer" kind="conduit_end" version="21.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>out_buf_addr</name>
+    <direction>Output</direction>
+    <width>12</width>
+    <role>addr</role>
+   </port>
+   <port>
+    <name>out_buf_data</name>
+    <direction>Output</direction>
+    <width>16</width>
+    <role>data</role>
+   </port>
+   <port>
+    <name>out_buf_wren</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>valid</role>
    </port>
   </interface>
  </module>
@@ -73701,6 +73854,179 @@ parameters are a RESULT of the module parameters. -->
    </port>
   </interface>
  </module>
+ <module name="pre_fft_buf" kind="window_mem" version="1.0" path="pre_fft_buf">
+  <!-- Describes a single module. Module parameters are
+the requested settings for a module instance. -->
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <interface name="memwriter" kind="conduit_end" version="21.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>data</name>
+    <direction>Input</direction>
+    <width>16</width>
+    <role>data</role>
+   </port>
+   <port>
+    <name>wraddress</name>
+    <direction>Input</direction>
+    <width>12</width>
+    <role>addr</role>
+   </port>
+   <port>
+    <name>wren</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>valid</role>
+   </port>
+  </interface>
+  <interface name="memreader" kind="conduit_end" version="21.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>rdaddress</name>
+    <direction>Input</direction>
+    <width>12</width>
+    <role>addr</role>
+   </port>
+   <port>
+    <name>q</name>
+    <direction>Output</direction>
+    <width>16</width>
+    <role>data</role>
+   </port>
+  </interface>
+  <interface name="clock" kind="clock_sink" version="21.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="externallyDriven">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="ptfSchematicName">
+    <type>java.lang.String</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>clock</type>
+   <isStart>false</isStart>
+   <port>
+    <name>clock</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>clk</role>
+   </port>
+  </interface>
+ </module>
  <connection
    name="hps_0_clk_0.clk_reset/hps_0_bridges.reset_sink"
    kind="reset"
@@ -83828,11 +84154,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>axi_slave0</endConnectionPoint>
  </connection>
  <connection
-   name="clk_0.clk/hann_to_fft_buf.clock"
+   name="clk_0.clk/pre_fft_buf.clock"
    kind="clock"
    version="21.1"
    start="clk_0.clk"
-   end="hann_to_fft_buf.clock">
+   end="pre_fft_buf.clock">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -83851,7 +84177,34 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>clk_0</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>hann_to_fft_buf</endModule>
+  <endModule>pre_fft_buf</endModule>
+  <endConnectionPoint>clock</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_0.clk/first_hannifier.clock"
+   kind="clock"
+   version="21.1"
+   start="clk_0.clk"
+   end="first_hannifier.clock">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_0</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>first_hannifier</endModule>
   <endConnectionPoint>clock</endConnectionPoint>
  </connection>
  <connection
@@ -83935,6 +84288,73 @@ parameters are a RESULT of the module parameters. -->
   <endModule>hps_0_bridges</endModule>
   <endConnectionPoint>h2f_lw_axi_clock</endConnectionPoint>
  </connection>
+ <connection
+   name="first_hannifier.pre_fft_buf_writer/pre_fft_buf.memwriter"
+   kind="conduit"
+   version="21.1"
+   start="first_hannifier.pre_fft_buf_writer"
+   end="pre_fft_buf.memwriter">
+  <parameter name="endPort">
+   <type>com.altera.entityinterfaces.IPort</type>
+   <value></value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="endPortLSB">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="startPort">
+   <type>com.altera.entityinterfaces.IPort</type>
+   <value></value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="startPortLSB">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="width">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>first_hannifier</startModule>
+  <startConnectionPoint>pre_fft_buf_writer</startConnectionPoint>
+  <endModule>pre_fft_buf</endModule>
+  <endConnectionPoint>memwriter</endConnectionPoint>
+ </connection>
  <plugin>
   <instanceCount>1</instanceCount>
   <name>clock_source</name>
@@ -83977,26 +84397,26 @@ parameters are a RESULT of the module parameters. -->
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>
-  <name>window_mem</name>
+  <name>first_hannifier</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
-  <displayName>Window Mem</displayName>
+  <displayName>First Hannifier</displayName>
   <version>1.0</version>
  </plugin>
  <plugin>
-  <instanceCount>6</instanceCount>
-  <name>conduit_end</name>
-  <type>com.altera.entityinterfaces.IElementClass</type>
-  <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
-  <displayName>Conduit</displayName>
-  <version>21.1</version>
- </plugin>
- <plugin>
-  <instanceCount>53</instanceCount>
+  <instanceCount>54</instanceCount>
   <name>clock_sink</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
   <displayName>Clock Input</displayName>
+  <version>21.1</version>
+ </plugin>
+ <plugin>
+  <instanceCount>11</instanceCount>
+  <name>conduit_end</name>
+  <type>com.altera.entityinterfaces.IElementClass</type>
+  <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
+  <displayName>Conduit</displayName>
   <version>21.1</version>
  </plugin>
  <plugin>
@@ -84320,6 +84740,14 @@ parameters are a RESULT of the module parameters. -->
   <version>21.1</version>
  </plugin>
  <plugin>
+  <instanceCount>1</instanceCount>
+  <name>window_mem</name>
+  <type>com.altera.entityinterfaces.IElementClass</type>
+  <subtype>com.altera.entityinterfaces.IModule</subtype>
+  <displayName>Window Mem</displayName>
+  <version>1.0</version>
+ </plugin>
+ <plugin>
   <instanceCount>42</instanceCount>
   <name>reset</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
@@ -84328,7 +84756,7 @@ parameters are a RESULT of the module parameters. -->
   <version>21.1</version>
  </plugin>
  <plugin>
-  <instanceCount>50</instanceCount>
+  <instanceCount>51</instanceCount>
   <name>clock</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>
@@ -84349,6 +84777,14 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>
   <displayName>Interrupt Connection</displayName>
+  <version>21.1</version>
+ </plugin>
+ <plugin>
+  <instanceCount>1</instanceCount>
+  <name>conduit</name>
+  <type>com.altera.entityinterfaces.IElementClass</type>
+  <subtype>com.altera.entityinterfaces.IConnection</subtype>
+  <displayName>Conduit Connection</displayName>
   <version>21.1</version>
  </plugin>
  <reportVersion>21.1 842</reportVersion>

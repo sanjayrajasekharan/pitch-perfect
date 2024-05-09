@@ -49,11 +49,11 @@
          type = "int";
       }
    }
-   element hann_to_fft_buf
+   element first_hannifier
    {
       datum _sortIndex
       {
-         value = "8";
+         value = "9";
          type = "int";
       }
    }
@@ -63,6 +63,30 @@
       {
          value = "1";
          type = "int";
+      }
+   }
+   element pre_fft_buf
+   {
+      datum _sortIndex
+      {
+         value = "8";
+         type = "int";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
       }
    }
    element soc_system
@@ -136,16 +160,6 @@
    name="audio_piper_0_lights_conduit"
    internal="audio_piper_0.lights_conduit" />
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
- <interface
-   name="hann_to_fft_buf_memreader"
-   internal="hann_to_fft_buf.memreader"
-   type="conduit"
-   dir="end" />
- <interface
-   name="hann_to_fft_buf_memwriter"
-   internal="hann_to_fft_buf.memwriter"
-   type="conduit"
-   dir="end" />
  <interface name="hps" internal="hps_0.hps_io" type="conduit" dir="end" />
  <interface name="hps_ddr3" internal="hps_0.memory" type="conduit" dir="end" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
@@ -205,7 +219,11 @@
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
- <module name="hann_to_fft_buf" kind="window_mem" version="1.0" enabled="1" />
+ <module
+   name="first_hannifier"
+   kind="first_hannifier"
+   version="1.0"
+   enabled="1" />
  <module name="hps_0" kind="altera_hps" version="21.1" enabled="1">
   <parameter name="ABSTRACT_REAL_COMPARE_TEST" value="false" />
   <parameter name="ABS_RAM_MEM_INIT_FILENAME" value="meminit" />
@@ -736,6 +754,7 @@
   <parameter name="usb_mp_clk_div" value="0" />
   <parameter name="use_default_mpu_clk" value="true" />
  </module>
+ <module name="pre_fft_buf" kind="window_mem" version="1.0" enabled="1" />
  <module
    name="software_interface_0"
    kind="software_interface"
@@ -810,11 +829,12 @@
    version="21.1"
    start="clk_0.clk"
    end="software_interface_0.clock" />
+ <connection kind="clock" version="21.1" start="clk_0.clk" end="pre_fft_buf.clock" />
  <connection
    kind="clock"
    version="21.1"
    start="clk_0.clk"
-   end="hann_to_fft_buf.clock" />
+   end="first_hannifier.clock" />
  <connection
    kind="clock"
    version="21.1"
@@ -835,6 +855,17 @@
    version="21.1"
    start="clk_0.clk"
    end="audio_pll_0.ref_clk" />
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="first_hannifier.pre_fft_buf_writer"
+   end="pre_fft_buf.memwriter">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
  <connection
    kind="reset"
    version="21.1"
