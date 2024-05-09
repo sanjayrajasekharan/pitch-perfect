@@ -1,0 +1,9 @@
+set_global_assignment -name IP_TOOL_NAME "RAM: 2-PORT"
+set_global_assignment -name IP_TOOL_VERSION "21.1"
+set_global_assignment -name IP_GENERATED_DEVICE_FAMILY "{Cyclone V}"
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "windowmem.v"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "windowmem.bsf"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "windowmem_inst.v"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "windowmem_bb.v"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "windowmem.inc"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "windowmem.cmp"]
