@@ -73,24 +73,23 @@ module soc_system (
 		input  wire        reset_reset_n                 //    reset.reset_n
 	);
 
-	wire         first_hannifier_pre_fft_buf_writer_valid; // first_hannifier:out_buf_wren -> pre_fft_buf:wren
-	wire  [15:0] first_hannifier_pre_fft_buf_writer_data;  // first_hannifier:out_buf_data -> pre_fft_buf:data
-	wire  [11:0] first_hannifier_pre_fft_buf_writer_addr;  // first_hannifier:out_buf_addr -> pre_fft_buf:wraddress
-	wire  [31:0] hps_0_f2h_irq0_irq;                       // irq_mapper:sender_irq -> hps_0:f2h_irq_p0
-	wire  [31:0] hps_0_f2h_irq1_irq;                       // irq_mapper_001:sender_irq -> hps_0:f2h_irq_p1
+	wire         sampler_0_sampler_to_first_hannifier_valid; // sampler_0:go_out -> first_hannifier_0:go_in
+	wire   [2:0] sampler_0_sampler_to_first_hannifier_data;  // sampler_0:window_start -> first_hannifier_0:window_start
+	wire  [31:0] hps_0_f2h_irq0_irq;                         // irq_mapper:sender_irq -> hps_0:f2h_irq_p0
+	wire  [31:0] hps_0_f2h_irq1_irq;                         // irq_mapper_001:sender_irq -> hps_0:f2h_irq_p1
 
-	first_hannifier first_hannifier (
-		.clk           (clk_clk),                                  //                      clock.clk
-		.window_start  (),                                         // sampler_to_first_hannifier.data
-		.go_in         (),                                         //                           .valid
-		.go_out        (),                                         //   first_hannifier_to_ffter.data
-		.hann_rom_data (),                                         //            hann_rom_reader.data
-		.hann_rom_addr (),                                         //                           .addr
-		.ring_buf_addr (),                                         //            ring_buf_reader.addr
-		.ring_buf_data (),                                         //                           .data
-		.out_buf_addr  (first_hannifier_pre_fft_buf_writer_addr),  //         pre_fft_buf_writer.addr
-		.out_buf_data  (first_hannifier_pre_fft_buf_writer_data),  //                           .data
-		.out_buf_wren  (first_hannifier_pre_fft_buf_writer_valid)  //                           .valid
+	first_hannifier first_hannifier_0 (
+		.clk           (clk_clk),                                    //                      clock.clk
+		.window_start  (sampler_0_sampler_to_first_hannifier_data),  // sampler_to_first_hannifier.data
+		.go_in         (sampler_0_sampler_to_first_hannifier_valid), //                           .valid
+		.go_out        (),                                           //   first_hannifier_to_ffter.data
+		.hann_rom_data (),                                           //            hann_rom_reader.data
+		.hann_rom_addr (),                                           //                           .addr
+		.ring_buf_addr (),                                           //            ring_buf_reader.addr
+		.ring_buf_data (),                                           //                           .data
+		.out_buf_addr  (),                                           //         pre_fft_buf_writer.addr
+		.out_buf_data  (),                                           //                           .data
+		.out_buf_wren  ()                                            //                           .valid
 	);
 
 	soc_system_hps_0 #(
@@ -282,12 +281,27 @@ module soc_system (
 	);
 
 	windowmem pre_fft_buf (
-		.data      (first_hannifier_pre_fft_buf_writer_data),  // memwriter.data
-		.wraddress (first_hannifier_pre_fft_buf_writer_addr),  //          .addr
-		.wren      (first_hannifier_pre_fft_buf_writer_valid), //          .valid
-		.rdaddress (),                                         // memreader.addr
-		.q         (),                                         //          .data
-		.clock     (clk_clk)                                   //     clock.clk
+		.data      (),        // memwriter.data
+		.wraddress (),        //          .addr
+		.wren      (),        //          .valid
+		.rdaddress (),        // memreader.addr
+		.q         (),        //          .data
+		.clock     (clk_clk)  //     clock.clk
+	);
+
+	sampler sampler_0 (
+		.clk            (clk_clk),                                    //                      clock.clk
+		.ring_buf_wren  (),                                           //        sampler_to_ring_buf.writeresponsevalid_n
+		.ring_buf_addr  (),                                           //                           .writeaddr
+		.ring_buf_data  (),                                           //                           .writedata
+		.right_in_data  (),                                           //                   right_in.writebyteenable_n
+		.right_in_ready (),                                           //                           .writeresponsevalid_n
+		.right_in_valid (),                                           //                           .beginbursttransfer
+		.left_in_data   (),                                           //                    left_in.writebyteenable_n
+		.left_in_ready  (),                                           //                           .writeresponsevalid_n
+		.left_in_valid  (),                                           //                           .beginbursttransfer
+		.go_out         (sampler_0_sampler_to_first_hannifier_valid), // sampler_to_first_hannifier.valid
+		.window_start   (sampler_0_sampler_to_first_hannifier_data)   //                           .data
 	);
 
 	soc_system_irq_mapper irq_mapper (

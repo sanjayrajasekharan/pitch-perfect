@@ -6,8 +6,8 @@
 module first_hannifier(
 		input logic	    clk,
 
-		// Communicate with input_reader
-		input logic [2:0]   window_start,
+		// Communicate with sampler
+		input logic [1:0]   window_start,
 		input logic	    go_in,
 
 		// Read from ring buffer
@@ -36,6 +36,7 @@ module first_hannifier(
 				ring_buf_addr <= window_start;
 				hann_rom_addr <= 0;
 				out_buf_addr <= 0;
+				go_out <= 0;
 				going <= 1;
 			end
 		end 
@@ -58,7 +59,7 @@ module first_hannifier(
 					just_finished <= 1;
 				end
 			end
-			else begin
+			else begin // just finished
 				out_buf_wren <= 0;
 				just_finished <= 0;
 				go_out <= 1;
