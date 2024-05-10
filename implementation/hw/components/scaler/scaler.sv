@@ -96,7 +96,24 @@ module scaler(
 	logic going = 0;
 	logic just_finished = 0;
 	logic tmp = 0;
-		
+
+	logic [0:9] i = 0;
+
+	logic signed [23:0] d_phase;
+	logic signed [23:0] expected_d_phase = 24'b0;
+	logic signed [23:0] d_phase_from_expected;
+
+	logic signed [23:0] bin_dev;
+
+	logic signed [23:0] new_bin;
+	logic [10:0] new_bin_num;
+
+
+
+
+	logic signed [23:0] expected_d_phase_increment = 24'h000192; // pi/2
+	logic signed [23:0] bin_dev_multiplier = 24'h0000a3; // 2/pi
+	
 	always_ff @(posedge clk) begin
 		if (!going) begin
 			if (go_in) begin
@@ -107,6 +124,14 @@ module scaler(
 		else begin
 			if (!just_finished) begin
 				tmp <= 1;
+
+				if (curr_window == 0) d_phase <= wrap_phase(phase_in_buf_0_data, phase_in_buf_1_data)
+				else d_phase <= wrap_phase(phase_in_buf_1_data, phase_in_buf_0_data)
+
+				d_phase_from_expected <= d_phase - expected_d_phase;
+				bin_dev <= wrap_phase(d_phase_from_expected) * bin_dev_multiplier;
+
+
 
 				// Need to finish one cycle later so we can write last to out buf
 				if (tmp) begin
