@@ -61,10 +61,42 @@ module scaler(
 		output logic	    go_out = 0
 	);
 
+	function automatic signed [23:0] fixed_point_modulus(
+        input signed [23:0] a,  
+        input signed [23:0] b 
+    );
+        signed [47:0] scaled_a = a;            
+        signed [47:0] scaled_b = b;       
+        signed [23:0] mod_result = scaled_a % scaled_b;
+
+        if (mod_result < 0) begin
+            mod_result += scaled_b;
+        end
+
+        return mod_result;  // Return the result in Q1.15 format
+    endfunction
+
+	function automatic signed [23:0] wrap_phase(
+		input signed [23:0] phase_in
+	);
+
+	signed [23:0] pi = 24'h0324;
+	signed [23:0] two_pi = 24'h0648;
+	signed [23:0] neg_two_pi = 24'f9b8;
+	
+
+	if (phase_in > 0) begin
+		return fixed_point_modulus(phase_in + pi, two_pi) - pi;
+	end else begin
+		return fixed_point_modulus(phase_in - pi, neg_two_pi) + pi;
+	end
+	endfunction
+
+
 	logic going = 0;
 	logic just_finished = 0;
 	logic tmp = 0;
-	
+		
 	always_ff @(posedge clk) begin
 		if (!going) begin
 			if (go_in) begin
