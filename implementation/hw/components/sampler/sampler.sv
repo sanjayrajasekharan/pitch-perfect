@@ -5,8 +5,6 @@
 
 module sampler(
 		input logic	    clk,
-		input logic go_in,
-
 		// Read from avalon_left_channel_source from audio codec
 		input logic [15:0]  left_in_data,
 		input logic 	    left_in_valid,
@@ -33,7 +31,7 @@ module sampler(
 	
 	always_ff @(posedge clk) begin
 		if (!going) begin
-			if (go_in) begin
+			if (left_in_valid) begin
                 		go_out <= 0;
 				going <= 1;
 			end
