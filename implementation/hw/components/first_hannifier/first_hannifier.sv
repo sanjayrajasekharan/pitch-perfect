@@ -43,7 +43,7 @@ module first_hannifier(
 		else begin
 			if (!just_finished) begin
 				out_buf_wren <= 1;
-				out_buf_data <= ring_buf_data * hann_rom_data;
+				out_buf_data <= ring_buf_data * hann_rom_data >> 16; // hann_rom_data: Q0.16, I think output is Q16.16, and then take only first 16 most sig bits 
 				out_buf_addr <= hann_rom_addr;
 				hann_rom_addr <= hann_rom_addr + 1;
 				
