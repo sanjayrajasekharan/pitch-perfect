@@ -1,0 +1,100 @@
+-- (C) 2001-2021 Intel Corporation. All rights reserved.
+-- This simulation model contains highly confidential and
+-- proprietary information of Intel and is being provided
+-- in accordance with and subject to the protections of the
+-- applicable Intel Program License Subscription Agreement
+-- which governs its use and disclosure. Your use of Intel
+-- Corporation's design tools, logic functions and other
+-- software and tools, and its AMPP partner logic functions,
+-- and any output files from any of the foregoing (including device
+-- programming or simulation files), and any associated
+-- documentation or information are expressly subject to the
+-- terms and conditions of the Intel Program License Subscription
+-- Agreement, Intel FPGA IP License Agreement, or other
+-- applicable license agreement, including, without limitation,
+-- that your use is for the sole purpose of simulating designs
+-- for use exclusively in logic devices manufactured by Intel and sold
+-- by Intel or its authorized distributors. Please refer to the
+-- applicable agreement for further details. Intel products and
+-- services are protected under numerous U.S. and foreign patents,
+-- maskwork rights, copyrights and other intellectual property laws.
+-- Intel assumes no responsibility or liability arising out of the
+-- application or use of this simulation model.
+-- ACDS 21.1
+`protect BEGIN_PROTECTED
+`protect version = 1
+`protect author = "Altera"
+`protect encrypt_agent = "Model Technology", encrypt_agent_info = "6.6e"
+`protect key_keyowner = "Mentor Graphics Corporation" , key_keyname = "MGC-VERIF-SIM-RSA-1" , key_method = "rsa"
+`protect encoding = (enctype = "base64", line_length = 64, bytes = 128)
+`protect KEY_BLOCK
+g/2wN+H9lEraBzYo3nZUwWqDYyTBcKezzGO/8qevGJyWDy/0sAIGdxCfYd2Kec0H
+WriiYJ9jgffk0gltEyln1gi4HQu9+qnAjWwOBXzmUsZXPaj/DUopVvJOqeN/7adm
+VjdHAFv8rZe8ZF6s08+BPj1O24hln+n0rRzAfLvKgFI=
+`protect data_method = "aes128-cbc"
+`protect encoding = (enctype = "base64", line_length = 64, bytes = 2926)
+
+`protect DATA_BLOCK
+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
+ID3fnoD5zxwOdHKkQbVe6A==
+`protect END_PROTECTED

@@ -1,0 +1,31 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/homes/user/stud/fall21/mhr2154/Documents/fft_sim/simulation/modelsim
+vnco
+!s110 1715174897
+!i10b 1
+!s100 MR6UF75FgGbEfbLkPL?dK2
+IHk?gHR5>Yg;TC5LVEgQ162
+VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1715132383
+8/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/nco.v
+F/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/nco.v
+L0 6
+OE;L;10.7b_1;67
+r1
+!s85 0
+31
+!s108 1715174897.000000
+!s107 /homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/nco.v|
+!s90 -reportprogress|300|/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/nco.v|
+!i113 0
+o-L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+tCvgOpt 0
