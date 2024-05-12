@@ -1,0 +1,1 @@
+Packet,Size:,Time SoP In (ns),Time SoP Out (ns),Time EoP In (ns),Time EoP Out (ns),Latency (cycles),Clock Period is 20 ns

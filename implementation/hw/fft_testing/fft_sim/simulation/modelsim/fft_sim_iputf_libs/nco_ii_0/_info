@@ -1,0 +1,223 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/homes/user/stud/fall21/mhr2154/Documents/fft_sim/simulation/modelsim
+vDBvhQmanW3VNLyZQHBi80w==
+Z1 !s110 1715174897
+!i10b 0
+!s100 0eEPeVTWC[g612L:S92iR3
+ITZ_Y]Kdo;HNLgI]NX7TT31
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+!i119 1
+!i8a 1040472432
+R0
+Z3 w1715174897
+8/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_altqmcpipe.v
+F/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_altqmcpipe.v
+Z4 L0 12
+Z5 OE;L;10.7b_1;67
+r1
+!s85 0
+31
+Z6 !s108 1715174897.000000
+!s107 /homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_altqmcpipe.v|
+!s90 -reportprogress|300|/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_altqmcpipe.v|-work|nco_ii_0|
+!i113 0
+Z7 o-work nco_ii_0 -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z8 tCvgOpt 0
+ne3ff555
+vk1T1xhgKAag1EytoY9yNKw==
+R1
+!i10b 0
+!s100 9[o1MF?J9MCYk@I3na1>C1
+IRAVV;fPiJNo0FmF=0S0gJ2
+R2
+!i119 1
+!i8a 16844912
+R0
+R3
+8/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_dxx.v
+F/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_dxx.v
+R4
+R5
+r1
+!s85 0
+31
+R6
+!s107 /homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_dxx.v|
+!s90 -reportprogress|300|/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_dxx.v|-work|nco_ii_0|
+!i113 0
+R7
+R8
+n8a05b98
+vFGm7WjOCbaS5lMMFyIfuAA==
+R1
+!i10b 0
+!s100 V`dO>c4QYSaJ<7Sl_kD?71
+IU172G`II_HPaG<A:YKN5Z3
+R2
+!i119 1
+!i8a 115010320
+R0
+R3
+8/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_dxx_g.v
+F/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_dxx_g.v
+R4
+R5
+r1
+!s85 0
+31
+Z9 !s108 1715174896.000000
+!s107 /homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_dxx_g.v|
+!s90 -reportprogress|300|/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_dxx_g.v|-work|nco_ii_0|
+!i113 0
+R7
+R8
+n5b96f7
+vetVWCo3ozLWdcmCDjx1s6Q==
+R1
+!i10b 0
+!s100 76CeMCSi=GX`d1Q@Mc^JI1
+IK8J?0DzKbaF8D1j[jniRg2
+R2
+!i119 1
+!i8a 323523584
+R0
+R3
+8/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_gal.v
+F/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_gal.v
+R4
+R5
+r1
+!s85 0
+31
+R6
+!s107 /homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_gal.v|
+!s90 -reportprogress|300|/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_gal.v|-work|nco_ii_0|
+!i113 0
+R7
+R8
+n8a05d1c
+vU2a+N/2njQ+s5Aq8ijwGQw==
+Z10 !s110 1715174896
+!i10b 0
+!s100 9L0GLMY>_RaInlahZ;L2F0
+I0Kk70mc07oKEefC7TjL@61
+R2
+!i119 1
+!i8a 1269397776
+R0
+Z11 w1715174896
+8/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_nco_apr_dxx.v
+F/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_nco_apr_dxx.v
+R4
+R5
+r1
+!s85 0
+31
+R9
+!s107 /homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_nco_apr_dxx.v|
+!s90 -reportprogress|300|/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_nco_apr_dxx.v|-work|nco_ii_0|
+!i113 0
+R7
+R8
+n8135608
+vnH8KfLRKc9Qc7v+ZI5/qrTtCoMCFs2d/zVb3k6at4gM=
+R1
+!i10b 0
+!s100 hkBTf^O=6]MW]X4B[9@;e1
+IS0<Pi<b_Mlo;hjgMhz@Ai2
+R2
+!i119 1
+!i8a 2101676208
+R0
+R3
+8/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_nco_as_m_cen.v
+F/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_nco_as_m_cen.v
+R4
+R5
+r1
+!s85 0
+31
+R6
+!s107 /homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_nco_as_m_cen.v|
+!s90 -reportprogress|300|/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_nco_as_m_cen.v|-work|nco_ii_0|
+!i113 0
+R7
+R8
+nf13863e
+vYZE6S9ZHZ0a4zH42J8aRKA==
+R10
+!i10b 0
+!s100 YR3>OV6Z4E?d5K19D^o3a1
+ISJo`_Gnz09k50NShI?F<N0
+R2
+!i119 1
+!i8a 809761872
+R0
+R11
+8/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_nco_isdr.v
+F/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_nco_isdr.v
+R4
+R5
+r1
+!s85 0
+31
+R9
+!s107 /homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_nco_isdr.v|
+!s90 -reportprogress|300|/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_nco_isdr.v|-work|nco_ii_0|
+!i113 0
+R7
+R8
+ne00fe2
+v9XGlAaVu6V+gqqaYtfTNbA==
+R10
+!i10b 0
+!s100 nIo?TYEL:l732;oKenDZH3
+Ie>N6l2fd]Me]zogU>MaQk1
+R2
+!i119 1
+!i8a 221066384
+R0
+R11
+8/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_nco_mob_rw.v
+F/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_nco_mob_rw.v
+R4
+R5
+r1
+!s85 0
+31
+R9
+!s107 /homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_nco_mob_rw.v|
+!s90 -reportprogress|300|/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/mentor/asj_nco_mob_rw.v|-work|nco_ii_0|
+!i113 0
+R7
+R8
+n433677
+vnco_nco_ii_0
+R1
+!i10b 1
+!s100 ]Q2cEHB]7cJh4B:0C<T[23
+IYz=]IELBVDalnS^dS37j73
+R2
+R0
+w1715132384
+8/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/nco_nco_ii_0.v
+F/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/nco_nco_ii_0.v
+L0 23
+R5
+r1
+!s85 0
+31
+R6
+!s107 /homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/nco_nco_ii_0.v|
+!s90 -reportprogress|300|/homes/user/stud/fall21/mhr2154/Documents/fft_sim/nco/simulation/submodules/nco_nco_ii_0.v|-work|nco_ii_0|
+!i113 0
+R7
+R8
