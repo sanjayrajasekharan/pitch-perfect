@@ -67,7 +67,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   </table>
   <table class="blueBar">
    <tr>
-    <td class="l">2024.05.12.04:12:24</td>
+    <td class="l">2024.05.12.05:23:29</td>
     <td class="r">Datasheet</td>
    </tr>
   </table>
@@ -967,7 +967,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_audio_clock">audio_clock</a>
       </td>
       <td class="from">audio_clk&#160;&#160;</td>
-      <td class="main" rowspan="4">audio</td>
+      <td class="main" rowspan="8">audio</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clk</td>
@@ -977,6 +977,29 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">avalon_left_channel_source&#160;&#160;</td>
+      <td class="neighbor" rowspan="4">
+       <a href="#module_sampler">sampler</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;left_in</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">avalon_right_channel_source&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;right_in</td>
      </tr>
     </table>
    </div>
@@ -1177,7 +1200,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_0">clk_0</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="8">audio_clock</td>
+      <td class="main" rowspan="16">audio_clock</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;ref_clk</td>
@@ -1210,6 +1233,48 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="to">&#160;&#160;reset</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">audio_clk&#160;&#160;</td>
+      <td class="neighbor" rowspan="4">
+       <a href="#module_sampler">sampler</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;clock</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">reset_source&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;reset_sink</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">audio_clk&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_ring_buf">ring_buf</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;wrclock</td>
      </tr>
     </table>
    </div>
@@ -1244,6 +1309,147 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
         <td class="parametername">AUTO_DEVICE_SPEEDGRADE</td>
         <td class="parametervalue">6</td>
        </tr>
+       <tr>
+        <td class="parametername">deviceFamily</td>
+        <td class="parametervalue">UNKNOWN</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateLegacySim</td>
+        <td class="parametervalue">false</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>&#160;&#160;
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Software Assignments</h2>(none)</td>
+    </tr>
+   </table>
+  </div>
+  <a name="module_cart_to_polar"> </a>
+  <div>
+   <hr/>
+   <h2>cart_to_polar</h2>cart_to_polar v1.0
+   <br/>
+   <div class="greydiv">
+    <table class="connectionboxes">
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_clk_0">clk_0</a>
+      </td>
+      <td class="from">clk&#160;&#160;</td>
+      <td class="main" rowspan="26">cart_to_polar</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clock</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_scaler">scaler</a>
+      </td>
+      <td class="from">from_cart_to_polar&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;to_scaler</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_post_fft_imag_buf">post_fft_imag_buf</a>
+      </td>
+      <td class="from">memreader&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;r_post_fft_imag_buf</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_post_fft_real_buf">post_fft_real_buf</a>
+      </td>
+      <td class="from">memreader&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;r_post_fft_real_buf</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_pre_scaler_mag_buf_0">pre_scaler_mag_buf_0</a>
+      </td>
+      <td class="from">memwriter&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;w_pre_scaler_mag_buf_0</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_pre_scaler_mag_buf_1">pre_scaler_mag_buf_1</a>
+      </td>
+      <td class="from">memwriter&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;w_pre_scaler_mag_buf_1</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_pre_scaler_phase_buf_0">pre_scaler_phase_buf_0</a>
+      </td>
+      <td class="from">memwriter&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;w_pre_scaler_phase_buf_0</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_pre_scaler_phase_buf_1">pre_scaler_phase_buf_1</a>
+      </td>
+      <td class="from">memwriter&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;w_pre_scaler_phase_buf_1</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_ffter">ffter</a>
+      </td>
+      <td class="from">to_cart_to_polar&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;from_ffter</td>
+     </tr>
+    </table>
+   </div>
+   <br/>
+   <br/>
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Parameters</h2>
+      <table>
        <tr>
         <td class="parametername">deviceFamily</td>
         <td class="parametervalue">UNKNOWN</td>
@@ -1310,6 +1516,120 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     </tr>
    </table>
   </div>
+  <a name="module_ffter"> </a>
+  <div>
+   <hr/>
+   <h2>ffter</h2>ffter v1.0
+   <br/>
+   <div class="greydiv">
+    <table class="connectionboxes">
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_clk_0">clk_0</a>
+      </td>
+      <td class="from">clk&#160;&#160;</td>
+      <td class="main" rowspan="16">ffter</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clock</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_first_hannifier">first_hannifier</a>
+      </td>
+      <td class="from">first_hannifier_to_ffter&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;from_first_hannifier</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_pre_fft_buf">pre_fft_buf</a>
+      </td>
+      <td class="from">memreader&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;r_pre_fft_buf</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">to_cart_to_polar&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_cart_to_polar">cart_to_polar</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;from_ffter</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">w_post_fft_imag_buf&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_post_fft_imag_buf">post_fft_imag_buf</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;memwriter</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">w_post_fft_real_buf&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_post_fft_real_buf">post_fft_real_buf</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;memwriter</td>
+     </tr>
+    </table>
+   </div>
+   <br/>
+   <br/>
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Parameters</h2>
+      <table>
+       <tr>
+        <td class="parametername">deviceFamily</td>
+        <td class="parametervalue">UNKNOWN</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateLegacySim</td>
+        <td class="parametervalue">false</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>&#160;&#160;
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Software Assignments</h2>(none)</td>
+    </tr>
+   </table>
+  </div>
   <a name="module_first_hannifier"> </a>
   <div>
    <hr/>
@@ -1322,10 +1642,26 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_0">clk_0</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="10">first_hannifier</td>
+      <td class="main" rowspan="13">first_hannifier</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clock</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">first_hannifier_to_ffter&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_ffter">ffter</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;from_first_hannifier</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
      </tr>
      <tr>
       <td></td>
@@ -1346,22 +1682,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <tr>
       <td></td>
       <td></td>
-      <td class="from">pre_fft_buf_writer&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_pre_fft_buf">pre_fft_buf</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;memwriter</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
       <td class="from">ring_buf_reader&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
        <a href="#module_ring_buf">ring_buf</a>
@@ -1371,6 +1691,22 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="to">&#160;&#160;memreader</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">sampler_to_first_hannifier&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_sampler">sampler</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;to_first_hannifier</td>
      </tr>
     </table>
    </div>
@@ -28884,6 +29220,447 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     </tr>
    </table>
   </div>
+  <a name="module_iffter"> </a>
+  <div>
+   <hr/>
+   <h2>iffter</h2>iffter v1.0
+   <br/>
+   <div class="greydiv">
+    <table class="connectionboxes">
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_clk_0">clk_0</a>
+      </td>
+      <td class="from">clk&#160;&#160;</td>
+      <td class="main" rowspan="13">iffter</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clock</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_pre_ifft_imag_buf">pre_ifft_imag_buf</a>
+      </td>
+      <td class="from">memreader&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;r_pre_ifft_imag_buf</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_pre_ifft_real_buf">pre_ifft_real_buf</a>
+      </td>
+      <td class="from">memreader&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;r_pre_ifft_real_buf</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_polar_to_cart">polar_to_cart</a>
+      </td>
+      <td class="from">to_iffter&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;from_polar_to_cart</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">w_post_ifft_buf&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_post_ifft_buf">post_ifft_buf</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;memwriter</td>
+     </tr>
+    </table>
+   </div>
+   <br/>
+   <br/>
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Parameters</h2>
+      <table>
+       <tr>
+        <td class="parametername">deviceFamily</td>
+        <td class="parametervalue">UNKNOWN</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateLegacySim</td>
+        <td class="parametervalue">false</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>&#160;&#160;
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Software Assignments</h2>(none)</td>
+    </tr>
+   </table>
+  </div>
+  <a name="module_polar_to_cart"> </a>
+  <div>
+   <hr/>
+   <h2>polar_to_cart</h2>polar_to_cart v1.0
+   <br/>
+   <div class="greydiv">
+    <table class="connectionboxes">
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_clk_0">clk_0</a>
+      </td>
+      <td class="from">clk&#160;&#160;</td>
+      <td class="main" rowspan="25">polar_to_cart</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clock</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_post_scaler_mag_buf_0">post_scaler_mag_buf_0</a>
+      </td>
+      <td class="from">memreader&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;r_post_scaler_mag_buf_0</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_post_scaler_mag_buf_1">post_scaler_mag_buf_1</a>
+      </td>
+      <td class="from">memreader&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;r_post_scaler_mag_buf_1</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_post_scaler_phase_buf_0">post_scaler_phase_buf_0</a>
+      </td>
+      <td class="from">memreader&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;r_post_scaler_phase_buf_0</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_post_scaler_phase_buf_1">post_scaler_phase_buf_1</a>
+      </td>
+      <td class="from">memreader&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;r_post_scaler_phase_buf_1</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_scaler">scaler</a>
+      </td>
+      <td class="from">to_polar_to_cart&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;from_scaler</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">to_iffter&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_iffter">iffter</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;from_polar_to_cart</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">w_pre_ifft_imag_buf&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_pre_ifft_imag_buf">pre_ifft_imag_buf</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;memwriter</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">w_pre_ifft_real_buf&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_pre_ifft_real_buf">pre_ifft_real_buf</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;memwriter</td>
+     </tr>
+    </table>
+   </div>
+   <br/>
+   <br/>
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Parameters</h2>
+      <table>
+       <tr>
+        <td class="parametername">deviceFamily</td>
+        <td class="parametervalue">UNKNOWN</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateLegacySim</td>
+        <td class="parametervalue">false</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>&#160;&#160;
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Software Assignments</h2>(none)</td>
+    </tr>
+   </table>
+  </div>
+  <a name="module_post_fft_imag_buf"> </a>
+  <div>
+   <hr/>
+   <h2>post_fft_imag_buf</h2>window_mem v1.0
+   <br/>
+   <div class="greydiv">
+    <table class="connectionboxes">
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_clk_0">clk_0</a>
+      </td>
+      <td class="from">clk&#160;&#160;</td>
+      <td class="main" rowspan="7">post_fft_imag_buf</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clock</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_ffter">ffter</a>
+      </td>
+      <td class="from">w_post_fft_imag_buf&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;memwriter</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">memreader&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_cart_to_polar">cart_to_polar</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;r_post_fft_imag_buf</td>
+     </tr>
+    </table>
+   </div>
+   <br/>
+   <br/>
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Parameters</h2>
+      <table>
+       <tr>
+        <td class="parametername">deviceFamily</td>
+        <td class="parametervalue">UNKNOWN</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateLegacySim</td>
+        <td class="parametervalue">false</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>&#160;&#160;
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Software Assignments</h2>(none)</td>
+    </tr>
+   </table>
+  </div>
+  <a name="module_post_fft_real_buf"> </a>
+  <div>
+   <hr/>
+   <h2>post_fft_real_buf</h2>window_mem v1.0
+   <br/>
+   <div class="greydiv">
+    <table class="connectionboxes">
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_clk_0">clk_0</a>
+      </td>
+      <td class="from">clk&#160;&#160;</td>
+      <td class="main" rowspan="7">post_fft_real_buf</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clock</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_ffter">ffter</a>
+      </td>
+      <td class="from">w_post_fft_real_buf&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;memwriter</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">memreader&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_cart_to_polar">cart_to_polar</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;r_post_fft_real_buf</td>
+     </tr>
+    </table>
+   </div>
+   <br/>
+   <br/>
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Parameters</h2>
+      <table>
+       <tr>
+        <td class="parametername">deviceFamily</td>
+        <td class="parametervalue">UNKNOWN</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateLegacySim</td>
+        <td class="parametervalue">false</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>&#160;&#160;
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Software Assignments</h2>(none)</td>
+    </tr>
+   </table>
+  </div>
+  <a name="module_post_ifft_buf"> </a>
+  <div>
+   <hr/>
+   <h2>post_ifft_buf</h2>window_mem v1.0
+   <br/>
+   <div class="greydiv">
+    <table class="connectionboxes">
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_clk_0">clk_0</a>
+      </td>
+      <td class="from">clk&#160;&#160;</td>
+      <td class="main" rowspan="5">post_ifft_buf</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clock</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_iffter">iffter</a>
+      </td>
+      <td class="from">w_post_ifft_buf&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;memwriter</td>
+     </tr>
+    </table>
+   </div>
+   <br/>
+   <br/>
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Parameters</h2>
+      <table>
+       <tr>
+        <td class="parametername">deviceFamily</td>
+        <td class="parametervalue">UNKNOWN</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateLegacySim</td>
+        <td class="parametervalue">false</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>&#160;&#160;
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Software Assignments</h2>(none)</td>
+    </tr>
+   </table>
+  </div>
   <a name="module_post_scaler_mag_buf_0"> </a>
   <div>
    <hr/>
@@ -28896,7 +29673,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_0">clk_0</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="5">post_scaler_mag_buf_0</td>
+      <td class="main" rowspan="7">post_scaler_mag_buf_0</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clock</td>
@@ -28912,6 +29689,19 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;memrwer</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">memreader&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_polar_to_cart">polar_to_cart</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;r_post_scaler_mag_buf_0</td>
      </tr>
     </table>
    </div>
@@ -28953,7 +29743,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_0">clk_0</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="5">post_scaler_mag_buf_1</td>
+      <td class="main" rowspan="7">post_scaler_mag_buf_1</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clock</td>
@@ -28969,6 +29759,19 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;memrwer</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">memreader&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_polar_to_cart">polar_to_cart</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;r_post_scaler_mag_buf_1</td>
      </tr>
     </table>
    </div>
@@ -29010,7 +29813,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_0">clk_0</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="5">post_scaler_phase_buf_0</td>
+      <td class="main" rowspan="7">post_scaler_phase_buf_0</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clock</td>
@@ -29026,6 +29829,19 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;memrwer</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">memreader&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_polar_to_cart">polar_to_cart</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;r_post_scaler_phase_buf_0</td>
      </tr>
     </table>
    </div>
@@ -29067,7 +29883,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_0">clk_0</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="5">post_scaler_phase_buf_1</td>
+      <td class="main" rowspan="7">post_scaler_phase_buf_1</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clock</td>
@@ -29083,6 +29899,19 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;memrwer</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">memreader&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_polar_to_cart">polar_to_cart</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;r_post_scaler_phase_buf_1</td>
      </tr>
     </table>
    </div>
@@ -29124,7 +29953,65 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_0">clk_0</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="5">pre_fft_buf</td>
+      <td class="main" rowspan="4">pre_fft_buf</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clock</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">memreader&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_ffter">ffter</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;r_pre_fft_buf</td>
+     </tr>
+    </table>
+   </div>
+   <br/>
+   <br/>
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Parameters</h2>
+      <table>
+       <tr>
+        <td class="parametername">deviceFamily</td>
+        <td class="parametervalue">UNKNOWN</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateLegacySim</td>
+        <td class="parametervalue">false</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>&#160;&#160;
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Software Assignments</h2>(none)</td>
+    </tr>
+   </table>
+  </div>
+  <a name="module_pre_ifft_imag_buf"> </a>
+  <div>
+   <hr/>
+   <h2>pre_ifft_imag_buf</h2>window_mem v1.0
+   <br/>
+   <div class="greydiv">
+    <table class="connectionboxes">
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_clk_0">clk_0</a>
+      </td>
+      <td class="from">clk&#160;&#160;</td>
+      <td class="main" rowspan="7">pre_ifft_imag_buf</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clock</td>
@@ -29134,12 +30021,95 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="neighbor" rowspan="2">
-       <a href="#module_first_hannifier">first_hannifier</a>
+       <a href="#module_polar_to_cart">polar_to_cart</a>
       </td>
-      <td class="from">pre_fft_buf_writer&#160;&#160;</td>
+      <td class="from">w_pre_ifft_imag_buf&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;memwriter</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">memreader&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_iffter">iffter</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;r_pre_ifft_imag_buf</td>
+     </tr>
+    </table>
+   </div>
+   <br/>
+   <br/>
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Parameters</h2>
+      <table>
+       <tr>
+        <td class="parametername">deviceFamily</td>
+        <td class="parametervalue">UNKNOWN</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateLegacySim</td>
+        <td class="parametervalue">false</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>&#160;&#160;
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Software Assignments</h2>(none)</td>
+    </tr>
+   </table>
+  </div>
+  <a name="module_pre_ifft_real_buf"> </a>
+  <div>
+   <hr/>
+   <h2>pre_ifft_real_buf</h2>window_mem v1.0
+   <br/>
+   <div class="greydiv">
+    <table class="connectionboxes">
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_clk_0">clk_0</a>
+      </td>
+      <td class="from">clk&#160;&#160;</td>
+      <td class="main" rowspan="7">pre_ifft_real_buf</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clock</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_polar_to_cart">polar_to_cart</a>
+      </td>
+      <td class="from">w_pre_ifft_real_buf&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;memwriter</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">memreader&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_iffter">iffter</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;r_pre_ifft_real_buf</td>
      </tr>
     </table>
    </div>
@@ -29181,7 +30151,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_0">clk_0</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="5">pre_scaler_mag_buf_0</td>
+      <td class="main" rowspan="7">pre_scaler_mag_buf_0</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clock</td>
@@ -29197,6 +30167,19 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;memreader</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">memwriter&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_cart_to_polar">cart_to_polar</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;w_pre_scaler_mag_buf_0</td>
      </tr>
     </table>
    </div>
@@ -29238,7 +30221,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_0">clk_0</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="5">pre_scaler_mag_buf_1</td>
+      <td class="main" rowspan="7">pre_scaler_mag_buf_1</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clock</td>
@@ -29254,6 +30237,19 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;memreader</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">memwriter&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_cart_to_polar">cart_to_polar</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;w_pre_scaler_mag_buf_1</td>
      </tr>
     </table>
    </div>
@@ -29295,7 +30291,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_0">clk_0</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="5">pre_scaler_phase_buf_0</td>
+      <td class="main" rowspan="7">pre_scaler_phase_buf_0</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clock</td>
@@ -29311,6 +30307,19 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;memreader</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">memwriter&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_cart_to_polar">cart_to_polar</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;w_pre_scaler_phase_buf_0</td>
      </tr>
     </table>
    </div>
@@ -29352,7 +30361,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_0">clk_0</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="5">pre_scaler_phase_buf_1</td>
+      <td class="main" rowspan="7">pre_scaler_phase_buf_1</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clock</td>
@@ -29368,6 +30377,19 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;memreader</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">memwriter&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_cart_to_polar">cart_to_polar</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;w_pre_scaler_phase_buf_1</td>
      </tr>
     </table>
    </div>
@@ -29405,20 +30427,26 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="4">
-       <a href="#module_clk_0">clk_0</a>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_audio_clock">audio_clock</a>
       </td>
-      <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="7">ring_buf</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;readclk</td>
-     </tr>
-     <tr>
-      <td class="from">clk&#160;&#160;</td>
+      <td class="from">audio_clk&#160;&#160;</td>
+      <td class="main" rowspan="10">ring_buf</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;wrclock</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_clk_0">clk_0</a>
+      </td>
+      <td class="from">clk&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;readclk</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -29431,6 +30459,112 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;memreader</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">memwriter&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_sampler">sampler</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;to_ring_buf</td>
+     </tr>
+    </table>
+   </div>
+   <br/>
+   <br/>
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Parameters</h2>
+      <table>
+       <tr>
+        <td class="parametername">deviceFamily</td>
+        <td class="parametervalue">UNKNOWN</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateLegacySim</td>
+        <td class="parametervalue">false</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>&#160;&#160;
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Software Assignments</h2>(none)</td>
+    </tr>
+   </table>
+  </div>
+  <a name="module_sampler"> </a>
+  <div>
+   <hr/>
+   <h2>sampler</h2>sampler v1.0
+   <br/>
+   <div class="greydiv">
+    <table class="connectionboxes">
+     <tr>
+      <td class="neighbor" rowspan="4">
+       <a href="#module_audio">audio</a>
+      </td>
+      <td class="from">avalon_left_channel_source&#160;&#160;</td>
+      <td class="main" rowspan="15">sampler</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;left_in</td>
+     </tr>
+     <tr>
+      <td class="from">avalon_right_channel_source&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;right_in</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="4">
+       <a href="#module_audio_clock">audio_clock</a>
+      </td>
+      <td class="from">audio_clk&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clock</td>
+     </tr>
+     <tr>
+      <td class="from">reset_source&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;reset_sink</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_ring_buf">ring_buf</a>
+      </td>
+      <td class="from">memwriter&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;to_ring_buf</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_first_hannifier">first_hannifier</a>
+      </td>
+      <td class="from">sampler_to_first_hannifier&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;to_first_hannifier</td>
      </tr>
     </table>
    </div>
@@ -29472,10 +30606,26 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_0">clk_0</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="34">scaler</td>
+      <td class="main" rowspan="40">scaler</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clock</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">from_cart_to_polar&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_cart_to_polar">cart_to_polar</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;to_scaler</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
      </tr>
      <tr>
       <td></td>
@@ -29649,6 +30799,22 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="to">&#160;&#160;to_scaler</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">to_polar_to_cart&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_polar_to_cart">polar_to_cart</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;from_scaler</td>
      </tr>
     </table>
    </div>
@@ -29882,8 +31048,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   </div>
   <table class="blueBar">
    <tr>
-    <td class="l">generation took 0.01 seconds</td>
-    <td class="r">rendering took 0.17 seconds</td>
+    <td class="l">generation took 0.00 seconds</td>
+    <td class="r">rendering took 0.13 seconds</td>
    </tr>
   </table>
  </body>

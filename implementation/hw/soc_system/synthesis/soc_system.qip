@@ -2,7 +2,7 @@ set_global_assignment -entity "soc_system" -library "soc_system" -name IP_TOOL_N
 set_global_assignment -entity "soc_system" -library "soc_system" -name IP_TOOL_VERSION "21.1"
 set_global_assignment -entity "soc_system" -library "soc_system" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -library "soc_system" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../soc_system.sopcinfo"]
-set_global_assignment -entity "soc_system" -library "soc_system" -name SLD_INFO "QSYS_NAME soc_system HAS_SOPCINFO 1 GENERATION_ID 1715501540"
+set_global_assignment -entity "soc_system" -library "soc_system" -name SLD_INFO "QSYS_NAME soc_system HAS_SOPCINFO 1 GENERATION_ID 1715505805"
 set_global_assignment -library "soc_system" -name MISC_FILE [file join $::quartus(qip_path) "../soc_system.cmp"]
 set_global_assignment -library "soc_system" -name SLD_FILE [file join $::quartus(qip_path) "soc_system.regmap"]
 set_global_assignment -library "soc_system" -name MISC_FILE [file join $::quartus(qip_path) "soc_system_hps_0_hps.svd"]
@@ -17,7 +17,7 @@ set_global_assignment -entity "soc_system" -library "soc_system" -name IP_COMPON
 set_global_assignment -entity "soc_system" -library "soc_system" -name IP_COMPONENT_REPORT_HIERARCHY "On"
 set_global_assignment -entity "soc_system" -library "soc_system" -name IP_COMPONENT_INTERNAL "Off"
 set_global_assignment -entity "soc_system" -library "soc_system" -name IP_COMPONENT_VERSION "MS4w"
-set_global_assignment -entity "soc_system" -library "soc_system" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTcxNTUwMTU0MA==::QXV0byBHRU5FUkFUSU9OX0lE"
+set_global_assignment -entity "soc_system" -library "soc_system" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTcxNTUwNTgwNQ==::QXV0byBHRU5FUkFUSU9OX0lE"
 set_global_assignment -entity "soc_system" -library "soc_system" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfRkFNSUxZ::Q3ljbG9uZSBW::QXV0byBERVZJQ0VfRkFNSUxZ"
 set_global_assignment -entity "soc_system" -library "soc_system" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0U=::NUNTRU1BNUYzMUM2::QXV0byBERVZJQ0U="
 set_global_assignment -entity "soc_system" -library "soc_system" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfU1BFRURHUkFERQ==::Ng==::QXV0byBERVZJQ0VfU1BFRURHUkFERQ=="
@@ -618,21 +618,31 @@ set_global_assignment -entity "scaler" -library "soc_system" -name IP_COMPONENT_
 set_global_assignment -entity "scaler" -library "soc_system" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
 set_global_assignment -entity "scaler" -library "soc_system" -name IP_COMPONENT_INTERNAL "Off"
 set_global_assignment -entity "scaler" -library "soc_system" -name IP_COMPONENT_VERSION "MS4w"
+set_global_assignment -entity "sampler" -library "soc_system" -name IP_COMPONENT_NAME "c2FtcGxlcg=="
+set_global_assignment -entity "sampler" -library "soc_system" -name IP_COMPONENT_DISPLAY_NAME "U2FtcGxlcg=="
+set_global_assignment -entity "sampler" -library "soc_system" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
+set_global_assignment -entity "sampler" -library "soc_system" -name IP_COMPONENT_INTERNAL "Off"
+set_global_assignment -entity "sampler" -library "soc_system" -name IP_COMPONENT_VERSION "MS4w"
 set_global_assignment -entity "ring_buf" -library "soc_system" -name IP_COMPONENT_NAME "cmluZ19idWY="
 set_global_assignment -entity "ring_buf" -library "soc_system" -name IP_COMPONENT_DISPLAY_NAME "UmluZyBCdWZmZXI="
 set_global_assignment -entity "ring_buf" -library "soc_system" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
 set_global_assignment -entity "ring_buf" -library "soc_system" -name IP_COMPONENT_INTERNAL "Off"
 set_global_assignment -entity "ring_buf" -library "soc_system" -name IP_COMPONENT_VERSION "MS4w"
-set_global_assignment -entity "windowmem" -library "soc_system" -name IP_COMPONENT_NAME "d2luZG93bWVt"
-set_global_assignment -entity "windowmem" -library "soc_system" -name IP_COMPONENT_DISPLAY_NAME "V2luZG93IE1lbQ=="
-set_global_assignment -entity "windowmem" -library "soc_system" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
-set_global_assignment -entity "windowmem" -library "soc_system" -name IP_COMPONENT_INTERNAL "Off"
-set_global_assignment -entity "windowmem" -library "soc_system" -name IP_COMPONENT_VERSION "MS4w"
 set_global_assignment -entity "r_rw_buf" -library "soc_system" -name IP_COMPONENT_NAME "cl9yd19idWY="
 set_global_assignment -entity "r_rw_buf" -library "soc_system" -name IP_COMPONENT_DISPLAY_NAME "UiBSVyBCdWY="
 set_global_assignment -entity "r_rw_buf" -library "soc_system" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
 set_global_assignment -entity "r_rw_buf" -library "soc_system" -name IP_COMPONENT_INTERNAL "Off"
 set_global_assignment -entity "r_rw_buf" -library "soc_system" -name IP_COMPONENT_VERSION "MS4w"
+set_global_assignment -entity "windowmem" -library "soc_system" -name IP_COMPONENT_NAME "d2luZG93bWVt"
+set_global_assignment -entity "windowmem" -library "soc_system" -name IP_COMPONENT_DISPLAY_NAME "V2luZG93IE1lbQ=="
+set_global_assignment -entity "windowmem" -library "soc_system" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
+set_global_assignment -entity "windowmem" -library "soc_system" -name IP_COMPONENT_INTERNAL "Off"
+set_global_assignment -entity "windowmem" -library "soc_system" -name IP_COMPONENT_VERSION "MS4w"
+set_global_assignment -entity "polar_to_cart" -library "soc_system" -name IP_COMPONENT_NAME "cG9sYXJfdG9fY2FydA=="
+set_global_assignment -entity "polar_to_cart" -library "soc_system" -name IP_COMPONENT_DISPLAY_NAME "UG9sYXIgdG8gQ2FydA=="
+set_global_assignment -entity "polar_to_cart" -library "soc_system" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
+set_global_assignment -entity "polar_to_cart" -library "soc_system" -name IP_COMPONENT_INTERNAL "Off"
+set_global_assignment -entity "polar_to_cart" -library "soc_system" -name IP_COMPONENT_VERSION "MS4w"
 set_instance_assignment -name HPS_LOCATION PIN_P19A0T -entity soc_system_hps_0 -to hps_io|border|hps_io_emac1_inst_TX_CLK[0]
 set_instance_assignment -name HPS_LOCATION PIN_P19B0T -entity soc_system_hps_0 -to hps_io|border|hps_io_emac1_inst_TXD0[0]
 set_instance_assignment -name HPS_LOCATION PIN_P19A1T -entity soc_system_hps_0 -to hps_io|border|hps_io_emac1_inst_TXD1[0]
@@ -6388,6 +6398,16 @@ set_global_assignment -entity "first_hannifier" -library "soc_system" -name IP_C
 set_global_assignment -entity "first_hannifier" -library "soc_system" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
 set_global_assignment -entity "first_hannifier" -library "soc_system" -name IP_COMPONENT_INTERNAL "Off"
 set_global_assignment -entity "first_hannifier" -library "soc_system" -name IP_COMPONENT_VERSION "MS4w"
+set_global_assignment -entity "ffter" -library "soc_system" -name IP_COMPONENT_NAME "ZmZ0ZXI="
+set_global_assignment -entity "ffter" -library "soc_system" -name IP_COMPONENT_DISPLAY_NAME "RkZUZXI="
+set_global_assignment -entity "ffter" -library "soc_system" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
+set_global_assignment -entity "ffter" -library "soc_system" -name IP_COMPONENT_INTERNAL "Off"
+set_global_assignment -entity "ffter" -library "soc_system" -name IP_COMPONENT_VERSION "MS4w"
+set_global_assignment -entity "cart_to_polar" -library "soc_system" -name IP_COMPONENT_NAME "Y2FydF90b19wb2xhcg=="
+set_global_assignment -entity "cart_to_polar" -library "soc_system" -name IP_COMPONENT_DISPLAY_NAME "Q2FydCB0byBQb2xhcg=="
+set_global_assignment -entity "cart_to_polar" -library "soc_system" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
+set_global_assignment -entity "cart_to_polar" -library "soc_system" -name IP_COMPONENT_INTERNAL "Off"
+set_global_assignment -entity "cart_to_polar" -library "soc_system" -name IP_COMPONENT_VERSION "MS4w"
 set_global_assignment -entity "soc_system_audio_clock" -library "soc_system" -name IP_COMPONENT_NAME "c29jX3N5c3RlbV9hdWRpb19jbG9jaw=="
 set_global_assignment -entity "soc_system_audio_clock" -library "soc_system" -name IP_COMPONENT_DISPLAY_NAME "QXVkaW8gQ2xvY2sgZm9yIERFLXNlcmllcyBCb2FyZHM="
 set_global_assignment -entity "soc_system_audio_clock" -library "soc_system" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
@@ -6796,15 +6816,17 @@ set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::qua
 set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/synth_buf_inst.v"]
 set_global_assignment -library "soc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/software_interface.sv"]
 set_global_assignment -library "soc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/scaler.sv"]
+set_global_assignment -library "soc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sampler.sv"]
 set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/ring_buf.v"]
 set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/ring_buf_bb.v"]
 set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/ring_buf_inst.v"]
-set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/windowmem.v"]
-set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/windowmem_bb.v"]
-set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/windowmem_inst.v"]
 set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/r_rw_buf.v"]
 set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/r_rw_buf_bb.v"]
 set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/r_rw_buf_inst.v"]
+set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/windowmem.v"]
+set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/windowmem_bb.v"]
+set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/windowmem_inst.v"]
+set_global_assignment -library "soc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/polar_to_cart.sv"]
 set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/soc_system_hps_0.v"]
 set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/soc_system_hps_0_hps_io.v"]
 set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/hps_sdram.v"]
@@ -6870,6 +6892,8 @@ set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::qua
 set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/hann_rom_bb.v"]
 set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/hann_rom_inst.v"]
 set_global_assignment -library "soc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/first_hannifier.sv"]
+set_global_assignment -library "soc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/ffter.sv"]
+set_global_assignment -library "soc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/cart_to_polar.sv"]
 set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/soc_system_audio_clock.v"]
 set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_up_avalon_reset_from_locked_signal.v"]
 set_global_assignment -library "soc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/soc_system_audio_clock_audio_pll.v"]

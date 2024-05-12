@@ -80,13 +80,52 @@ module soc_system (
 		input  wire        reset_reset_n                                     //                                       reset.reset_n
 	);
 
-	wire         audio_clock_audio_clk_clk;                                                   // audio_clock:audio_clk_clk -> [audio:clk, rst_controller:clk]
+	wire         audio_avalon_left_channel_source_valid;                                      // audio:from_adc_left_channel_valid -> sampler:left_in_valid
+	wire  [15:0] audio_avalon_left_channel_source_data;                                       // audio:from_adc_left_channel_data -> sampler:left_in_data
+	wire         audio_avalon_left_channel_source_ready;                                      // sampler:left_in_ready -> audio:from_adc_left_channel_ready
+	wire         audio_avalon_right_channel_source_valid;                                     // audio:from_adc_right_channel_valid -> sampler:right_in_valid
+	wire  [15:0] audio_avalon_right_channel_source_data;                                      // audio:from_adc_right_channel_data -> sampler:right_in_data
+	wire         audio_avalon_right_channel_source_ready;                                     // sampler:right_in_ready -> audio:from_adc_right_channel_ready
+	wire         audio_clock_audio_clk_clk;                                                   // audio_clock:audio_clk_clk -> [audio:clk, ring_buf:wrclock, rst_controller:clk, sampler:clk]
+	wire         first_hannifier_first_hannifier_to_ffter_go;                                 // first_hannifier:go_out -> ffter:go_in
+	wire         cart_to_polar_to_scaler_data;                                                // cart_to_polar:cur_buf -> scaler:cur_window
+	wire         cart_to_polar_to_scaler_go;                                                  // cart_to_polar:go_out -> scaler:go_in
 	wire   [7:0] software_interface_0_shift_amt_conduit_data;                                 // software_interface_0:shift_amt -> scaler:scale_amt
 	wire  [15:0] hann_rom_reader_a_data;                                                      // hann_rom:q_a -> first_hannifier:hann_rom_data
 	wire  [11:0] first_hannifier_hann_rom_reader_addr;                                        // first_hannifier:hann_rom_addr -> hann_rom:address_a
-	wire         first_hannifier_pre_fft_buf_writer_wren;                                     // first_hannifier:out_buf_wren -> pre_fft_buf:wren
-	wire  [15:0] first_hannifier_pre_fft_buf_writer_data;                                     // first_hannifier:out_buf_data -> pre_fft_buf:data
-	wire  [11:0] first_hannifier_pre_fft_buf_writer_addr;                                     // first_hannifier:out_buf_addr -> pre_fft_buf:wraddress
+	wire  [15:0] post_fft_imag_buf_memreader_data;                                            // post_fft_imag_buf:q -> cart_to_polar:imag_buf_data
+	wire  [11:0] cart_to_polar_r_post_fft_imag_buf_addr;                                      // cart_to_polar:imag_buf_addr -> post_fft_imag_buf:rdaddress
+	wire  [15:0] post_fft_real_buf_memreader_data;                                            // post_fft_real_buf:q -> cart_to_polar:real_buf_data
+	wire  [11:0] cart_to_polar_r_post_fft_real_buf_addr;                                      // cart_to_polar:real_buf_addr -> post_fft_real_buf:rdaddress
+	wire  [15:0] post_scaler_mag_buf_0_memreader_data;                                        // post_scaler_mag_buf_0:data_a -> polar_to_cart:mag_buf_0_data
+	wire  [11:0] polar_to_cart_r_post_scaler_mag_buf_0_addr;                                  // polar_to_cart:mag_buf_0_addr -> post_scaler_mag_buf_0:address_a
+	wire  [15:0] post_scaler_mag_buf_1_memreader_data;                                        // post_scaler_mag_buf_1:data_a -> polar_to_cart:mag_buf_1_data
+	wire  [11:0] polar_to_cart_r_post_scaler_mag_buf_1_addr;                                  // polar_to_cart:mag_buf_1_addr -> post_scaler_mag_buf_1:address_a
+	wire  [15:0] post_scaler_phase_buf_0_memreader_data;                                      // post_scaler_phase_buf_0:data_a -> polar_to_cart:phase_buf_0_data
+	wire  [11:0] polar_to_cart_r_post_scaler_phase_buf_0_addr;                                // polar_to_cart:phase_buf_0_addr -> post_scaler_phase_buf_0:address_a
+	wire  [15:0] post_scaler_phase_buf_1_memreader_data;                                      // post_scaler_phase_buf_1:data_a -> polar_to_cart:phase_buf_1_data
+	wire  [11:0] polar_to_cart_r_post_scaler_phase_buf_1_addr;                                // polar_to_cart:phase_buf_1_addr -> post_scaler_phase_buf_1:address_a
+	wire  [15:0] pre_fft_buf_memreader_data;                                                  // pre_fft_buf:q -> ffter:in_buf_data
+	wire  [11:0] ffter_r_pre_fft_buf_addr;                                                    // ffter:in_buf_addr -> pre_fft_buf:rdaddress
+	wire  [15:0] pre_ifft_imag_buf_memreader_data;                                            // pre_ifft_imag_buf:q -> iffter:imag_buf_data
+	wire  [11:0] iffter_r_pre_ifft_imag_buf_addr;                                             // iffter:imag_buf_addr -> pre_ifft_imag_buf:rdaddress
+	wire  [15:0] pre_ifft_real_buf_memreader_data;                                            // pre_ifft_real_buf:q -> iffter:real_buf_data
+	wire  [11:0] iffter_r_pre_ifft_real_buf_addr;                                             // iffter:real_buf_addr -> pre_ifft_real_buf:rdaddress
+	wire         sampler_to_ring_buf_wren;                                                    // sampler:ring_buf_wren -> ring_buf:wren
+	wire  [15:0] sampler_to_ring_buf_data;                                                    // sampler:ring_buf_data -> ring_buf:data
+	wire  [12:0] sampler_to_ring_buf_addr;                                                    // sampler:ring_buf_addr -> ring_buf:wraddress
+	wire         cart_to_polar_w_pre_scaler_mag_buf_0_wren;                                   // cart_to_polar:mag_buf_0_wren -> pre_scaler_mag_buf_0:wren
+	wire  [15:0] cart_to_polar_w_pre_scaler_mag_buf_0_data;                                   // cart_to_polar:mag_buf_0_data -> pre_scaler_mag_buf_0:data
+	wire  [11:0] cart_to_polar_w_pre_scaler_mag_buf_0_addr;                                   // cart_to_polar:mag_buf_0_addr -> pre_scaler_mag_buf_0:wraddress
+	wire         cart_to_polar_w_pre_scaler_mag_buf_1_wren;                                   // cart_to_polar:mag_buf_1_wren -> pre_scaler_mag_buf_1:wren
+	wire  [15:0] cart_to_polar_w_pre_scaler_mag_buf_1_data;                                   // cart_to_polar:mag_buf_1_data -> pre_scaler_mag_buf_1:data
+	wire  [11:0] cart_to_polar_w_pre_scaler_mag_buf_1_addr;                                   // cart_to_polar:mag_buf_1_addr -> pre_scaler_mag_buf_1:wraddress
+	wire         cart_to_polar_w_pre_scaler_phase_buf_0_wren;                                 // cart_to_polar:phase_buf_0_wren -> pre_scaler_phase_buf_0:wren
+	wire  [15:0] cart_to_polar_w_pre_scaler_phase_buf_0_data;                                 // cart_to_polar:phase_buf_0_data -> pre_scaler_phase_buf_0:data
+	wire  [11:0] cart_to_polar_w_pre_scaler_phase_buf_0_addr;                                 // cart_to_polar:phase_buf_0_addr -> pre_scaler_phase_buf_0:wraddress
+	wire         cart_to_polar_w_pre_scaler_phase_buf_1_wren;                                 // cart_to_polar:phase_buf_1_wren -> pre_scaler_phase_buf_1:wren
+	wire  [15:0] cart_to_polar_w_pre_scaler_phase_buf_1_data;                                 // cart_to_polar:phase_buf_1_data -> pre_scaler_phase_buf_1:data
+	wire  [11:0] cart_to_polar_w_pre_scaler_phase_buf_1_addr;                                 // cart_to_polar:phase_buf_1_addr -> pre_scaler_phase_buf_1:wraddress
 	wire  [15:0] pre_scaler_mag_buf_0_memreader_data;                                         // pre_scaler_mag_buf_0:q -> scaler:mag_in_buf_0_data
 	wire  [11:0] scaler_r_pre_scaler_mag_buf_0_addr;                                          // scaler:mag_in_buf_0_addr -> pre_scaler_mag_buf_0:rdaddress
 	wire  [15:0] pre_scaler_mag_buf_1_memreader_data;                                         // pre_scaler_mag_buf_1:q -> scaler:mag_in_buf_1_data
@@ -127,6 +166,27 @@ module soc_system (
 	wire  [11:0] scaler_rw_synth_mags_buf_raddr;                                              // scaler:synth_mags_raddr -> synth_mags_buf_0:address
 	wire  [11:0] scaler_rw_synth_mags_buf_wraddr;                                             // scaler:synth_mags_wraddr -> synth_mags_buf_0:manual_address
 	wire  [15:0] synth_mags_buf_0_to_scaler_rdata;                                            // synth_mags_buf_0:q -> scaler:synth_mags_rdata
+	wire   [2:0] sampler_to_first_hannifier_data;                                             // sampler:window_start -> first_hannifier:window_start
+	wire         sampler_to_first_hannifier_go;                                               // sampler:go_out -> first_hannifier:go_in
+	wire         ffter_to_cart_to_polar_go;                                                   // ffter:go_out -> cart_to_polar:go_in
+	wire         polar_to_cart_to_iffter_go;                                                  // polar_to_cart:go_out -> iffter:go_in
+	wire         scaler_to_polar_to_cart_data;                                                // scaler:cur_buf -> polar_to_cart:cur_window
+	wire         scaler_to_polar_to_cart_go;                                                  // scaler:go_out -> polar_to_cart:go_in
+	wire         ffter_w_post_fft_imag_buf_wren;                                              // ffter:imag_buf_wren -> post_fft_imag_buf:wren
+	wire  [15:0] ffter_w_post_fft_imag_buf_data;                                              // ffter:imag_buf_data -> post_fft_imag_buf:data
+	wire  [11:0] ffter_w_post_fft_imag_buf_addr;                                              // ffter:imag_buf_addr -> post_fft_imag_buf:wraddress
+	wire         ffter_w_post_fft_real_buf_wren;                                              // ffter:real_buf_wren -> post_fft_real_buf:wren
+	wire  [15:0] ffter_w_post_fft_real_buf_data;                                              // ffter:real_buf_data -> post_fft_real_buf:data
+	wire  [11:0] ffter_w_post_fft_real_buf_addr;                                              // ffter:real_buf_addr -> post_fft_real_buf:wraddress
+	wire         iffter_w_post_ifft_buf_wren;                                                 // iffter:out_buf_wren -> post_ifft_buf:wren
+	wire  [15:0] iffter_w_post_ifft_buf_data;                                                 // iffter:out_buf_data -> post_ifft_buf:data
+	wire  [11:0] iffter_w_post_ifft_buf_addr;                                                 // iffter:out_buf_addr -> post_ifft_buf:wraddress
+	wire         polar_to_cart_w_pre_ifft_imag_buf_wren;                                      // polar_to_cart:imag_buf_wren -> pre_ifft_imag_buf:wren
+	wire  [15:0] polar_to_cart_w_pre_ifft_imag_buf_data;                                      // polar_to_cart:imag_buf_data -> pre_ifft_imag_buf:data
+	wire  [11:0] polar_to_cart_w_pre_ifft_imag_buf_addr;                                      // polar_to_cart:imag_buf_addr -> pre_ifft_imag_buf:wraddress
+	wire         polar_to_cart_w_pre_ifft_real_buf_wren;                                      // polar_to_cart:real_buf_wren -> pre_ifft_real_buf:wren
+	wire  [15:0] polar_to_cart_w_pre_ifft_real_buf_data;                                      // polar_to_cart:real_buf_data -> pre_ifft_real_buf:data
+	wire  [11:0] polar_to_cart_w_pre_ifft_real_buf_addr;                                      // polar_to_cart:real_buf_addr -> pre_ifft_real_buf:wraddress
 	wire  [31:0] software_interface_0_avalon_master_readdata;                                 // mm_interconnect_0:software_interface_0_avalon_master_readdata -> software_interface_0:av_config_slave_readdata
 	wire         software_interface_0_avalon_master_waitrequest;                              // mm_interconnect_0:software_interface_0_avalon_master_waitrequest -> software_interface_0:av_config_slave_waitrequest
 	wire   [3:0] software_interface_0_avalon_master_address;                                  // software_interface_0:av_config_slave_address -> mm_interconnect_0:software_interface_0_avalon_master_address
@@ -183,32 +243,32 @@ module soc_system (
 	wire   [7:0] mm_interconnect_1_software_interface_0_avalon_slave_writedata;               // mm_interconnect_1:software_interface_0_avalon_slave_writedata -> software_interface_0:writedata
 	wire  [31:0] hps_0_f2h_irq0_irq;                                                          // irq_mapper:sender_irq -> hps_0:f2h_irq_p0
 	wire  [31:0] hps_0_f2h_irq1_irq;                                                          // irq_mapper_001:sender_irq -> hps_0:f2h_irq_p1
-	wire         rst_controller_reset_out_reset;                                              // rst_controller:reset_out -> audio:reset
+	wire         rst_controller_reset_out_reset;                                              // rst_controller:reset_out -> [audio:reset, sampler:reset]
 	wire         audio_clock_reset_source_reset;                                              // audio_clock:reset_source_reset -> rst_controller:reset_in0
 	wire         rst_controller_001_reset_out_reset;                                          // rst_controller_001:reset_out -> [audio_and_video_config:reset, mm_interconnect_0:software_interface_0_reset_reset_bridge_in_reset_reset, mm_interconnect_1:software_interface_0_reset_reset_bridge_in_reset_reset, software_interface_0:reset]
 	wire         rst_controller_002_reset_out_reset;                                          // rst_controller_002:reset_out -> mm_interconnect_1:hps_0_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset_reset
 	wire         hps_0_h2f_reset_reset;                                                       // hps_0:h2f_rst_n -> rst_controller_002:reset_in0
 
 	soc_system_audio audio (
-		.clk                          (audio_clock_audio_clk_clk),          //                         clk.clk
-		.reset                        (rst_controller_reset_out_reset),     //                       reset.reset
-		.from_adc_left_channel_ready  (),                                   //  avalon_left_channel_source.ready
-		.from_adc_left_channel_data   (),                                   //                            .data
-		.from_adc_left_channel_valid  (),                                   //                            .valid
-		.from_adc_right_channel_ready (),                                   // avalon_right_channel_source.ready
-		.from_adc_right_channel_data  (),                                   //                            .data
-		.from_adc_right_channel_valid (),                                   //                            .valid
-		.to_dac_left_channel_data     (),                                   //    avalon_left_channel_sink.data
-		.to_dac_left_channel_valid    (),                                   //                            .valid
-		.to_dac_left_channel_ready    (),                                   //                            .ready
-		.to_dac_right_channel_data    (),                                   //   avalon_right_channel_sink.data
-		.to_dac_right_channel_valid   (),                                   //                            .valid
-		.to_dac_right_channel_ready   (),                                   //                            .ready
-		.AUD_ADCDAT                   (audio_0_external_interface_ADCDAT),  //          external_interface.export
-		.AUD_ADCLRCK                  (audio_0_external_interface_ADCLRCK), //                            .export
-		.AUD_BCLK                     (audio_0_external_interface_BCLK),    //                            .export
-		.AUD_DACDAT                   (audio_0_external_interface_DACDAT),  //                            .export
-		.AUD_DACLRCK                  (audio_0_external_interface_DACLRCK)  //                            .export
+		.clk                          (audio_clock_audio_clk_clk),               //                         clk.clk
+		.reset                        (rst_controller_reset_out_reset),          //                       reset.reset
+		.from_adc_left_channel_ready  (audio_avalon_left_channel_source_ready),  //  avalon_left_channel_source.ready
+		.from_adc_left_channel_data   (audio_avalon_left_channel_source_data),   //                            .data
+		.from_adc_left_channel_valid  (audio_avalon_left_channel_source_valid),  //                            .valid
+		.from_adc_right_channel_ready (audio_avalon_right_channel_source_ready), // avalon_right_channel_source.ready
+		.from_adc_right_channel_data  (audio_avalon_right_channel_source_data),  //                            .data
+		.from_adc_right_channel_valid (audio_avalon_right_channel_source_valid), //                            .valid
+		.to_dac_left_channel_data     (),                                        //    avalon_left_channel_sink.data
+		.to_dac_left_channel_valid    (),                                        //                            .valid
+		.to_dac_left_channel_ready    (),                                        //                            .ready
+		.to_dac_right_channel_data    (),                                        //   avalon_right_channel_sink.data
+		.to_dac_right_channel_valid   (),                                        //                            .valid
+		.to_dac_right_channel_ready   (),                                        //                            .ready
+		.AUD_ADCDAT                   (audio_0_external_interface_ADCDAT),       //          external_interface.export
+		.AUD_ADCLRCK                  (audio_0_external_interface_ADCLRCK),      //                            .export
+		.AUD_BCLK                     (audio_0_external_interface_BCLK),         //                            .export
+		.AUD_DACDAT                   (audio_0_external_interface_DACDAT),       //                            .export
+		.AUD_DACLRCK                  (audio_0_external_interface_DACLRCK)       //                            .export
 	);
 
 	soc_system_audio_and_video_config audio_and_video_config (
@@ -232,18 +292,55 @@ module soc_system (
 		.reset_source_reset (audio_clock_reset_source_reset)  // reset_source.reset
 	);
 
+	cart_to_polar cart_to_polar (
+		.clk              (clk_clk),                                     //                    clock.clk
+		.go_in            (ffter_to_cart_to_polar_go),                   //               from_ffter.go
+		.imag_buf_addr    (cart_to_polar_r_post_fft_imag_buf_addr),      //      r_post_fft_imag_buf.addr
+		.imag_buf_data    (post_fft_imag_buf_memreader_data),            //                         .data
+		.real_buf_addr    (cart_to_polar_r_post_fft_real_buf_addr),      //      r_post_fft_real_buf.addr
+		.real_buf_data    (post_fft_real_buf_memreader_data),            //                         .data
+		.mag_buf_0_addr   (cart_to_polar_w_pre_scaler_mag_buf_0_addr),   //   w_pre_scaler_mag_buf_0.addr
+		.mag_buf_0_data   (cart_to_polar_w_pre_scaler_mag_buf_0_data),   //                         .data
+		.mag_buf_0_wren   (cart_to_polar_w_pre_scaler_mag_buf_0_wren),   //                         .wren
+		.mag_buf_1_addr   (cart_to_polar_w_pre_scaler_mag_buf_1_addr),   //   w_pre_scaler_mag_buf_1.addr
+		.mag_buf_1_data   (cart_to_polar_w_pre_scaler_mag_buf_1_data),   //                         .data
+		.mag_buf_1_wren   (cart_to_polar_w_pre_scaler_mag_buf_1_wren),   //                         .wren
+		.phase_buf_0_addr (cart_to_polar_w_pre_scaler_phase_buf_0_addr), // w_pre_scaler_phase_buf_0.addr
+		.phase_buf_0_data (cart_to_polar_w_pre_scaler_phase_buf_0_data), //                         .data
+		.phase_buf_0_wren (cart_to_polar_w_pre_scaler_phase_buf_0_wren), //                         .wren
+		.phase_buf_1_addr (cart_to_polar_w_pre_scaler_phase_buf_1_addr), // w_pre_scaler_phase_buf_1.addr
+		.phase_buf_1_data (cart_to_polar_w_pre_scaler_phase_buf_1_data), //                         .data
+		.phase_buf_1_wren (cart_to_polar_w_pre_scaler_phase_buf_1_wren), //                         .wren
+		.cur_buf          (cart_to_polar_to_scaler_data),                //                to_scaler.data
+		.go_out           (cart_to_polar_to_scaler_go)                   //                         .go
+	);
+
+	ffter ffter (
+		.clk           (clk_clk),                                     //                clock.clk
+		.go_in         (first_hannifier_first_hannifier_to_ffter_go), // from_first_hannifier.go
+		.go_out        (ffter_to_cart_to_polar_go),                   //     to_cart_to_polar.go
+		.in_buf_addr   (ffter_r_pre_fft_buf_addr),                    //        r_pre_fft_buf.addr
+		.in_buf_data   (pre_fft_buf_memreader_data),                  //                     .data
+		.imag_buf_data (ffter_w_post_fft_imag_buf_data),              //  w_post_fft_imag_buf.data
+		.imag_buf_addr (ffter_w_post_fft_imag_buf_addr),              //                     .addr
+		.imag_buf_wren (ffter_w_post_fft_imag_buf_wren),              //                     .wren
+		.real_buf_addr (ffter_w_post_fft_real_buf_addr),              //  w_post_fft_real_buf.addr
+		.real_buf_data (ffter_w_post_fft_real_buf_data),              //                     .data
+		.real_buf_wren (ffter_w_post_fft_real_buf_wren)               //                     .wren
+	);
+
 	first_hannifier first_hannifier (
-		.clk           (clk_clk),                                 //                      clock.clk
-		.window_start  (),                                        // sampler_to_first_hannifier.data
-		.go_in         (),                                        //                           .go
-		.go_out        (),                                        //   first_hannifier_to_ffter.data
-		.hann_rom_data (hann_rom_reader_a_data),                  //            hann_rom_reader.data
-		.hann_rom_addr (first_hannifier_hann_rom_reader_addr),    //                           .addr
-		.ring_buf_addr (first_hannifier_ring_buf_reader_addr),    //            ring_buf_reader.addr
-		.ring_buf_data (ring_buf_memreader_data),                 //                           .data
-		.out_buf_addr  (first_hannifier_pre_fft_buf_writer_addr), //         pre_fft_buf_writer.addr
-		.out_buf_data  (first_hannifier_pre_fft_buf_writer_data), //                           .data
-		.out_buf_wren  (first_hannifier_pre_fft_buf_writer_wren)  //                           .wren
+		.clk           (clk_clk),                                     //                      clock.clk
+		.window_start  (sampler_to_first_hannifier_data),             // sampler_to_first_hannifier.data
+		.go_in         (sampler_to_first_hannifier_go),               //                           .go
+		.go_out        (first_hannifier_first_hannifier_to_ffter_go), //   first_hannifier_to_ffter.go
+		.hann_rom_data (hann_rom_reader_a_data),                      //            hann_rom_reader.data
+		.hann_rom_addr (first_hannifier_hann_rom_reader_addr),        //                           .addr
+		.ring_buf_addr (first_hannifier_ring_buf_reader_addr),        //            ring_buf_reader.addr
+		.ring_buf_data (ring_buf_memreader_data),                     //                           .data
+		.out_buf_addr  (),                                            //         pre_fft_buf_writer.addr
+		.out_buf_data  (),                                            //                           .data
+		.out_buf_wren  ()                                             //                           .wren
 	);
 
 	hann_rom hann_rom (
@@ -442,109 +539,204 @@ module soc_system (
 		.f2h_irq_p1               (hps_0_f2h_irq1_irq)               //          f2h_irq1.irq
 	);
 
+	ffter iffter (
+		.clk           (clk_clk),                          //               clock.clk
+		.go_in         (polar_to_cart_to_iffter_go),       //  from_polar_to_cart.go
+		.real_buf_addr (iffter_r_pre_ifft_real_buf_addr),  // r_pre_ifft_real_buf.addr
+		.real_buf_data (pre_ifft_real_buf_memreader_data), //                    .data
+		.imag_buf_addr (iffter_r_pre_ifft_imag_buf_addr),  // r_pre_ifft_imag_buf.addr
+		.imag_buf_data (pre_ifft_imag_buf_memreader_data), //                    .data
+		.out_buf_addr  (iffter_w_post_ifft_buf_addr),      //     w_post_ifft_buf.addr
+		.out_buf_data  (iffter_w_post_ifft_buf_data),      //                    .data
+		.out_buf_wren  (iffter_w_post_ifft_buf_wren),      //                    .wren
+		.go_out        ()                                  //         to_stitcher.go
+	);
+
+	polar_to_cart polar_to_cart (
+		.clk              (clk_clk),                                      //                     clock.clk
+		.cur_window       (scaler_to_polar_to_cart_data),                 //               from_scaler.data
+		.go_in            (scaler_to_polar_to_cart_go),                   //                          .go
+		.mag_buf_0_addr   (polar_to_cart_r_post_scaler_mag_buf_0_addr),   //   r_post_scaler_mag_buf_0.addr
+		.mag_buf_0_data   (post_scaler_mag_buf_0_memreader_data),         //                          .data
+		.mag_buf_1_addr   (polar_to_cart_r_post_scaler_mag_buf_1_addr),   //   r_post_scaler_mag_buf_1.addr
+		.mag_buf_1_data   (post_scaler_mag_buf_1_memreader_data),         //                          .data
+		.phase_buf_0_addr (polar_to_cart_r_post_scaler_phase_buf_0_addr), // r_post_scaler_phase_buf_0.addr
+		.phase_buf_0_data (post_scaler_phase_buf_0_memreader_data),       //                          .data
+		.phase_buf_1_addr (polar_to_cart_r_post_scaler_phase_buf_1_addr), // r_post_scaler_phase_buf_1.addr
+		.phase_buf_1_data (post_scaler_phase_buf_1_memreader_data),       //                          .data
+		.real_buf_addr    (polar_to_cart_w_pre_ifft_real_buf_addr),       //       w_pre_ifft_real_buf.addr
+		.real_buf_data    (polar_to_cart_w_pre_ifft_real_buf_data),       //                          .data
+		.real_buf_wren    (polar_to_cart_w_pre_ifft_real_buf_wren),       //                          .wren
+		.imag_buf_addr    (polar_to_cart_w_pre_ifft_imag_buf_addr),       //       w_pre_ifft_imag_buf.addr
+		.imag_buf_data    (polar_to_cart_w_pre_ifft_imag_buf_data),       //                          .data
+		.imag_buf_wren    (polar_to_cart_w_pre_ifft_imag_buf_wren),       //                          .wren
+		.go_out           (polar_to_cart_to_iffter_go)                    //                 to_iffter.go
+	);
+
+	windowmem post_fft_imag_buf (
+		.data      (ffter_w_post_fft_imag_buf_data),         // memwriter.data
+		.wraddress (ffter_w_post_fft_imag_buf_addr),         //          .addr
+		.wren      (ffter_w_post_fft_imag_buf_wren),         //          .wren
+		.rdaddress (cart_to_polar_r_post_fft_imag_buf_addr), // memreader.addr
+		.q         (post_fft_imag_buf_memreader_data),       //          .data
+		.clock     (clk_clk)                                 //     clock.clk
+	);
+
+	windowmem post_fft_real_buf (
+		.data      (ffter_w_post_fft_real_buf_data),         // memwriter.data
+		.wraddress (ffter_w_post_fft_real_buf_addr),         //          .addr
+		.wren      (ffter_w_post_fft_real_buf_wren),         //          .wren
+		.rdaddress (cart_to_polar_r_post_fft_real_buf_addr), // memreader.addr
+		.q         (post_fft_real_buf_memreader_data),       //          .data
+		.clock     (clk_clk)                                 //     clock.clk
+	);
+
+	windowmem post_ifft_buf (
+		.data      (iffter_w_post_ifft_buf_data), // memwriter.data
+		.wraddress (iffter_w_post_ifft_buf_addr), //          .addr
+		.wren      (iffter_w_post_ifft_buf_wren), //          .wren
+		.rdaddress (),                            // memreader.addr
+		.q         (),                            //          .data
+		.clock     (clk_clk)                      //     clock.clk
+	);
+
 	r_rw_buf post_scaler_mag_buf_0 (
-		.clock     (clk_clk),                                //     clock.clk
-		.data_b    (scaler_rw_post_scaler_mag_buf_0_wrdata), //   memrwer.wrdata
-		.wren_b    (scaler_rw_post_scaler_mag_buf_0_wren),   //          .wren
-		.q_b       (post_scaler_mag_buf_0_memrwer_rdata),    //          .rdata
-		.address_b (scaler_rw_post_scaler_mag_buf_0_raddr),  //          .raddr
-		.waddr_b   (scaler_rw_post_scaler_mag_buf_0_wraddr), //          .wraddr
-		.address_a (),                                       // memreader.addr
-		.data_a    ()                                        //          .data
+		.clock     (clk_clk),                                    //     clock.clk
+		.data_b    (scaler_rw_post_scaler_mag_buf_0_wrdata),     //   memrwer.wrdata
+		.wren_b    (scaler_rw_post_scaler_mag_buf_0_wren),       //          .wren
+		.q_b       (post_scaler_mag_buf_0_memrwer_rdata),        //          .rdata
+		.address_b (scaler_rw_post_scaler_mag_buf_0_raddr),      //          .raddr
+		.waddr_b   (scaler_rw_post_scaler_mag_buf_0_wraddr),     //          .wraddr
+		.address_a (polar_to_cart_r_post_scaler_mag_buf_0_addr), // memreader.addr
+		.data_a    (post_scaler_mag_buf_0_memreader_data)        //          .data
 	);
 
 	r_rw_buf post_scaler_mag_buf_1 (
-		.clock     (clk_clk),                                //     clock.clk
-		.data_b    (scaler_rw_post_scaler_mag_buf_1_wrdata), //   memrwer.wrdata
-		.wren_b    (scaler_rw_post_scaler_mag_buf_1_wren),   //          .wren
-		.q_b       (post_scaler_mag_buf_1_memrwer_rdata),    //          .rdata
-		.address_b (scaler_rw_post_scaler_mag_buf_1_raddr),  //          .raddr
-		.waddr_b   (scaler_rw_post_scaler_mag_buf_1_wraddr), //          .wraddr
-		.address_a (),                                       // memreader.addr
-		.data_a    ()                                        //          .data
+		.clock     (clk_clk),                                    //     clock.clk
+		.data_b    (scaler_rw_post_scaler_mag_buf_1_wrdata),     //   memrwer.wrdata
+		.wren_b    (scaler_rw_post_scaler_mag_buf_1_wren),       //          .wren
+		.q_b       (post_scaler_mag_buf_1_memrwer_rdata),        //          .rdata
+		.address_b (scaler_rw_post_scaler_mag_buf_1_raddr),      //          .raddr
+		.waddr_b   (scaler_rw_post_scaler_mag_buf_1_wraddr),     //          .wraddr
+		.address_a (polar_to_cart_r_post_scaler_mag_buf_1_addr), // memreader.addr
+		.data_a    (post_scaler_mag_buf_1_memreader_data)        //          .data
 	);
 
 	r_rw_buf post_scaler_phase_buf_0 (
-		.clock     (clk_clk),                                  //     clock.clk
-		.data_b    (scaler_rw_post_scaler_phase_buf_0_wrdata), //   memrwer.wrdata
-		.wren_b    (scaler_rw_post_scaler_phase_buf_0_wren),   //          .wren
-		.q_b       (post_scaler_phase_buf_0_memrwer_rdata),    //          .rdata
-		.address_b (scaler_rw_post_scaler_phase_buf_0_raddr),  //          .raddr
-		.waddr_b   (scaler_rw_post_scaler_phase_buf_0_wraddr), //          .wraddr
-		.address_a (),                                         // memreader.addr
-		.data_a    ()                                          //          .data
+		.clock     (clk_clk),                                      //     clock.clk
+		.data_b    (scaler_rw_post_scaler_phase_buf_0_wrdata),     //   memrwer.wrdata
+		.wren_b    (scaler_rw_post_scaler_phase_buf_0_wren),       //          .wren
+		.q_b       (post_scaler_phase_buf_0_memrwer_rdata),        //          .rdata
+		.address_b (scaler_rw_post_scaler_phase_buf_0_raddr),      //          .raddr
+		.waddr_b   (scaler_rw_post_scaler_phase_buf_0_wraddr),     //          .wraddr
+		.address_a (polar_to_cart_r_post_scaler_phase_buf_0_addr), // memreader.addr
+		.data_a    (post_scaler_phase_buf_0_memreader_data)        //          .data
 	);
 
 	r_rw_buf post_scaler_phase_buf_1 (
-		.clock     (clk_clk),                                  //     clock.clk
-		.data_b    (scaler_rw_post_scaler_phase_buf_1_wrdata), //   memrwer.wrdata
-		.wren_b    (scaler_rw_post_scaler_phase_buf_1_wren),   //          .wren
-		.q_b       (post_scaler_phase_buf_1_memrwer_rdata),    //          .rdata
-		.address_b (scaler_rw_post_scaler_phase_buf_1_raddr),  //          .raddr
-		.waddr_b   (scaler_rw_post_scaler_phase_buf_1_wraddr), //          .wraddr
-		.address_a (),                                         // memreader.addr
-		.data_a    ()                                          //          .data
+		.clock     (clk_clk),                                      //     clock.clk
+		.data_b    (scaler_rw_post_scaler_phase_buf_1_wrdata),     //   memrwer.wrdata
+		.wren_b    (scaler_rw_post_scaler_phase_buf_1_wren),       //          .wren
+		.q_b       (post_scaler_phase_buf_1_memrwer_rdata),        //          .rdata
+		.address_b (scaler_rw_post_scaler_phase_buf_1_raddr),      //          .raddr
+		.waddr_b   (scaler_rw_post_scaler_phase_buf_1_wraddr),     //          .wraddr
+		.address_a (polar_to_cart_r_post_scaler_phase_buf_1_addr), // memreader.addr
+		.data_a    (post_scaler_phase_buf_1_memreader_data)        //          .data
 	);
 
 	windowmem pre_fft_buf (
-		.data      (first_hannifier_pre_fft_buf_writer_data), // memwriter.data
-		.wraddress (first_hannifier_pre_fft_buf_writer_addr), //          .addr
-		.wren      (first_hannifier_pre_fft_buf_writer_wren), //          .wren
-		.rdaddress (),                                        // memreader.addr
-		.q         (),                                        //          .data
-		.clock     (clk_clk)                                  //     clock.clk
+		.data      (),                           // memwriter.data
+		.wraddress (),                           //          .addr
+		.wren      (),                           //          .wren
+		.rdaddress (ffter_r_pre_fft_buf_addr),   // memreader.addr
+		.q         (pre_fft_buf_memreader_data), //          .data
+		.clock     (clk_clk)                     //     clock.clk
+	);
+
+	windowmem pre_ifft_imag_buf (
+		.data      (polar_to_cart_w_pre_ifft_imag_buf_data), // memwriter.data
+		.wraddress (polar_to_cart_w_pre_ifft_imag_buf_addr), //          .addr
+		.wren      (polar_to_cart_w_pre_ifft_imag_buf_wren), //          .wren
+		.rdaddress (iffter_r_pre_ifft_imag_buf_addr),        // memreader.addr
+		.q         (pre_ifft_imag_buf_memreader_data),       //          .data
+		.clock     (clk_clk)                                 //     clock.clk
+	);
+
+	windowmem pre_ifft_real_buf (
+		.data      (polar_to_cart_w_pre_ifft_real_buf_data), // memwriter.data
+		.wraddress (polar_to_cart_w_pre_ifft_real_buf_addr), //          .addr
+		.wren      (polar_to_cart_w_pre_ifft_real_buf_wren), //          .wren
+		.rdaddress (iffter_r_pre_ifft_real_buf_addr),        // memreader.addr
+		.q         (pre_ifft_real_buf_memreader_data),       //          .data
+		.clock     (clk_clk)                                 //     clock.clk
 	);
 
 	windowmem pre_scaler_mag_buf_0 (
-		.data      (),                                    // memwriter.data
-		.wraddress (),                                    //          .addr
-		.wren      (),                                    //          .wren
-		.rdaddress (scaler_r_pre_scaler_mag_buf_0_addr),  // memreader.addr
-		.q         (pre_scaler_mag_buf_0_memreader_data), //          .data
-		.clock     (clk_clk)                              //     clock.clk
+		.data      (cart_to_polar_w_pre_scaler_mag_buf_0_data), // memwriter.data
+		.wraddress (cart_to_polar_w_pre_scaler_mag_buf_0_addr), //          .addr
+		.wren      (cart_to_polar_w_pre_scaler_mag_buf_0_wren), //          .wren
+		.rdaddress (scaler_r_pre_scaler_mag_buf_0_addr),        // memreader.addr
+		.q         (pre_scaler_mag_buf_0_memreader_data),       //          .data
+		.clock     (clk_clk)                                    //     clock.clk
 	);
 
 	windowmem pre_scaler_mag_buf_1 (
-		.data      (),                                    // memwriter.data
-		.wraddress (),                                    //          .addr
-		.wren      (),                                    //          .wren
-		.rdaddress (scaler_r_pre_scaler_mag_buf_1_addr),  // memreader.addr
-		.q         (pre_scaler_mag_buf_1_memreader_data), //          .data
-		.clock     (clk_clk)                              //     clock.clk
+		.data      (cart_to_polar_w_pre_scaler_mag_buf_1_data), // memwriter.data
+		.wraddress (cart_to_polar_w_pre_scaler_mag_buf_1_addr), //          .addr
+		.wren      (cart_to_polar_w_pre_scaler_mag_buf_1_wren), //          .wren
+		.rdaddress (scaler_r_pre_scaler_mag_buf_1_addr),        // memreader.addr
+		.q         (pre_scaler_mag_buf_1_memreader_data),       //          .data
+		.clock     (clk_clk)                                    //     clock.clk
 	);
 
 	windowmem pre_scaler_phase_buf_0 (
-		.data      (),                                      // memwriter.data
-		.wraddress (),                                      //          .addr
-		.wren      (),                                      //          .wren
-		.rdaddress (scaler_r_pre_scaler_phase_buf_0_addr),  // memreader.addr
-		.q         (pre_scaler_phase_buf_0_memreader_data), //          .data
-		.clock     (clk_clk)                                //     clock.clk
+		.data      (cart_to_polar_w_pre_scaler_phase_buf_0_data), // memwriter.data
+		.wraddress (cart_to_polar_w_pre_scaler_phase_buf_0_addr), //          .addr
+		.wren      (cart_to_polar_w_pre_scaler_phase_buf_0_wren), //          .wren
+		.rdaddress (scaler_r_pre_scaler_phase_buf_0_addr),        // memreader.addr
+		.q         (pre_scaler_phase_buf_0_memreader_data),       //          .data
+		.clock     (clk_clk)                                      //     clock.clk
 	);
 
 	windowmem pre_scaler_phase_buf_1 (
-		.data      (),                                      // memwriter.data
-		.wraddress (),                                      //          .addr
-		.wren      (),                                      //          .wren
-		.rdaddress (scaler_r_pre_scaler_phase_buf_1_addr),  // memreader.addr
-		.q         (pre_scaler_phase_buf_1_memreader_data), //          .data
-		.clock     (clk_clk)                                //     clock.clk
+		.data      (cart_to_polar_w_pre_scaler_phase_buf_1_data), // memwriter.data
+		.wraddress (cart_to_polar_w_pre_scaler_phase_buf_1_addr), //          .addr
+		.wren      (cart_to_polar_w_pre_scaler_phase_buf_1_wren), //          .wren
+		.rdaddress (scaler_r_pre_scaler_phase_buf_1_addr),        // memreader.addr
+		.q         (pre_scaler_phase_buf_1_memreader_data),       //          .data
+		.clock     (clk_clk)                                      //     clock.clk
 	);
 
 	ring_buf ring_buf (
 		.q         (ring_buf_memreader_data),              // memreader.data
 		.rdaddress (first_hannifier_ring_buf_reader_addr), //          .addr
-		.wraddress (),                                     // memwriter.addr
-		.wren      (),                                     //          .wren
-		.data      (),                                     //          .data
+		.wraddress (sampler_to_ring_buf_addr),             // memwriter.addr
+		.wren      (sampler_to_ring_buf_wren),             //          .wren
+		.data      (sampler_to_ring_buf_data),             //          .data
 		.rdclock   (clk_clk),                              //   readclk.clk
-		.wrclock   (clk_clk)                               //   wrclock.clk
+		.wrclock   (audio_clock_audio_clk_clk)             //   wrclock.clk
+	);
+
+	sampler sampler (
+		.clk            (audio_clock_audio_clk_clk),               //              clock.clk
+		.left_in_data   (audio_avalon_left_channel_source_data),   //            left_in.data
+		.left_in_ready  (audio_avalon_left_channel_source_ready),  //                   .ready
+		.left_in_valid  (audio_avalon_left_channel_source_valid),  //                   .valid
+		.right_in_data  (audio_avalon_right_channel_source_data),  //           right_in.data
+		.right_in_ready (audio_avalon_right_channel_source_ready), //                   .ready
+		.right_in_valid (audio_avalon_right_channel_source_valid), //                   .valid
+		.ring_buf_addr  (sampler_to_ring_buf_addr),                //        to_ring_buf.addr
+		.ring_buf_data  (sampler_to_ring_buf_data),                //                   .data
+		.ring_buf_wren  (sampler_to_ring_buf_wren),                //                   .wren
+		.window_start   (sampler_to_first_hannifier_data),         // to_first_hannifier.data
+		.go_out         (sampler_to_first_hannifier_go),           //                   .go
+		.reset          (rst_controller_reset_out_reset)           //         reset_sink.reset
 	);
 
 	scaler scaler (
 		.clk                    (clk_clk),                                     //                      clock.clk
-		.cur_window             (),                                            //         from_cart_to_polar.data
-		.go_in                  (),                                            //                           .go
+		.cur_window             (cart_to_polar_to_scaler_data),                //         from_cart_to_polar.data
+		.go_in                  (cart_to_polar_to_scaler_go),                  //                           .go
 		.mag_in_buf_0_addr      (scaler_r_pre_scaler_mag_buf_0_addr),          //     r_pre_scaler_mag_buf_0.addr
 		.mag_in_buf_0_data      (pre_scaler_mag_buf_0_memreader_data),         //                           .data
 		.mag_in_buf_1_addr      (scaler_r_pre_scaler_mag_buf_1_addr),          //     r_pre_scaler_mag_buf_1.addr
@@ -583,8 +775,8 @@ module soc_system (
 		.synth_mags_wraddr      (scaler_rw_synth_mags_buf_wraddr),             //                           .wraddr
 		.synth_mags_wrdata      (scaler_rw_synth_mags_buf_wrdata),             //                           .wrdata
 		.synth_mags_wren        (scaler_rw_synth_mags_buf_wren),               //                           .wren
-		.cur_buf                (),                                            //           to_polar_to_cart.data
-		.go_out                 (),                                            //                           .go
+		.cur_buf                (scaler_to_polar_to_cart_data),                //           to_polar_to_cart.data
+		.go_out                 (scaler_to_polar_to_cart_go),                  //                           .go
 		.scale_amt              (software_interface_0_shift_amt_conduit_data)  //    from_software_interface.data
 	);
 

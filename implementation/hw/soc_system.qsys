@@ -41,11 +41,27 @@
          type = "int";
       }
    }
+   element cart_to_polar
+   {
+      datum _sortIndex
+      {
+         value = "27";
+         type = "int";
+      }
+   }
    element clk_0
    {
       datum _sortIndex
       {
          value = "0";
+         type = "int";
+      }
+   }
+   element ffter
+   {
+      datum _sortIndex
+      {
+         value = "24";
          type = "int";
       }
    }
@@ -75,6 +91,46 @@
       datum _sortIndex
       {
          value = "1";
+         type = "int";
+      }
+   }
+   element iffter
+   {
+      datum _sortIndex
+      {
+         value = "31";
+         type = "int";
+      }
+   }
+   element polar_to_cart
+   {
+      datum _sortIndex
+      {
+         value = "28";
+         type = "int";
+      }
+   }
+   element post_fft_imag_buf
+   {
+      datum _sortIndex
+      {
+         value = "26";
+         type = "int";
+      }
+   }
+   element post_fft_real_buf
+   {
+      datum _sortIndex
+      {
+         value = "25";
+         type = "int";
+      }
+   }
+   element post_ifft_buf
+   {
+      datum _sortIndex
+      {
+         value = "32";
          type = "int";
       }
    }
@@ -118,6 +174,22 @@
          type = "int";
       }
    }
+   element pre_ifft_imag_buf
+   {
+      datum _sortIndex
+      {
+         value = "30";
+         type = "int";
+      }
+   }
+   element pre_ifft_real_buf
+   {
+      datum _sortIndex
+      {
+         value = "29";
+         type = "int";
+      }
+   }
    element pre_scaler_mag_buf_0
    {
       datum _sortIndex
@@ -158,12 +230,28 @@
          type = "int";
       }
    }
+   element sampler
+   {
+      datum _sortIndex
+      {
+         value = "23";
+         type = "int";
+      }
+   }
    element scaler
    {
       datum _sortIndex
       {
          value = "10";
          type = "int";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
       }
    }
    element soc_system
@@ -351,12 +439,14 @@
   <parameter name="gui_refclk" value="50.0" />
  </module>
  <module name="audio_piper_0" kind="audio_piper" version="1.0" enabled="0" />
+ <module name="cart_to_polar" kind="cart_to_polar" version="1.0" enabled="1" />
  <module name="clk_0" kind="clock_source" version="21.1" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
+ <module name="ffter" kind="ffter" version="1.0" enabled="1" />
  <module
    name="first_hannifier"
    kind="first_hannifier"
@@ -893,6 +983,11 @@
   <parameter name="usb_mp_clk_div" value="0" />
   <parameter name="use_default_mpu_clk" value="true" />
  </module>
+ <module name="iffter" kind="iffter" version="1.0" enabled="1" />
+ <module name="polar_to_cart" kind="polar_to_cart" version="1.0" enabled="1" />
+ <module name="post_fft_imag_buf" kind="window_mem" version="1.0" enabled="1" />
+ <module name="post_fft_real_buf" kind="window_mem" version="1.0" enabled="1" />
+ <module name="post_ifft_buf" kind="window_mem" version="1.0" enabled="1" />
  <module
    name="post_scaler_mag_buf_0"
    kind="r_rw_buf"
@@ -914,6 +1009,8 @@
    version="1.0"
    enabled="1" />
  <module name="pre_fft_buf" kind="window_mem" version="1.0" enabled="1" />
+ <module name="pre_ifft_imag_buf" kind="window_mem" version="1.0" enabled="1" />
+ <module name="pre_ifft_real_buf" kind="window_mem" version="1.0" enabled="1" />
  <module
    name="pre_scaler_mag_buf_0"
    kind="window_mem"
@@ -935,6 +1032,7 @@
    version="1.0"
    enabled="1" />
  <module name="ring_buf" kind="ring_buf" version="1.0" enabled="1" />
+ <module name="sampler" kind="sampler" version="1.0" enabled="1" />
  <module name="scaler" kind="scaler" version="1.0" enabled="1" />
  <module
    name="software_interface_0"
@@ -979,8 +1077,18 @@
  <connection
    kind="avalon_streaming"
    version="21.1"
+   start="audio.avalon_left_channel_source"
+   end="sampler.left_in" />
+ <connection
+   kind="avalon_streaming"
+   version="21.1"
    start="audio.avalon_right_channel_source"
    end="audio_piper_0.right_in" />
+ <connection
+   kind="avalon_streaming"
+   version="21.1"
+   start="audio.avalon_right_channel_source"
+   end="sampler.right_in" />
  <connection
    kind="avalon_streaming"
    version="21.1"
@@ -1001,6 +1109,16 @@
    version="21.1"
    start="audio_clock.audio_clk"
    end="audio_piper_0.clock" />
+ <connection
+   kind="clock"
+   version="21.1"
+   start="audio_clock.audio_clk"
+   end="sampler.clock" />
+ <connection
+   kind="clock"
+   version="21.1"
+   start="audio_clock.audio_clk"
+   end="ring_buf.wrclock" />
  <connection
    kind="clock"
    version="21.1"
@@ -1059,6 +1177,43 @@
    version="21.1"
    start="clk_0.clk"
    end="post_scaler_phase_buf_1.clock" />
+ <connection kind="clock" version="21.1" start="clk_0.clk" end="ffter.clock" />
+ <connection
+   kind="clock"
+   version="21.1"
+   start="clk_0.clk"
+   end="post_fft_real_buf.clock" />
+ <connection
+   kind="clock"
+   version="21.1"
+   start="clk_0.clk"
+   end="post_fft_imag_buf.clock" />
+ <connection
+   kind="clock"
+   version="21.1"
+   start="clk_0.clk"
+   end="cart_to_polar.clock" />
+ <connection
+   kind="clock"
+   version="21.1"
+   start="clk_0.clk"
+   end="polar_to_cart.clock" />
+ <connection
+   kind="clock"
+   version="21.1"
+   start="clk_0.clk"
+   end="pre_ifft_real_buf.clock" />
+ <connection
+   kind="clock"
+   version="21.1"
+   start="clk_0.clk"
+   end="pre_ifft_imag_buf.clock" />
+ <connection kind="clock" version="21.1" start="clk_0.clk" end="iffter.clock" />
+ <connection
+   kind="clock"
+   version="21.1"
+   start="clk_0.clk"
+   end="post_ifft_buf.clock" />
  <connection
    kind="clock"
    version="21.1"
@@ -1095,7 +1250,28 @@
    version="21.1"
    start="clk_0.clk"
    end="audio_clock.ref_clk" />
- <connection kind="clock" version="21.1" start="clk_0.clk" end="ring_buf.wrclock" />
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="first_hannifier.first_hannifier_to_ffter"
+   end="ffter.from_first_hannifier">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="scaler.from_cart_to_polar"
+   end="cart_to_polar.to_scaler">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
  <connection
    kind="conduit"
    version="21.1"
@@ -1121,8 +1297,151 @@
  <connection
    kind="conduit"
    version="21.1"
-   start="first_hannifier.pre_fft_buf_writer"
-   end="pre_fft_buf.memwriter">
+   start="post_fft_imag_buf.memreader"
+   end="cart_to_polar.r_post_fft_imag_buf">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="post_fft_real_buf.memreader"
+   end="cart_to_polar.r_post_fft_real_buf">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="post_scaler_mag_buf_0.memreader"
+   end="polar_to_cart.r_post_scaler_mag_buf_0">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="post_scaler_mag_buf_1.memreader"
+   end="polar_to_cart.r_post_scaler_mag_buf_1">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="post_scaler_phase_buf_0.memreader"
+   end="polar_to_cart.r_post_scaler_phase_buf_0">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="post_scaler_phase_buf_1.memreader"
+   end="polar_to_cart.r_post_scaler_phase_buf_1">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="pre_fft_buf.memreader"
+   end="ffter.r_pre_fft_buf">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="pre_ifft_imag_buf.memreader"
+   end="iffter.r_pre_ifft_imag_buf">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="pre_ifft_real_buf.memreader"
+   end="iffter.r_pre_ifft_real_buf">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="ring_buf.memwriter"
+   end="sampler.to_ring_buf">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="pre_scaler_mag_buf_0.memwriter"
+   end="cart_to_polar.w_pre_scaler_mag_buf_0">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="pre_scaler_mag_buf_1.memwriter"
+   end="cart_to_polar.w_pre_scaler_mag_buf_1">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="pre_scaler_phase_buf_0.memwriter"
+   end="cart_to_polar.w_pre_scaler_phase_buf_0">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="pre_scaler_phase_buf_1.memwriter"
+   end="cart_to_polar.w_pre_scaler_phase_buf_1">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -1251,6 +1570,105 @@
   <parameter name="width" value="0" />
  </connection>
  <connection
+   kind="conduit"
+   version="21.1"
+   start="first_hannifier.sampler_to_first_hannifier"
+   end="sampler.to_first_hannifier">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="ffter.to_cart_to_polar"
+   end="cart_to_polar.from_ffter">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="polar_to_cart.to_iffter"
+   end="iffter.from_polar_to_cart">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="scaler.to_polar_to_cart"
+   end="polar_to_cart.from_scaler">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="ffter.w_post_fft_imag_buf"
+   end="post_fft_imag_buf.memwriter">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="ffter.w_post_fft_real_buf"
+   end="post_fft_real_buf.memwriter">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="iffter.w_post_ifft_buf"
+   end="post_ifft_buf.memwriter">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="polar_to_cart.w_pre_ifft_imag_buf"
+   end="pre_ifft_imag_buf.memwriter">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="polar_to_cart.w_pre_ifft_real_buf"
+   end="pre_ifft_real_buf.memwriter">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
    kind="reset"
    version="21.1"
    start="clk_0.clk_reset"
@@ -1280,6 +1698,11 @@
    version="21.1"
    start="audio_clock.reset_source"
    end="audio_piper_0.reset" />
+ <connection
+   kind="reset"
+   version="21.1"
+   start="audio_clock.reset_source"
+   end="sampler.reset_sink" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />
