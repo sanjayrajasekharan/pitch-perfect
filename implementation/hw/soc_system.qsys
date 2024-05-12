@@ -9,7 +9,7 @@
    categories="System" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
-   element audio_0
+   element audio
    {
       datum _sortIndex
       {
@@ -17,11 +17,19 @@
          type = "int";
       }
    }
-   element audio_and_video_config_0
+   element audio_and_video_config
    {
       datum _sortIndex
       {
          value = "3";
+         type = "int";
+      }
+   }
+   element audio_clock
+   {
+      datum _sortIndex
+      {
+         value = "4";
          type = "int";
       }
    }
@@ -30,14 +38,6 @@
       datum _sortIndex
       {
          value = "6";
-         type = "int";
-      }
-   }
-   element audio_pll_0
-   {
-      datum _sortIndex
-      {
-         value = "4";
          type = "int";
       }
    }
@@ -57,11 +57,56 @@
          type = "int";
       }
    }
+   element hann_rom
+   {
+      datum _sortIndex
+      {
+         value = "22";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "1";
+         type = "boolean";
+      }
+   }
    element hps_0
    {
       datum _sortIndex
       {
          value = "1";
+         type = "int";
+      }
+   }
+   element post_scaler_mag_buf_0
+   {
+      datum _sortIndex
+      {
+         value = "16";
+         type = "int";
+      }
+   }
+   element post_scaler_mag_buf_1
+   {
+      datum _sortIndex
+      {
+         value = "17";
+         type = "int";
+      }
+   }
+   element post_scaler_phase_buf_0
+   {
+      datum _sortIndex
+      {
+         value = "18";
+         type = "int";
+      }
+   }
+   element post_scaler_phase_buf_1
+   {
+      datum _sortIndex
+      {
+         value = "19";
          type = "int";
       }
    }
@@ -105,7 +150,15 @@
          type = "int";
       }
    }
-   element scaler_0
+   element ring_buf
+   {
+      datum _sortIndex
+      {
+         value = "15";
+         type = "int";
+      }
+   }
+   element scaler
    {
       datum _sortIndex
       {
@@ -193,6 +246,22 @@
          type = "int";
       }
    }
+   element synth_devs_buf
+   {
+      datum _sortIndex
+      {
+         value = "20";
+         type = "int";
+      }
+   }
+   element synth_mags_buf_0
+   {
+      datum _sortIndex
+      {
+         value = "21";
+         type = "int";
+      }
+   }
    element vga_ball_0
    {
       datum _sortIndex
@@ -224,10 +293,14 @@
  <instanceScript></instanceScript>
  <interface
    name="audio_0_external_interface"
-   internal="audio_0.external_interface" />
+   internal="audio.external_interface"
+   type="conduit"
+   dir="end" />
  <interface
    name="audio_and_video_config_0_external_interface"
-   internal="audio_and_video_config_0.external_interface" />
+   internal="audio_and_video_config.external_interface"
+   type="conduit"
+   dir="end" />
  <interface
    name="audio_piper_0_lights_conduit"
    internal="audio_piper_0.lights_conduit" />
@@ -236,11 +309,7 @@
  <interface name="hps_ddr3" internal="hps_0.memory" type="conduit" dir="end" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
  <interface name="vga" internal="vga_ball_0.vga" />
- <module
-   name="audio_0"
-   kind="altera_up_avalon_audio"
-   version="18.0"
-   enabled="0">
+ <module name="audio" kind="altera_up_avalon_audio" version="18.0" enabled="1">
   <parameter name="AUTO_CLK_CLOCK_RATE" value="12288135" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="audio_in" value="true" />
@@ -249,10 +318,10 @@
   <parameter name="dw" value="16" />
  </module>
  <module
-   name="audio_and_video_config_0"
+   name="audio_and_video_config"
    kind="altera_up_avalon_audio_and_video_config"
    version="18.0"
-   enabled="0">
+   enabled="1">
   <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="audio_in" value="Line In to ADC" />
@@ -270,18 +339,18 @@
   <parameter name="sampling_rate" value="48 kHz" />
   <parameter name="video_format" value="NTSC" />
  </module>
- <module name="audio_piper_0" kind="audio_piper" version="1.0" enabled="0" />
  <module
-   name="audio_pll_0"
+   name="audio_clock"
    kind="altera_up_avalon_audio_pll"
    version="18.0"
-   enabled="0">
+   enabled="1">
   <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
   <parameter name="audio_clk_freq" value="12.288" />
   <parameter name="device_family" value="Cyclone V" />
   <parameter name="gui_refclk" value="50.0" />
  </module>
+ <module name="audio_piper_0" kind="audio_piper" version="1.0" enabled="0" />
  <module name="clk_0" kind="clock_source" version="21.1" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
@@ -293,6 +362,7 @@
    kind="first_hannifier"
    version="1.0"
    enabled="1" />
+ <module name="hann_rom" kind="hann_rom" version="1.0" enabled="1" />
  <module name="hps_0" kind="altera_hps" version="21.1" enabled="1">
   <parameter name="ABSTRACT_REAL_COMPARE_TEST" value="false" />
   <parameter name="ABS_RAM_MEM_INIT_FILENAME" value="meminit" />
@@ -823,6 +893,26 @@
   <parameter name="usb_mp_clk_div" value="0" />
   <parameter name="use_default_mpu_clk" value="true" />
  </module>
+ <module
+   name="post_scaler_mag_buf_0"
+   kind="r_rw_buf"
+   version="1.0"
+   enabled="1" />
+ <module
+   name="post_scaler_mag_buf_1"
+   kind="r_rw_buf"
+   version="1.0"
+   enabled="1" />
+ <module
+   name="post_scaler_phase_buf_0"
+   kind="r_rw_buf"
+   version="1.0"
+   enabled="1" />
+ <module
+   name="post_scaler_phase_buf_1"
+   kind="r_rw_buf"
+   version="1.0"
+   enabled="1" />
  <module name="pre_fft_buf" kind="window_mem" version="1.0" enabled="1" />
  <module
    name="pre_scaler_mag_buf_0"
@@ -844,18 +934,21 @@
    kind="window_mem"
    version="1.0"
    enabled="1" />
- <module name="scaler_0" kind="scaler" version="1.0" enabled="1" />
+ <module name="ring_buf" kind="ring_buf" version="1.0" enabled="1" />
+ <module name="scaler" kind="scaler" version="1.0" enabled="1" />
  <module
    name="software_interface_0"
    kind="software_interface"
    version="1.0"
    enabled="1" />
+ <module name="synth_devs_buf" kind="synth_buf" version="1.0" enabled="1" />
+ <module name="synth_mags_buf_0" kind="synth_buf" version="1.0" enabled="1" />
  <module name="vga_ball_0" kind="vga_ball" version="1.0" enabled="0" />
  <connection
    kind="avalon"
    version="21.1"
    start="software_interface_0.avalon_master"
-   end="audio_and_video_config_0.avalon_av_config_slave">
+   end="audio_and_video_config.avalon_av_config_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
@@ -881,38 +974,38 @@
  <connection
    kind="avalon_streaming"
    version="21.1"
-   start="audio_0.avalon_left_channel_source"
+   start="audio.avalon_left_channel_source"
    end="audio_piper_0.left_in" />
  <connection
    kind="avalon_streaming"
    version="21.1"
-   start="audio_0.avalon_right_channel_source"
+   start="audio.avalon_right_channel_source"
    end="audio_piper_0.right_in" />
  <connection
    kind="avalon_streaming"
    version="21.1"
    start="audio_piper_0.left_out"
-   end="audio_0.avalon_left_channel_sink" />
+   end="audio.avalon_left_channel_sink" />
  <connection
    kind="avalon_streaming"
    version="21.1"
    start="audio_piper_0.right_out"
-   end="audio_0.avalon_right_channel_sink" />
+   end="audio.avalon_right_channel_sink" />
  <connection
    kind="clock"
    version="21.1"
-   start="audio_pll_0.audio_clk"
-   end="audio_0.clk" />
+   start="audio_clock.audio_clk"
+   end="audio.clk" />
  <connection
    kind="clock"
    version="21.1"
-   start="audio_pll_0.audio_clk"
+   start="audio_clock.audio_clk"
    end="audio_piper_0.clock" />
  <connection
    kind="clock"
    version="21.1"
    start="clk_0.clk"
-   end="audio_and_video_config_0.clk" />
+   end="audio_and_video_config.clk" />
  <connection kind="clock" version="21.1" start="clk_0.clk" end="vga_ball_0.clock" />
  <connection
    kind="clock"
@@ -925,7 +1018,7 @@
    version="21.1"
    start="clk_0.clk"
    end="first_hannifier.clock" />
- <connection kind="clock" version="21.1" start="clk_0.clk" end="scaler_0.clock" />
+ <connection kind="clock" version="21.1" start="clk_0.clk" end="scaler.clock" />
  <connection
    kind="clock"
    version="21.1"
@@ -950,6 +1043,41 @@
    kind="clock"
    version="21.1"
    start="clk_0.clk"
+   end="post_scaler_mag_buf_0.clock" />
+ <connection
+   kind="clock"
+   version="21.1"
+   start="clk_0.clk"
+   end="post_scaler_mag_buf_1.clock" />
+ <connection
+   kind="clock"
+   version="21.1"
+   start="clk_0.clk"
+   end="post_scaler_phase_buf_0.clock" />
+ <connection
+   kind="clock"
+   version="21.1"
+   start="clk_0.clk"
+   end="post_scaler_phase_buf_1.clock" />
+ <connection
+   kind="clock"
+   version="21.1"
+   start="clk_0.clk"
+   end="synth_devs_buf.clock_reset" />
+ <connection
+   kind="clock"
+   version="21.1"
+   start="clk_0.clk"
+   end="synth_mags_buf_0.clock_reset" />
+ <connection
+   kind="clock"
+   version="21.1"
+   start="clk_0.clk"
+   end="hann_rom.clock_reset" />
+ <connection
+   kind="clock"
+   version="21.1"
+   start="clk_0.clk"
    end="hps_0.f2h_axi_clock" />
  <connection
    kind="clock"
@@ -961,16 +1089,29 @@
    version="21.1"
    start="clk_0.clk"
    end="hps_0.h2f_lw_axi_clock" />
+ <connection kind="clock" version="21.1" start="clk_0.clk" end="ring_buf.readclk" />
  <connection
    kind="clock"
    version="21.1"
    start="clk_0.clk"
-   end="audio_pll_0.ref_clk" />
+   end="audio_clock.ref_clk" />
+ <connection kind="clock" version="21.1" start="clk_0.clk" end="ring_buf.wrclock" />
  <connection
    kind="conduit"
    version="21.1"
-   start="scaler_0.from_software_interface"
+   start="scaler.from_software_interface"
    end="software_interface_0.shift_amt_conduit">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="first_hannifier.hann_rom_reader"
+   end="hann_rom.reader_a">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -991,7 +1132,7 @@
  <connection
    kind="conduit"
    version="21.1"
-   start="scaler_0.r_pre_scaler_mag_buf_0"
+   start="scaler.r_pre_scaler_mag_buf_0"
    end="pre_scaler_mag_buf_0.memreader">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
@@ -1002,7 +1143,7 @@
  <connection
    kind="conduit"
    version="21.1"
-   start="scaler_0.r_pre_scaler_mag_buf_1"
+   start="scaler.r_pre_scaler_mag_buf_1"
    end="pre_scaler_mag_buf_1.memreader">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
@@ -1013,7 +1154,7 @@
  <connection
    kind="conduit"
    version="21.1"
-   start="scaler_0.r_pre_scaler_phase_buf_0"
+   start="scaler.r_pre_scaler_phase_buf_0"
    end="pre_scaler_phase_buf_0.memreader">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
@@ -1024,8 +1165,85 @@
  <connection
    kind="conduit"
    version="21.1"
-   start="scaler_0.r_pre_scaler_phase_buf_1"
+   start="scaler.r_pre_scaler_phase_buf_1"
    end="pre_scaler_phase_buf_1.memreader">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="first_hannifier.ring_buf_reader"
+   end="ring_buf.memreader">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="scaler.rw_post_scaler_mag_buf_0"
+   end="post_scaler_mag_buf_0.memrwer">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="scaler.rw_post_scaler_mag_buf_1"
+   end="post_scaler_mag_buf_1.memrwer">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="scaler.rw_post_scaler_phase_buf_0"
+   end="post_scaler_phase_buf_0.memrwer">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="scaler.rw_post_scaler_phase_buf_1"
+   end="post_scaler_phase_buf_1.memrwer">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="scaler.rw_synth_devs_buf"
+   end="synth_devs_buf.to_scaler">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="scaler.rw_synth_mags_buf"
+   end="synth_mags_buf_0.to_scaler">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -1036,7 +1254,7 @@
    kind="reset"
    version="21.1"
    start="clk_0.clk_reset"
-   end="audio_pll_0.ref_reset" />
+   end="audio_clock.ref_reset" />
  <connection
    kind="reset"
    version="21.1"
@@ -1046,7 +1264,7 @@
    kind="reset"
    version="21.1"
    start="clk_0.clk_reset"
-   end="audio_and_video_config_0.reset" />
+   end="audio_and_video_config.reset" />
  <connection
    kind="reset"
    version="21.1"
@@ -1055,12 +1273,12 @@
  <connection
    kind="reset"
    version="21.1"
-   start="audio_pll_0.reset_source"
-   end="audio_0.reset" />
+   start="audio_clock.reset_source"
+   end="audio.reset" />
  <connection
    kind="reset"
    version="21.1"
-   start="audio_pll_0.reset_source"
+   start="audio_clock.reset_source"
    end="audio_piper_0.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />

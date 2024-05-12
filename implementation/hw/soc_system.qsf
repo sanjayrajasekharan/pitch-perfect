@@ -857,3 +857,7 @@ set_global_assignment -name UNIPHY_SEQUENCER_DQS_CONFIG_ENABLE ON
 set_global_assignment -name OPTIMIZE_MULTI_CORNER_TIMING ON
 set_global_assignment -name ECO_REGENERATE_REPORT ON
 set_global_assignment -name QIP_FILE memblocks/windowmem.qip
+set_global_assignment -name QIP_FILE components/memblocks/ring_buf/ring_buf.qip
+set_global_assignment -name QIP_FILE components/memblocks/r_rw_buf/r_rw_buf.qip
+set_global_assignment -name QIP_FILE components/memblocks/hann_rom/hann_rom.qip
+set_global_assignment -name QIP_FILE components/memblocks/synth_buf/synth_buf.qip
