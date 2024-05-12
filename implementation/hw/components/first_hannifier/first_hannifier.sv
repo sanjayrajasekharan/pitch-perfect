@@ -7,7 +7,7 @@ module first_hannifier(
 		input logic	    clk,
 
 		// Communicate with sampler
-		input logic [1:0]   window_start,
+		input logic [2:0]   window_start,
 		input logic	    go_in,
 
 		// Read from ring buffer

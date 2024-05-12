@@ -18,7 +18,7 @@ module emitter(
 		// Write to avalon_right_channel_sink of audio codec
 		output logic [15:0] right_out_data = 0,
 		output logic        right_out_valid = 0,
-		input logic         right_out_ready,
+		input logic         right_out_ready
 	);
 
 	logic going = 0;

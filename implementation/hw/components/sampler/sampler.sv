@@ -5,6 +5,7 @@
 
 module sampler(
 		input logic	    clk,
+
 		// Read from avalon_left_channel_source from audio codec
 		input logic [15:0]  left_in_data,
 		input logic 	    left_in_valid,
@@ -21,7 +22,7 @@ module sampler(
 		output logic        ring_buf_wren = 0,
 
 		// Communicate with first_hannifier
-		output logic [1:0]  window_start,
+		output logic [2:0]  window_start,
 		output logic	    go_out = 0
 	);
 
