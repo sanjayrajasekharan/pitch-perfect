@@ -73,6 +73,78 @@
          type = "int";
       }
    }
+   element pre_scaler_mag_buf_0
+   {
+      datum _sortIndex
+      {
+         value = "11";
+         type = "int";
+      }
+   }
+   element pre_scaler_mag_buf_1
+   {
+      datum _sortIndex
+      {
+         value = "12";
+         type = "int";
+      }
+   }
+   element pre_scaler_phase_buf_0
+   {
+      datum _sortIndex
+      {
+         value = "13";
+         type = "int";
+      }
+   }
+   element pre_scaler_phase_buf_1
+   {
+      datum _sortIndex
+      {
+         value = "14";
+         type = "int";
+      }
+   }
+   element scaler_0
+   {
+      datum _sortIndex
+      {
+         value = "10";
+         type = "int";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
    element soc_system
    {
       datum _originalDeviceFamily
@@ -163,9 +235,6 @@
  <interface name="hps" internal="hps_0.hps_io" type="conduit" dir="end" />
  <interface name="hps_ddr3" internal="hps_0.memory" type="conduit" dir="end" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
- <interface
-   name="software_interface_0_shift_amt_conduit"
-   internal="software_interface_0.shift_amt_conduit" />
  <interface name="vga" internal="vga_ball_0.vga" />
  <module
    name="audio_0"
@@ -756,10 +825,31 @@
  </module>
  <module name="pre_fft_buf" kind="window_mem" version="1.0" enabled="1" />
  <module
+   name="pre_scaler_mag_buf_0"
+   kind="window_mem"
+   version="1.0"
+   enabled="1" />
+ <module
+   name="pre_scaler_mag_buf_1"
+   kind="window_mem"
+   version="1.0"
+   enabled="1" />
+ <module
+   name="pre_scaler_phase_buf_0"
+   kind="window_mem"
+   version="1.0"
+   enabled="1" />
+ <module
+   name="pre_scaler_phase_buf_1"
+   kind="window_mem"
+   version="1.0"
+   enabled="1" />
+ <module name="scaler_0" kind="scaler" version="1.0" enabled="1" />
+ <module
    name="software_interface_0"
    kind="software_interface"
    version="1.0"
-   enabled="0" />
+   enabled="1" />
  <module name="vga_ball_0" kind="vga_ball" version="1.0" enabled="0" />
  <connection
    kind="avalon"
@@ -835,6 +925,27 @@
    version="21.1"
    start="clk_0.clk"
    end="first_hannifier.clock" />
+ <connection kind="clock" version="21.1" start="clk_0.clk" end="scaler_0.clock" />
+ <connection
+   kind="clock"
+   version="21.1"
+   start="clk_0.clk"
+   end="pre_scaler_mag_buf_0.clock" />
+ <connection
+   kind="clock"
+   version="21.1"
+   start="clk_0.clk"
+   end="pre_scaler_mag_buf_1.clock" />
+ <connection
+   kind="clock"
+   version="21.1"
+   start="clk_0.clk"
+   end="pre_scaler_phase_buf_0.clock" />
+ <connection
+   kind="clock"
+   version="21.1"
+   start="clk_0.clk"
+   end="pre_scaler_phase_buf_1.clock" />
  <connection
    kind="clock"
    version="21.1"
@@ -858,8 +969,63 @@
  <connection
    kind="conduit"
    version="21.1"
+   start="scaler_0.from_software_interface"
+   end="software_interface_0.shift_amt_conduit">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
    start="first_hannifier.pre_fft_buf_writer"
    end="pre_fft_buf.memwriter">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="scaler_0.r_pre_scaler_mag_buf_0"
+   end="pre_scaler_mag_buf_0.memreader">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="scaler_0.r_pre_scaler_mag_buf_1"
+   end="pre_scaler_mag_buf_1.memreader">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="scaler_0.r_pre_scaler_phase_buf_0"
+   end="pre_scaler_phase_buf_0.memreader">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="scaler_0.r_pre_scaler_phase_buf_1"
+   end="pre_scaler_phase_buf_1.memreader">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />

@@ -10,7 +10,7 @@ module scaler(
 		input logic	    cur_window,
 
 		// Communicate with software_interface
-		input logic [7:0]  scale_amt,
+		input logic [15:0]  scale_amt,
 
 		// Read from pre_scaler_mag_buf_0
 		input logic [15:0]  mag_in_buf_0_data,
