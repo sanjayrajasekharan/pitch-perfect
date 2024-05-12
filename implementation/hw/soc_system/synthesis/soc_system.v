@@ -86,7 +86,13 @@ module soc_system (
 	wire         audio_avalon_right_channel_source_valid;                                     // audio:from_adc_right_channel_valid -> sampler:right_in_valid
 	wire  [15:0] audio_avalon_right_channel_source_data;                                      // audio:from_adc_right_channel_data -> sampler:right_in_data
 	wire         audio_avalon_right_channel_source_ready;                                     // sampler:right_in_ready -> audio:from_adc_right_channel_ready
-	wire         audio_clock_audio_clk_clk;                                                   // audio_clock:audio_clk_clk -> [audio:clk, ring_buf:wrclock, rst_controller:clk, sampler:clk]
+	wire         emitter_left_out_valid;                                                      // emitter:left_out_valid -> audio:to_dac_left_channel_valid
+	wire  [15:0] emitter_left_out_data;                                                       // emitter:left_out_data -> audio:to_dac_left_channel_data
+	wire         emitter_left_out_ready;                                                      // audio:to_dac_left_channel_ready -> emitter:left_out_ready
+	wire         emitter_right_out_valid;                                                     // emitter:right_out_valid -> audio:to_dac_right_channel_valid
+	wire  [15:0] emitter_right_out_data;                                                      // emitter:right_out_data -> audio:to_dac_right_channel_data
+	wire         emitter_right_out_ready;                                                     // audio:to_dac_right_channel_ready -> emitter:right_out_ready
+	wire         audio_clock_audio_clk_clk;                                                   // audio_clock:audio_clk_clk -> [audio:clk, emitter:clk, ring_buf:wrclock, rst_controller:clk, rst_controller_002:clk, sampler:clk]
 	wire         first_hannifier_first_hannifier_to_ffter_go;                                 // first_hannifier:go_out -> ffter:go_in
 	wire         cart_to_polar_to_scaler_data;                                                // cart_to_polar:cur_buf -> scaler:cur_window
 	wire         cart_to_polar_to_scaler_go;                                                  // cart_to_polar:go_out -> scaler:go_in
@@ -111,6 +117,11 @@ module soc_system (
 	wire  [11:0] iffter_r_pre_ifft_imag_buf_addr;                                             // iffter:imag_buf_addr -> pre_ifft_imag_buf:rdaddress
 	wire  [15:0] pre_ifft_real_buf_memreader_data;                                            // pre_ifft_real_buf:q -> iffter:real_buf_data
 	wire  [11:0] iffter_r_pre_ifft_real_buf_addr;                                             // iffter:real_buf_addr -> pre_ifft_real_buf:rdaddress
+	wire  [15:0] post_ifft_buf_memreader_data;                                                // post_ifft_buf:q -> stitcher:in_buf_data
+	wire  [11:0] stitcher_read_data_addr;                                                     // stitcher:in_buf_addr -> post_ifft_buf:rdaddress
+	wire         first_hannifier_pre_fft_buf_writer_wren;                                     // first_hannifier:out_buf_wren -> pre_fft_buf:wren
+	wire  [15:0] first_hannifier_pre_fft_buf_writer_data;                                     // first_hannifier:out_buf_data -> pre_fft_buf:data
+	wire  [11:0] first_hannifier_pre_fft_buf_writer_addr;                                     // first_hannifier:out_buf_addr -> pre_fft_buf:wraddress
 	wire         sampler_to_ring_buf_wren;                                                    // sampler:ring_buf_wren -> ring_buf:wren
 	wire  [15:0] sampler_to_ring_buf_data;                                                    // sampler:ring_buf_data -> ring_buf:data
 	wire  [12:0] sampler_to_ring_buf_addr;                                                    // sampler:ring_buf_addr -> ring_buf:wraddress
@@ -126,6 +137,8 @@ module soc_system (
 	wire         cart_to_polar_w_pre_scaler_phase_buf_1_wren;                                 // cart_to_polar:phase_buf_1_wren -> pre_scaler_phase_buf_1:wren
 	wire  [15:0] cart_to_polar_w_pre_scaler_phase_buf_1_data;                                 // cart_to_polar:phase_buf_1_data -> pre_scaler_phase_buf_1:data
 	wire  [11:0] cart_to_polar_w_pre_scaler_phase_buf_1_addr;                                 // cart_to_polar:phase_buf_1_addr -> pre_scaler_phase_buf_1:wraddress
+	wire  [15:0] out_buf_memreader_data;                                                      // out_buf:q -> emitter:in_buf_data
+	wire  [11:0] emitter_r_out_buf_addr;                                                      // emitter:in_buf_addr -> out_buf:rdaddress
 	wire  [15:0] pre_scaler_mag_buf_0_memreader_data;                                         // pre_scaler_mag_buf_0:q -> scaler:mag_in_buf_0_data
 	wire  [11:0] scaler_r_pre_scaler_mag_buf_0_addr;                                          // scaler:mag_in_buf_0_addr -> pre_scaler_mag_buf_0:rdaddress
 	wire  [15:0] pre_scaler_mag_buf_1_memreader_data;                                         // pre_scaler_mag_buf_1:q -> scaler:mag_in_buf_1_data
@@ -134,6 +147,8 @@ module soc_system (
 	wire  [11:0] scaler_r_pre_scaler_phase_buf_0_addr;                                        // scaler:phase_in_buf_0_addr -> pre_scaler_phase_buf_0:rdaddress
 	wire  [15:0] pre_scaler_phase_buf_1_memreader_data;                                       // pre_scaler_phase_buf_1:q -> scaler:phase_in_buf_1_data
 	wire  [11:0] scaler_r_pre_scaler_phase_buf_1_addr;                                        // scaler:phase_in_buf_1_addr -> pre_scaler_phase_buf_1:rdaddress
+	wire  [15:0] hann_rom_reader_b_data;                                                      // hann_rom:q_b -> stitcher:hann_rom_data
+	wire  [11:0] stitcher_read_rom_addr;                                                      // stitcher:hann_rom_addr -> hann_rom:address_b
 	wire  [15:0] ring_buf_memreader_data;                                                     // ring_buf:q -> first_hannifier:ring_buf_data
 	wire  [12:0] first_hannifier_ring_buf_reader_addr;                                        // first_hannifier:ring_buf_addr -> ring_buf:rdaddress
 	wire  [15:0] scaler_rw_post_scaler_mag_buf_0_wrdata;                                      // scaler:mag_out_buf_0_wrdata -> post_scaler_mag_buf_0:data_b
@@ -169,9 +184,12 @@ module soc_system (
 	wire   [2:0] sampler_to_first_hannifier_data;                                             // sampler:window_start -> first_hannifier:window_start
 	wire         sampler_to_first_hannifier_go;                                               // sampler:go_out -> first_hannifier:go_in
 	wire         ffter_to_cart_to_polar_go;                                                   // ffter:go_out -> cart_to_polar:go_in
+	wire   [1:0] stitcher_to_emitter_data;                                                    // stitcher:window_start -> emitter:window_start
+	wire         stitcher_to_emitter_go;                                                      // stitcher:go_out -> emitter:go_in
 	wire         polar_to_cart_to_iffter_go;                                                  // polar_to_cart:go_out -> iffter:go_in
 	wire         scaler_to_polar_to_cart_data;                                                // scaler:cur_buf -> polar_to_cart:cur_window
 	wire         scaler_to_polar_to_cart_go;                                                  // scaler:go_out -> polar_to_cart:go_in
+	wire         iffter_to_stitcher_go;                                                       // iffter:go_out -> stitcher:go_in
 	wire         ffter_w_post_fft_imag_buf_wren;                                              // ffter:imag_buf_wren -> post_fft_imag_buf:wren
 	wire  [15:0] ffter_w_post_fft_imag_buf_data;                                              // ffter:imag_buf_data -> post_fft_imag_buf:data
 	wire  [11:0] ffter_w_post_fft_imag_buf_addr;                                              // ffter:imag_buf_addr -> post_fft_imag_buf:wraddress
@@ -187,6 +205,9 @@ module soc_system (
 	wire         polar_to_cart_w_pre_ifft_real_buf_wren;                                      // polar_to_cart:real_buf_wren -> pre_ifft_real_buf:wren
 	wire  [15:0] polar_to_cart_w_pre_ifft_real_buf_data;                                      // polar_to_cart:real_buf_data -> pre_ifft_real_buf:data
 	wire  [11:0] polar_to_cart_w_pre_ifft_real_buf_addr;                                      // polar_to_cart:real_buf_addr -> pre_ifft_real_buf:wraddress
+	wire         stitcher_write_out_wren;                                                     // stitcher:out_buf_wren -> out_buf:wren
+	wire  [15:0] stitcher_write_out_data;                                                     // stitcher:out_buf_data -> out_buf:data
+	wire  [11:0] stitcher_write_out_addr;                                                     // stitcher:out_buf_addr -> out_buf:wraddress
 	wire  [31:0] software_interface_0_avalon_master_readdata;                                 // mm_interconnect_0:software_interface_0_avalon_master_readdata -> software_interface_0:av_config_slave_readdata
 	wire         software_interface_0_avalon_master_waitrequest;                              // mm_interconnect_0:software_interface_0_avalon_master_waitrequest -> software_interface_0:av_config_slave_waitrequest
 	wire   [3:0] software_interface_0_avalon_master_address;                                  // software_interface_0:av_config_slave_address -> mm_interconnect_0:software_interface_0_avalon_master_address
@@ -246,8 +267,9 @@ module soc_system (
 	wire         rst_controller_reset_out_reset;                                              // rst_controller:reset_out -> [audio:reset, sampler:reset]
 	wire         audio_clock_reset_source_reset;                                              // audio_clock:reset_source_reset -> rst_controller:reset_in0
 	wire         rst_controller_001_reset_out_reset;                                          // rst_controller_001:reset_out -> [audio_and_video_config:reset, mm_interconnect_0:software_interface_0_reset_reset_bridge_in_reset_reset, mm_interconnect_1:software_interface_0_reset_reset_bridge_in_reset_reset, software_interface_0:reset]
-	wire         rst_controller_002_reset_out_reset;                                          // rst_controller_002:reset_out -> mm_interconnect_1:hps_0_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset_reset
-	wire         hps_0_h2f_reset_reset;                                                       // hps_0:h2f_rst_n -> rst_controller_002:reset_in0
+	wire         rst_controller_002_reset_out_reset;                                          // rst_controller_002:reset_out -> emitter:reset_sink_reset
+	wire         rst_controller_003_reset_out_reset;                                          // rst_controller_003:reset_out -> mm_interconnect_1:hps_0_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset_reset
+	wire         hps_0_h2f_reset_reset;                                                       // hps_0:h2f_rst_n -> rst_controller_003:reset_in0
 
 	soc_system_audio audio (
 		.clk                          (audio_clock_audio_clk_clk),               //                         clk.clk
@@ -258,12 +280,12 @@ module soc_system (
 		.from_adc_right_channel_ready (audio_avalon_right_channel_source_ready), // avalon_right_channel_source.ready
 		.from_adc_right_channel_data  (audio_avalon_right_channel_source_data),  //                            .data
 		.from_adc_right_channel_valid (audio_avalon_right_channel_source_valid), //                            .valid
-		.to_dac_left_channel_data     (),                                        //    avalon_left_channel_sink.data
-		.to_dac_left_channel_valid    (),                                        //                            .valid
-		.to_dac_left_channel_ready    (),                                        //                            .ready
-		.to_dac_right_channel_data    (),                                        //   avalon_right_channel_sink.data
-		.to_dac_right_channel_valid   (),                                        //                            .valid
-		.to_dac_right_channel_ready   (),                                        //                            .ready
+		.to_dac_left_channel_data     (emitter_left_out_data),                   //    avalon_left_channel_sink.data
+		.to_dac_left_channel_valid    (emitter_left_out_valid),                  //                            .valid
+		.to_dac_left_channel_ready    (emitter_left_out_ready),                  //                            .ready
+		.to_dac_right_channel_data    (emitter_right_out_data),                  //   avalon_right_channel_sink.data
+		.to_dac_right_channel_valid   (emitter_right_out_valid),                 //                            .valid
+		.to_dac_right_channel_ready   (emitter_right_out_ready),                 //                            .ready
 		.AUD_ADCDAT                   (audio_0_external_interface_ADCDAT),       //          external_interface.export
 		.AUD_ADCLRCK                  (audio_0_external_interface_ADCLRCK),      //                            .export
 		.AUD_BCLK                     (audio_0_external_interface_BCLK),         //                            .export
@@ -315,6 +337,21 @@ module soc_system (
 		.go_out           (cart_to_polar_to_scaler_go)                   //                         .go
 	);
 
+	emitter emitter (
+		.clk              (audio_clock_audio_clk_clk),          //         clock.clk
+		.go_in            (stitcher_to_emitter_go),             // from_stitcher.go
+		.window_start     (stitcher_to_emitter_data),           //              .data
+		.left_out_data    (emitter_left_out_data),              //      left_out.data
+		.left_out_ready   (emitter_left_out_ready),             //              .ready
+		.left_out_valid   (emitter_left_out_valid),             //              .valid
+		.reset_sink_reset (rst_controller_002_reset_out_reset), //    reset_sink.reset
+		.right_out_data   (emitter_right_out_data),             //     right_out.data
+		.right_out_valid  (emitter_right_out_valid),            //              .valid
+		.right_out_ready  (emitter_right_out_ready),            //              .ready
+		.in_buf_data      (out_buf_memreader_data),             //     r_out_buf.data
+		.in_buf_addr      (emitter_r_out_buf_addr)              //              .addr
+	);
+
 	ffter ffter (
 		.clk           (clk_clk),                                     //                clock.clk
 		.go_in         (first_hannifier_first_hannifier_to_ffter_go), // from_first_hannifier.go
@@ -338,15 +375,15 @@ module soc_system (
 		.hann_rom_addr (first_hannifier_hann_rom_reader_addr),        //                           .addr
 		.ring_buf_addr (first_hannifier_ring_buf_reader_addr),        //            ring_buf_reader.addr
 		.ring_buf_data (ring_buf_memreader_data),                     //                           .data
-		.out_buf_addr  (),                                            //         pre_fft_buf_writer.addr
-		.out_buf_data  (),                                            //                           .data
-		.out_buf_wren  ()                                             //                           .wren
+		.out_buf_addr  (first_hannifier_pre_fft_buf_writer_addr),     //         pre_fft_buf_writer.addr
+		.out_buf_data  (first_hannifier_pre_fft_buf_writer_data),     //                           .data
+		.out_buf_wren  (first_hannifier_pre_fft_buf_writer_wren)      //                           .wren
 	);
 
 	hann_rom hann_rom (
 		.clock     (clk_clk),                              // clock_reset.clk
-		.q_b       (),                                     //    reader_b.data
-		.address_b (),                                     //            .addr
+		.q_b       (hann_rom_reader_b_data),               //    reader_b.data
+		.address_b (stitcher_read_rom_addr),               //            .addr
 		.address_a (first_hannifier_hann_rom_reader_addr), //    reader_a.addr
 		.q_a       (hann_rom_reader_a_data)                //            .data
 	);
@@ -549,7 +586,16 @@ module soc_system (
 		.out_buf_addr  (iffter_w_post_ifft_buf_addr),      //     w_post_ifft_buf.addr
 		.out_buf_data  (iffter_w_post_ifft_buf_data),      //                    .data
 		.out_buf_wren  (iffter_w_post_ifft_buf_wren),      //                    .wren
-		.go_out        ()                                  //         to_stitcher.go
+		.go_out        (iffter_to_stitcher_go)             //         to_stitcher.go
+	);
+
+	windowmem out_buf (
+		.data      (stitcher_write_out_data), // memwriter.data
+		.wraddress (stitcher_write_out_addr), //          .addr
+		.wren      (stitcher_write_out_wren), //          .wren
+		.rdaddress (emitter_r_out_buf_addr),  // memreader.addr
+		.q         (out_buf_memreader_data),  //          .data
+		.clock     (clk_clk)                  //     clock.clk
 	);
 
 	polar_to_cart polar_to_cart (
@@ -592,12 +638,12 @@ module soc_system (
 	);
 
 	windowmem post_ifft_buf (
-		.data      (iffter_w_post_ifft_buf_data), // memwriter.data
-		.wraddress (iffter_w_post_ifft_buf_addr), //          .addr
-		.wren      (iffter_w_post_ifft_buf_wren), //          .wren
-		.rdaddress (),                            // memreader.addr
-		.q         (),                            //          .data
-		.clock     (clk_clk)                      //     clock.clk
+		.data      (iffter_w_post_ifft_buf_data),  // memwriter.data
+		.wraddress (iffter_w_post_ifft_buf_addr),  //          .addr
+		.wren      (iffter_w_post_ifft_buf_wren),  //          .wren
+		.rdaddress (stitcher_read_data_addr),      // memreader.addr
+		.q         (post_ifft_buf_memreader_data), //          .data
+		.clock     (clk_clk)                       //     clock.clk
 	);
 
 	r_rw_buf post_scaler_mag_buf_0 (
@@ -645,12 +691,12 @@ module soc_system (
 	);
 
 	windowmem pre_fft_buf (
-		.data      (),                           // memwriter.data
-		.wraddress (),                           //          .addr
-		.wren      (),                           //          .wren
-		.rdaddress (ffter_r_pre_fft_buf_addr),   // memreader.addr
-		.q         (pre_fft_buf_memreader_data), //          .data
-		.clock     (clk_clk)                     //     clock.clk
+		.data      (first_hannifier_pre_fft_buf_writer_data), // memwriter.data
+		.wraddress (first_hannifier_pre_fft_buf_writer_addr), //          .addr
+		.wren      (first_hannifier_pre_fft_buf_writer_wren), //          .wren
+		.rdaddress (ffter_r_pre_fft_buf_addr),                // memreader.addr
+		.q         (pre_fft_buf_memreader_data),              //          .data
+		.clock     (clk_clk)                                  //     clock.clk
 	);
 
 	windowmem pre_ifft_imag_buf (
@@ -797,6 +843,20 @@ module soc_system (
 		.shift_amt                   (software_interface_0_shift_amt_conduit_data)                     // shift_amt_conduit.data
 	);
 
+	stitcher stitcher (
+		.clk           (clk_clk),                      //       clock.clk
+		.go_in         (iffter_to_stitcher_go),        // from_iffter.go
+		.hann_rom_addr (stitcher_read_rom_addr),       //    read_rom.addr
+		.hann_rom_data (hann_rom_reader_b_data),       //            .data
+		.in_buf_addr   (stitcher_read_data_addr),      //   read_data.addr
+		.in_buf_data   (post_ifft_buf_memreader_data), //            .data
+		.out_buf_addr  (stitcher_write_out_addr),      //   write_out.addr
+		.out_buf_data  (stitcher_write_out_data),      //            .data
+		.out_buf_wren  (stitcher_write_out_wren),      //            .wren
+		.window_start  (stitcher_to_emitter_data),     //  to_emitter.data
+		.go_out        (stitcher_to_emitter_go)        //            .go
+	);
+
 	synth_buf synth_devs_buf (
 		.clock          (clk_clk),                         // clock_reset.clk
 		.address        (scaler_rw_synth_devs_buf_raddr),  //   to_scaler.raddr
@@ -872,7 +932,7 @@ module soc_system (
 		.hps_0_h2f_lw_axi_master_rvalid                                      (hps_0_h2f_lw_axi_master_rvalid),                                 //                                                              .rvalid
 		.hps_0_h2f_lw_axi_master_rready                                      (hps_0_h2f_lw_axi_master_rready),                                 //                                                              .rready
 		.clk_0_clk_clk                                                       (clk_clk),                                                        //                                                     clk_0_clk.clk
-		.hps_0_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset_reset (rst_controller_002_reset_out_reset),                             // hps_0_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset.reset
+		.hps_0_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset_reset (rst_controller_003_reset_out_reset),                             // hps_0_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset.reset
 		.software_interface_0_reset_reset_bridge_in_reset_reset              (rst_controller_001_reset_out_reset),                             //              software_interface_0_reset_reset_bridge_in_reset.reset
 		.software_interface_0_avalon_slave_address                           (mm_interconnect_1_software_interface_0_avalon_slave_address),    //                             software_interface_0_avalon_slave.address
 		.software_interface_0_avalon_slave_write                             (mm_interconnect_1_software_interface_0_avalon_slave_write),      //                                                              .write
@@ -1044,9 +1104,72 @@ module soc_system (
 		.USE_RESET_REQUEST_IN15    (0),
 		.ADAPT_RESET_REQUEST       (0)
 	) rst_controller_002 (
+		.reset_in0      (~reset_reset_n),                     // reset_in0.reset
+		.clk            (audio_clock_audio_clk_clk),          //       clk.clk
+		.reset_out      (rst_controller_002_reset_out_reset), // reset_out.reset
+		.reset_req      (),                                   // (terminated)
+		.reset_req_in0  (1'b0),                               // (terminated)
+		.reset_in1      (1'b0),                               // (terminated)
+		.reset_req_in1  (1'b0),                               // (terminated)
+		.reset_in2      (1'b0),                               // (terminated)
+		.reset_req_in2  (1'b0),                               // (terminated)
+		.reset_in3      (1'b0),                               // (terminated)
+		.reset_req_in3  (1'b0),                               // (terminated)
+		.reset_in4      (1'b0),                               // (terminated)
+		.reset_req_in4  (1'b0),                               // (terminated)
+		.reset_in5      (1'b0),                               // (terminated)
+		.reset_req_in5  (1'b0),                               // (terminated)
+		.reset_in6      (1'b0),                               // (terminated)
+		.reset_req_in6  (1'b0),                               // (terminated)
+		.reset_in7      (1'b0),                               // (terminated)
+		.reset_req_in7  (1'b0),                               // (terminated)
+		.reset_in8      (1'b0),                               // (terminated)
+		.reset_req_in8  (1'b0),                               // (terminated)
+		.reset_in9      (1'b0),                               // (terminated)
+		.reset_req_in9  (1'b0),                               // (terminated)
+		.reset_in10     (1'b0),                               // (terminated)
+		.reset_req_in10 (1'b0),                               // (terminated)
+		.reset_in11     (1'b0),                               // (terminated)
+		.reset_req_in11 (1'b0),                               // (terminated)
+		.reset_in12     (1'b0),                               // (terminated)
+		.reset_req_in12 (1'b0),                               // (terminated)
+		.reset_in13     (1'b0),                               // (terminated)
+		.reset_req_in13 (1'b0),                               // (terminated)
+		.reset_in14     (1'b0),                               // (terminated)
+		.reset_req_in14 (1'b0),                               // (terminated)
+		.reset_in15     (1'b0),                               // (terminated)
+		.reset_req_in15 (1'b0)                                // (terminated)
+	);
+
+	altera_reset_controller #(
+		.NUM_RESET_INPUTS          (1),
+		.OUTPUT_RESET_SYNC_EDGES   ("deassert"),
+		.SYNC_DEPTH                (2),
+		.RESET_REQUEST_PRESENT     (0),
+		.RESET_REQ_WAIT_TIME       (1),
+		.MIN_RST_ASSERTION_TIME    (3),
+		.RESET_REQ_EARLY_DSRT_TIME (1),
+		.USE_RESET_REQUEST_IN0     (0),
+		.USE_RESET_REQUEST_IN1     (0),
+		.USE_RESET_REQUEST_IN2     (0),
+		.USE_RESET_REQUEST_IN3     (0),
+		.USE_RESET_REQUEST_IN4     (0),
+		.USE_RESET_REQUEST_IN5     (0),
+		.USE_RESET_REQUEST_IN6     (0),
+		.USE_RESET_REQUEST_IN7     (0),
+		.USE_RESET_REQUEST_IN8     (0),
+		.USE_RESET_REQUEST_IN9     (0),
+		.USE_RESET_REQUEST_IN10    (0),
+		.USE_RESET_REQUEST_IN11    (0),
+		.USE_RESET_REQUEST_IN12    (0),
+		.USE_RESET_REQUEST_IN13    (0),
+		.USE_RESET_REQUEST_IN14    (0),
+		.USE_RESET_REQUEST_IN15    (0),
+		.ADAPT_RESET_REQUEST       (0)
+	) rst_controller_003 (
 		.reset_in0      (~hps_0_h2f_reset_reset),             // reset_in0.reset
 		.clk            (clk_clk),                            //       clk.clk
-		.reset_out      (rst_controller_002_reset_out_reset), // reset_out.reset
+		.reset_out      (rst_controller_003_reset_out_reset), // reset_out.reset
 		.reset_req      (),                                   // (terminated)
 		.reset_req_in0  (1'b0),                               // (terminated)
 		.reset_in1      (1'b0),                               // (terminated)

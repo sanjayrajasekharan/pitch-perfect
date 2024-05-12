@@ -8,12 +8,12 @@ Progress: Adding audio_and_video_config [altera_up_avalon_audio_and_video_config
 Progress: Parameterizing module audio_and_video_config
 Progress: Adding audio_clock [altera_up_avalon_audio_pll 18.0]
 Progress: Parameterizing module audio_clock
-Progress: Adding audio_piper_0 [audio_piper 1.0]
-Progress: Parameterizing module audio_piper_0
 Progress: Adding cart_to_polar [cart_to_polar 1.0]
 Progress: Parameterizing module cart_to_polar
 Progress: Adding clk_0 [clock_source 21.1]
 Progress: Parameterizing module clk_0
+Progress: Adding emitter [emitter 1.0]
+Progress: Parameterizing module emitter
 Progress: Adding ffter [ffter 1.0]
 Progress: Parameterizing module ffter
 Progress: Adding first_hannifier [first_hannifier 1.0]
@@ -24,6 +24,8 @@ Progress: Adding hps_0 [altera_hps 21.1]
 Progress: Parameterizing module hps_0
 Progress: Adding iffter [iffter 1.0]
 Progress: Parameterizing module iffter
+Progress: Adding out_buf [window_mem 1.0]
+Progress: Parameterizing module out_buf
 Progress: Adding polar_to_cart [polar_to_cart 1.0]
 Progress: Parameterizing module polar_to_cart
 Progress: Adding post_fft_imag_buf [window_mem 1.0]
@@ -62,6 +64,8 @@ Progress: Adding scaler [scaler 1.0]
 Progress: Parameterizing module scaler
 Progress: Adding software_interface_0 [software_interface 1.0]
 Progress: Parameterizing module software_interface_0
+Progress: Adding stitcher [stitcher 1.0]
+Progress: Parameterizing module stitcher
 Progress: Adding synth_devs_buf [synth_buf 1.0]
 Progress: Parameterizing module synth_devs_buf
 Progress: Adding synth_mags_buf_0 [synth_buf 1.0]
@@ -74,13 +78,6 @@ Progress: Validating
 Progress: Done reading input file
 Info: soc_system.hps_0: HPS Main PLL counter settings: n = 0  m = 73
 Info: soc_system.hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
-Warning: soc_system.audio.avalon_left_channel_sink: audio.avalon_left_channel_sink must be connected to an Avalon-ST source
-Warning: soc_system.audio.avalon_right_channel_sink: audio.avalon_right_channel_sink must be connected to an Avalon-ST source
-Warning: soc_system.first_hannifier: first_hannifier.pre_fft_buf_writer must be exported, or connected to a matching conduit.
-Warning: soc_system.hann_rom: hann_rom.reader_b must be exported, or connected to a matching conduit.
-Warning: soc_system.iffter: iffter.to_stitcher must be exported, or connected to a matching conduit.
-Warning: soc_system.post_ifft_buf: post_ifft_buf.memreader must be exported, or connected to a matching conduit.
-Warning: soc_system.pre_fft_buf: pre_fft_buf.memwriter must be exported, or connected to a matching conduit.
 Info: qsys-generate succeeded.
 Info: Finished: Create block symbol file (.bsf)
 Info: 
@@ -94,12 +91,12 @@ Progress: Adding audio_and_video_config [altera_up_avalon_audio_and_video_config
 Progress: Parameterizing module audio_and_video_config
 Progress: Adding audio_clock [altera_up_avalon_audio_pll 18.0]
 Progress: Parameterizing module audio_clock
-Progress: Adding audio_piper_0 [audio_piper 1.0]
-Progress: Parameterizing module audio_piper_0
 Progress: Adding cart_to_polar [cart_to_polar 1.0]
 Progress: Parameterizing module cart_to_polar
 Progress: Adding clk_0 [clock_source 21.1]
 Progress: Parameterizing module clk_0
+Progress: Adding emitter [emitter 1.0]
+Progress: Parameterizing module emitter
 Progress: Adding ffter [ffter 1.0]
 Progress: Parameterizing module ffter
 Progress: Adding first_hannifier [first_hannifier 1.0]
@@ -110,6 +107,8 @@ Progress: Adding hps_0 [altera_hps 21.1]
 Progress: Parameterizing module hps_0
 Progress: Adding iffter [iffter 1.0]
 Progress: Parameterizing module iffter
+Progress: Adding out_buf [window_mem 1.0]
+Progress: Parameterizing module out_buf
 Progress: Adding polar_to_cart [polar_to_cart 1.0]
 Progress: Parameterizing module polar_to_cart
 Progress: Adding post_fft_imag_buf [window_mem 1.0]
@@ -148,6 +147,8 @@ Progress: Adding scaler [scaler 1.0]
 Progress: Parameterizing module scaler
 Progress: Adding software_interface_0 [software_interface 1.0]
 Progress: Parameterizing module software_interface_0
+Progress: Adding stitcher [stitcher 1.0]
+Progress: Parameterizing module stitcher
 Progress: Adding synth_devs_buf [synth_buf 1.0]
 Progress: Parameterizing module synth_devs_buf
 Progress: Adding synth_mags_buf_0 [synth_buf 1.0]
@@ -160,13 +161,6 @@ Progress: Validating
 Progress: Done reading input file
 Info: soc_system.hps_0: HPS Main PLL counter settings: n = 0  m = 73
 Info: soc_system.hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
-Warning: soc_system.audio.avalon_left_channel_sink: audio.avalon_left_channel_sink must be connected to an Avalon-ST source
-Warning: soc_system.audio.avalon_right_channel_sink: audio.avalon_right_channel_sink must be connected to an Avalon-ST source
-Warning: soc_system.first_hannifier: first_hannifier.pre_fft_buf_writer must be exported, or connected to a matching conduit.
-Warning: soc_system.hann_rom: hann_rom.reader_b must be exported, or connected to a matching conduit.
-Warning: soc_system.iffter: iffter.to_stitcher must be exported, or connected to a matching conduit.
-Warning: soc_system.post_ifft_buf: post_ifft_buf.memreader must be exported, or connected to a matching conduit.
-Warning: soc_system.pre_fft_buf: pre_fft_buf.memwriter must be exported, or connected to a matching conduit.
 Info: soc_system: Generating soc_system "soc_system" for QUARTUS_SYNTH
 Info: Interconnect is inserted between master software_interface_0.avalon_master and slave audio_and_video_config.avalon_av_config_slave because the master has address signal 4 bit wide, but the slave is 2 bit wide.
 Info: Interconnect is inserted between master hps_0.h2f_lw_axi_master and slave software_interface_0.avalon_slave because the master is of type axi and the slave is of type avalon.
@@ -180,6 +174,7 @@ Info: audio_and_video_config: Starting Generation of Audio and Video Config
 Info: audio_and_video_config: "soc_system" instantiated altera_up_avalon_audio_and_video_config "audio_and_video_config"
 Info: audio_clock: "soc_system" instantiated altera_up_avalon_audio_pll "audio_clock"
 Info: cart_to_polar: "soc_system" instantiated cart_to_polar "cart_to_polar"
+Info: emitter: "soc_system" instantiated emitter "emitter"
 Info: ffter: "soc_system" instantiated ffter "ffter"
 Info: first_hannifier: "soc_system" instantiated first_hannifier "first_hannifier"
 Info: hann_rom: "soc_system" instantiated hann_rom "hann_rom"
@@ -187,13 +182,14 @@ Info: hps_0: "Running  for module: hps_0"
 Info: hps_0: HPS Main PLL counter settings: n = 0  m = 73
 Info: hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
 Info: hps_0: "soc_system" instantiated altera_hps "hps_0"
+Info: out_buf: "soc_system" instantiated window_mem "out_buf"
 Info: polar_to_cart: "soc_system" instantiated polar_to_cart "polar_to_cart"
-Info: post_fft_imag_buf: "soc_system" instantiated window_mem "post_fft_imag_buf"
 Info: post_scaler_mag_buf_0: "soc_system" instantiated r_rw_buf "post_scaler_mag_buf_0"
 Info: ring_buf: "soc_system" instantiated ring_buf "ring_buf"
 Info: sampler: "soc_system" instantiated sampler "sampler"
 Info: scaler: "soc_system" instantiated scaler "scaler"
 Info: software_interface_0: "soc_system" instantiated software_interface "software_interface_0"
+Info: stitcher: "soc_system" instantiated stitcher "stitcher"
 Info: synth_devs_buf: "soc_system" instantiated synth_buf "synth_devs_buf"
 Info: mm_interconnect_0: "soc_system" instantiated altera_mm_interconnect "mm_interconnect_0"
 Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
@@ -224,6 +220,6 @@ Info: Reusing file /homes/user/stud/spring24/shw2139/pitch-perfect/implementatio
 Info: avalon_st_adapter: "mm_interconnect_1" instantiated altera_avalon_st_adapter "avalon_st_adapter"
 Info: border: "hps_io" instantiated altera_interface_generator "border"
 Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
-Info: soc_system: Done "soc_system" with 41 modules, 128 files
+Info: soc_system: Done "soc_system" with 43 modules, 130 files
 Info: qsys-generate succeeded.
 Info: Finished: Create HDL design files for synthesis

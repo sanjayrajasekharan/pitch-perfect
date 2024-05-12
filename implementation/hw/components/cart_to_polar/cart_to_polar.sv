@@ -10,11 +10,11 @@ module cart_to_polar(
 
 		// Read from post_fft_buf_real
 		input logic [15:0]  real_buf_data,
-		output logic [12:0] real_buf_addr = 0,
+		output logic [11:0] real_buf_addr = 0,
 
 		// Read from post_fft_buf_imag
 		input logic [15:0]  imag_buf_data,
-		output logic [12:0] imag_buf_addr = 0,
+		output logic [11:0] imag_buf_addr = 0,
 
 		// Write to scaler_mag_buf_0
 		output logic [15:0] mag_buf_0_data = 0,

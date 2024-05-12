@@ -1,10 +1,14 @@
 # # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
 # 
-preplace inst soc_system.clk_0 -pg 1 -lvl 1 -y 400
+preplace inst soc_system.clk_0 -pg 1 -lvl 1 -y 460
 preplace inst soc_system.hps_0.clk_0 -pg 1
 preplace inst soc_system.audio_clock.reset_from_locked -pg 1
-preplace inst soc_system.audio -pg 1 -lvl 3 -y 70
-preplace inst soc_system.audio_clock -pg 1 -lvl 2 -y 50
+preplace inst soc_system.out_buf -pg 1 -lvl 2 -y 1340
+preplace inst soc_system.stitcher -pg 1 -lvl 2 -y 1420
+preplace inst soc_system.post_fft_imag_buf -pg 1 -lvl 3 -y 1050
+preplace inst soc_system.audio -pg 1 -lvl 3 -y 140
+preplace inst soc_system.audio_clock -pg 1 -lvl 2 -y 110
+preplace inst soc_system.polar_to_cart -pg 1 -lvl 3 -y 1570
 preplace inst soc_system.hps_0.axi_sdram -pg 1
 preplace inst soc_system -pg 1 -lvl 1 -y 40 -regy -20
 preplace inst soc_system.hps_0.timer0 -pg 1
@@ -13,92 +17,131 @@ preplace inst soc_system.hps_0.i2c0 -pg 1
 preplace inst soc_system.hps_0.timer2 -pg 1
 preplace inst soc_system.hps_0.wd_timer0 -pg 1
 preplace inst soc_system.hps_0.i2c1 -pg 1
-preplace inst soc_system.synth_mags_buf_0 -pg 1 -lvl 3 -y 1280
+preplace inst soc_system.synth_mags_buf_0 -pg 1 -lvl 3 -y 2150
 preplace inst soc_system.hps_0.timer3 -pg 1
 preplace inst soc_system.hps_0.wd_timer1 -pg 1
 preplace inst soc_system.hps_0.i2c2 -pg 1
 preplace inst soc_system.hps_0.qspi -pg 1
+preplace inst soc_system.pre_ifft_real_buf -pg 1 -lvl 3 -y 1410
 preplace inst soc_system.hps_0.gpio0 -pg 1
 preplace inst soc_system.hps_0.i2c3 -pg 1
 preplace inst soc_system.hps_0.clkmgr -pg 1
 preplace inst soc_system.hps_0.gpio1 -pg 1
 preplace inst soc_system.hps_0.arm_a9_0 -pg 1
 preplace inst soc_system.hps_0.L2 -pg 1
-preplace inst soc_system.first_hannifier -pg 1 -lvl 2 -y 350
+preplace inst soc_system.first_hannifier -pg 1 -lvl 2 -y 400
 preplace inst soc_system.hps_0.gpio2 -pg 1
 preplace inst soc_system.hps_0.arm_a9_1 -pg 1
 preplace inst soc_system.hps_0.uart0 -pg 1
 preplace inst soc_system.hps_0.uart1 -pg 1
 preplace inst soc_system.hps_0.spim0 -pg 1
-preplace inst soc_system.audio_and_video_config -pg 1 -lvl 4 -y 770
+preplace inst soc_system.audio_and_video_config -pg 1 -lvl 4 -y 830
 preplace inst soc_system.hps_0.spim1 -pg 1
+preplace inst soc_system.ffter -pg 1 -lvl 3 -y 910
 preplace inst soc_system.hps_0.timer -pg 1
 preplace inst soc_system.hps_0.sysmgr -pg 1
+preplace inst soc_system.pre_fft_buf -pg 1 -lvl 2 -y 540
 preplace inst soc_system.hps_0.f2s_periph_ref_clk -pg 1
-preplace inst soc_system.pre_fft_buf -pg 1 -lvl 2 -y 510
 preplace inst soc_system.hps_0.l3regs -pg 1
 preplace inst soc_system.hps_0.sdmmc -pg 1
 preplace inst soc_system.hps_0.axi_ocram -pg 1
-preplace inst soc_system.pre_scaler_mag_buf_0 -pg 1 -lvl 2 -y 1220
-preplace inst soc_system.pre_scaler_mag_buf_1 -pg 1 -lvl 2 -y 1320
+preplace inst soc_system.pre_scaler_mag_buf_0 -pg 1 -lvl 2 -y 1040
+preplace inst soc_system.pre_scaler_mag_buf_1 -pg 1 -lvl 2 -y 1140
 preplace inst soc_system.hps_0.arm_gic_0 -pg 1
 preplace inst soc_system.hps_0.rstmgr -pg 1
 preplace inst soc_system.audio_clock.audio_pll -pg 1
 preplace inst soc_system.hps_0.usb0 -pg 1
+preplace inst soc_system.post_ifft_buf -pg 1 -lvl 2 -y 1760
 preplace inst soc_system.hps_0.scu -pg 1
 preplace inst soc_system.hps_0.usb1 -pg 1
 preplace inst soc_system.hps_0.hps_io -pg 1
+preplace inst soc_system.pre_ifft_imag_buf -pg 1 -lvl 3 -y 1490
 preplace inst soc_system.hps_0.nand0 -pg 1
-preplace inst soc_system.scaler -pg 1 -lvl 3 -y 1350
+preplace inst soc_system.iffter -pg 1 -lvl 2 -y 1580
+preplace inst soc_system.scaler -pg 1 -lvl 3 -y 2210
 preplace inst soc_system.hps_0.gmac0 -pg 1
-preplace inst soc_system.software_interface_0 -pg 1 -lvl 3 -y 700
-preplace inst soc_system.hps_0 -pg 1 -lvl 2 -y 640
+preplace inst soc_system.software_interface_0 -pg 1 -lvl 3 -y 730
+preplace inst soc_system.hps_0 -pg 1 -lvl 2 -y 670
 preplace inst soc_system.hps_0.hps_io.border -pg 1
+preplace inst soc_system.cart_to_polar -pg 1 -lvl 3 -y 1210
 preplace inst soc_system.hps_0.gmac1 -pg 1
-preplace inst soc_system.ring_buf -pg 1 -lvl 2 -y 240
-preplace inst soc_system.post_scaler_mag_buf_0 -pg 1 -lvl 3 -y 820
-preplace inst soc_system.hann_rom -pg 1 -lvl 2 -y 150
+preplace inst soc_system.ring_buf -pg 1 -lvl 2 -y 300
+preplace inst soc_system.post_scaler_mag_buf_0 -pg 1 -lvl 3 -y 1770
+preplace inst soc_system.hann_rom -pg 1 -lvl 2 -y 200
 preplace inst soc_system.hps_0.eosc1 -pg 1
 preplace inst soc_system.hps_0.fpgamgr -pg 1
-preplace inst soc_system.post_scaler_mag_buf_1 -pg 1 -lvl 3 -y 940
+preplace inst soc_system.post_scaler_mag_buf_1 -pg 1 -lvl 3 -y 1850
 preplace inst soc_system.hps_0.dcan0 -pg 1
 preplace inst soc_system.hps_0.eosc2 -pg 1
-preplace inst soc_system.synth_devs_buf -pg 1 -lvl 3 -y 1210
+preplace inst soc_system.synth_devs_buf -pg 1 -lvl 3 -y 2090
 preplace inst soc_system.hps_0.fpga_interfaces -pg 1
 preplace inst soc_system.hps_0.dcan1 -pg 1
 preplace inst soc_system.hps_0.f2s_sdram_ref_clk -pg 1
-preplace inst soc_system.pre_scaler_phase_buf_0 -pg 1 -lvl 2 -y 1450
+preplace inst soc_system.sampler -pg 1 -lvl 4 -y 90
+preplace inst soc_system.pre_scaler_phase_buf_0 -pg 1 -lvl 2 -y 1220
+preplace inst soc_system.post_fft_real_buf -pg 1 -lvl 3 -y 1130
 preplace inst soc_system.hps_0.dma -pg 1
 preplace inst soc_system.hps_0.sdrctl -pg 1
-preplace inst soc_system.pre_scaler_phase_buf_1 -pg 1 -lvl 2 -y 1540
-preplace inst soc_system.post_scaler_phase_buf_0 -pg 1 -lvl 3 -y 1030
-preplace inst soc_system.post_scaler_phase_buf_1 -pg 1 -lvl 3 -y 1120
+preplace inst soc_system.pre_scaler_phase_buf_1 -pg 1 -lvl 2 -y 1840
+preplace inst soc_system.post_scaler_phase_buf_0 -pg 1 -lvl 3 -y 1930
+preplace inst soc_system.post_scaler_phase_buf_1 -pg 1 -lvl 3 -y 2010
 preplace inst soc_system.hps_0.bridges -pg 1
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)pre_scaler_mag_buf_1.memreader,(SLAVE)scaler.r_pre_scaler_mag_buf_1) 1 1 2 460 1210 NJ
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)pre_scaler_mag_buf_1.memwriter,(SLAVE)cart_to_polar.w_pre_scaler_mag_buf_1) 1 1 2 510 990 NJ
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)scaler.r_pre_scaler_phase_buf_1,(SLAVE)pre_scaler_phase_buf_1.memreader) 1 1 2 570 1930 880
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)pre_scaler_mag_buf_1.memreader,(SLAVE)scaler.r_pre_scaler_mag_buf_1) 1 1 2 550 1310 920
+preplace netloc FAN_OUT<net_container>soc_system</net_container>(SLAVE)ring_buf.wrclock,(SLAVE)audio.clk,(SLAVE)sampler.clock,(MASTER)audio_clock.audio_clk) 1 1 3 470 30 1120 130 1730
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)pre_ifft_real_buf.memwriter,(SLAVE)polar_to_cart.w_pre_ifft_real_buf) 1 2 1 1200
 preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.clk,(SLAVE)clk_0.clk_in) 1 0 1 NJ
-preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.reset,(SLAVE)clk_0.clk_in_reset) 1 0 1 NJ
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)audio_and_video_config.avalon_av_config_slave,(MASTER)software_interface_0.avalon_master) 1 3 1 1500
-preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)audio.external_interface,(SLAVE)soc_system.audio_0_external_interface) 1 0 3 NJ 140 NJ 140 NJ
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)synth_devs_buf.to_scaler,(SLAVE)scaler.rw_synth_devs_buf) 1 2 1 1050
-preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)hps_0.memory,(SLAVE)soc_system.hps_ddr3) 1 0 2 NJ 750 NJ
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)scaler.r_pre_scaler_mag_buf_0,(SLAVE)pre_scaler_mag_buf_0.memreader) 1 1 2 440 1190 NJ
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)scaler.rw_synth_mags_buf,(SLAVE)synth_mags_buf_0.to_scaler) 1 2 1 1070
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)scaler.rw_post_scaler_mag_buf_1,(SLAVE)post_scaler_mag_buf_1.memrwer) 1 2 1 990
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)hann_rom.reader_a,(SLAVE)first_hannifier.hann_rom_reader) 1 1 1 460
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)software_interface_0.shift_amt_conduit,(SLAVE)scaler.from_software_interface) 1 2 1 950
-preplace netloc FAN_OUT<net_container>soc_system</net_container>(SLAVE)ring_buf.readclk,(SLAVE)pre_scaler_mag_buf_1.clock,(SLAVE)hps_0.f2h_axi_clock,(SLAVE)post_scaler_mag_buf_1.clock,(SLAVE)audio_and_video_config.clk,(SLAVE)scaler.clock,(SLAVE)audio_clock.ref_clk,(SLAVE)first_hannifier.clock,(SLAVE)pre_fft_buf.clock,(SLAVE)post_scaler_mag_buf_0.clock,(SLAVE)post_scaler_phase_buf_0.clock,(SLAVE)software_interface_0.clock,(SLAVE)hps_0.h2f_lw_axi_clock,(SLAVE)post_scaler_phase_buf_1.clock,(MASTER)clk_0.clk,(SLAVE)synth_devs_buf.clock_reset,(SLAVE)hann_rom.clock_reset,(SLAVE)ring_buf.wrclock,(SLAVE)pre_scaler_phase_buf_1.clock,(SLAVE)pre_scaler_mag_buf_0.clock,(SLAVE)synth_mags_buf_0.clock_reset,(SLAVE)hps_0.h2f_axi_clock,(SLAVE)pre_scaler_phase_buf_0.clock) 1 1 3 420 600 910 910 1520
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(MASTER)hps_0.h2f_lw_axi_master,(SLAVE)software_interface_0.avalon_slave) 1 2 1 N
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)pre_fft_buf.memwriter,(SLAVE)first_hannifier.pre_fft_buf_writer) 1 1 1 500
-preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.hps,(SLAVE)hps_0.hps_io) 1 0 2 NJ 690 NJ
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)pre_scaler_phase_buf_1.memreader,(SLAVE)scaler.r_pre_scaler_phase_buf_1) 1 1 2 500 1440 NJ
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)post_scaler_phase_buf_1.memrwer,(SLAVE)scaler.rw_post_scaler_phase_buf_1) 1 2 1 1030
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)post_scaler_mag_buf_0.memrwer,(SLAVE)scaler.rw_post_scaler_mag_buf_0) 1 2 1 970
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(MASTER)audio_clock.audio_clk,(SLAVE)audio.clk) 1 2 1 930
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)audio.reset,(MASTER)audio_clock.reset_source) 1 2 1 910
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)scaler.rw_post_scaler_phase_buf_0,(SLAVE)post_scaler_phase_buf_0.memrwer) 1 2 1 1010
-preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.audio_and_video_config_0_external_interface,(SLAVE)audio_and_video_config.external_interface) 1 0 4 NJ 930 NJ 930 NJ 930 NJ
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)first_hannifier.ring_buf_reader,(SLAVE)ring_buf.memreader) 1 1 1 480
-preplace netloc FAN_OUT<net_container>soc_system</net_container>(SLAVE)software_interface_0.reset,(MASTER)clk_0.clk_reset,(SLAVE)audio_clock.ref_reset,(SLAVE)audio_and_video_config.reset) 1 1 3 440 500 930 810 1500
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)pre_scaler_phase_buf_0.memreader,(SLAVE)scaler.r_pre_scaler_phase_buf_0) 1 1 2 480 1310 NJ
-levelinfo -pg 1 0 210 1760
-levelinfo -hier soc_system 220 250 630 1130 1570 1750
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)pre_ifft_imag_buf.memreader,(SLAVE)iffter.r_pre_ifft_imag_buf) 1 1 2 570 1730 980
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)post_scaler_phase_buf_1.memreader,(SLAVE)polar_to_cart.r_post_scaler_phase_buf_1) 1 2 1 1300
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)scaler.to_polar_to_cart,(SLAVE)polar_to_cart.from_scaler) 1 2 1 1160
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)scaler.rw_post_scaler_phase_buf_1,(SLAVE)post_scaler_phase_buf_1.memrwer) 1 2 1 1260
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)scaler.rw_post_scaler_mag_buf_0,(SLAVE)post_scaler_mag_buf_0.memrwer) 1 2 1 1200
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)first_hannifier.first_hannifier_to_ffter,(SLAVE)ffter.from_first_hannifier) 1 1 2 530 870 NJ
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)cart_to_polar.to_scaler,(SLAVE)scaler.from_cart_to_polar) 1 2 1 1180
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)clk_0.clk_in_reset,(SLAVE)soc_system.reset) 1 0 1 NJ
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)iffter.from_polar_to_cart,(SLAVE)polar_to_cart.to_iffter) 1 1 2 530 1750 1040
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)sampler.right_in,(MASTER)audio.avalon_right_channel_source) 1 3 1 1770
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)polar_to_cart.r_post_scaler_phase_buf_0,(SLAVE)post_scaler_phase_buf_0.memreader) 1 2 1 1280
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)iffter.r_pre_ifft_real_buf,(SLAVE)pre_ifft_real_buf.memreader) 1 1 2 550 1570 960
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)scaler.from_software_interface,(SLAVE)software_interface_0.shift_amt_conduit) 1 2 1 1140
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)post_scaler_mag_buf_0.memreader,(SLAVE)polar_to_cart.r_post_scaler_mag_buf_0) 1 2 1 1240
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)synth_devs_buf.to_scaler,(SLAVE)scaler.rw_synth_devs_buf) 1 2 1 1280
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)pre_scaler_mag_buf_0.memwriter,(SLAVE)cart_to_polar.w_pre_scaler_mag_buf_0) 1 1 2 490 970 NJ
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)hps_0.memory,(SLAVE)soc_system.hps_ddr3) 1 0 2 NJ 810 NJ
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)stitcher.write_out,(SLAVE)out_buf.memwriter) 1 1 1 570
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)ffter.w_post_fft_imag_buf,(SLAVE)post_fft_imag_buf.memwriter) 1 2 1 1280
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)scaler.r_pre_scaler_mag_buf_0,(SLAVE)pre_scaler_mag_buf_0.memreader) 1 1 2 570 1030 940
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)sampler.left_in,(MASTER)audio.avalon_left_channel_source) 1 3 1 1750
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)post_fft_real_buf.memwriter,(SLAVE)ffter.w_post_fft_real_buf) 1 2 1 1300
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)scaler.rw_post_scaler_mag_buf_1,(SLAVE)post_scaler_mag_buf_1.memrwer) 1 2 1 1220
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)cart_to_polar.r_post_fft_real_buf,(SLAVE)post_fft_real_buf.memreader) 1 2 1 1280
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)polar_to_cart.w_pre_ifft_imag_buf,(SLAVE)pre_ifft_imag_buf.memwriter) 1 2 1 1220
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(MASTER)software_interface_0.avalon_master,(SLAVE)audio_and_video_config.avalon_av_config_slave) 1 3 1 1790
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)pre_fft_buf.memreader,(SLAVE)ffter.r_pre_fft_buf) 1 1 2 550 890 NJ
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)cart_to_polar.from_ffter,(SLAVE)ffter.to_cart_to_polar) 1 2 1 1180
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)pre_fft_buf.memwriter,(SLAVE)first_hannifier.pre_fft_buf_writer) 1 1 1 570
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)software_interface_0.avalon_slave,(MASTER)hps_0.h2f_lw_axi_master) 1 2 1 N
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)first_hannifier.sampler_to_first_hannifier,(SLAVE)sampler.to_first_hannifier) 1 1 3 510 290 NJ 290 1790
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)post_scaler_phase_buf_0.memrwer,(SLAVE)scaler.rw_post_scaler_phase_buf_0) 1 2 1 1240
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)hps_0.hps_io,(SLAVE)soc_system.hps) 1 0 2 NJ 720 NJ
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.audio_0_external_interface,(SLAVE)audio.external_interface) 1 0 3 NJ 50 NJ 50 NJ
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)post_scaler_mag_buf_1.memreader,(SLAVE)polar_to_cart.r_post_scaler_mag_buf_1) 1 2 1 1260
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)cart_to_polar.w_pre_scaler_phase_buf_1,(SLAVE)pre_scaler_phase_buf_1.memwriter) 1 1 2 470 1010 NJ
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)cart_to_polar.r_post_fft_imag_buf,(SLAVE)post_fft_imag_buf.memreader) 1 2 1 1220
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)scaler.r_pre_scaler_phase_buf_0,(SLAVE)pre_scaler_phase_buf_0.memreader) 1 1 2 570 1330 900
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.audio_and_video_config_0_external_interface,(SLAVE)audio_and_video_config.external_interface) 1 0 4 NJ 850 NJ 850 NJ 880 NJ
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)stitcher.from_iffter,(SLAVE)iffter.to_stitcher) 1 1 1 510
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)stitcher.read_rom,(SLAVE)hann_rom.reader_b) 1 1 1 450
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)ring_buf.memwriter,(SLAVE)sampler.to_ring_buf) 1 1 3 530 190 NJ 270 1810
+preplace netloc FAN_OUT<net_container>soc_system</net_container>(SLAVE)audio_clock.ref_reset,(SLAVE)audio_and_video_config.reset,(MASTER)clk_0.clk_reset,(SLAVE)software_interface_0.reset) 1 1 3 430 630 1120 860 1710
+preplace netloc FAN_OUT<net_container>soc_system</net_container>(SLAVE)audio.reset,(MASTER)audio_clock.reset_source,(SLAVE)sampler.reset_sink) 1 2 2 1140 110 1710
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)post_ifft_buf.memreader,(SLAVE)stitcher.read_data) 1 1 1 490
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)post_ifft_buf.memwriter,(SLAVE)iffter.w_post_ifft_buf) 1 1 1 550
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)first_hannifier.hann_rom_reader,(SLAVE)hann_rom.reader_a) 1 1 1 490
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)pre_scaler_phase_buf_0.memwriter,(SLAVE)cart_to_polar.w_pre_scaler_phase_buf_0) 1 1 2 530 1130 NJ
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)synth_mags_buf_0.to_scaler,(SLAVE)scaler.rw_synth_mags_buf) 1 2 1 1300
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)ring_buf.memreader,(SLAVE)first_hannifier.ring_buf_reader) 1 1 1 550
+preplace netloc FAN_OUT<net_container>soc_system</net_container>(SLAVE)post_scaler_mag_buf_1.clock,(SLAVE)ring_buf.readclk,(SLAVE)hann_rom.clock_reset,(SLAVE)pre_ifft_real_buf.clock,(SLAVE)hps_0.h2f_axi_clock,(SLAVE)audio_clock.ref_clk,(SLAVE)synth_devs_buf.clock_reset,(SLAVE)cart_to_polar.clock,(MASTER)clk_0.clk,(SLAVE)first_hannifier.clock,(SLAVE)software_interface_0.clock,(SLAVE)post_scaler_phase_buf_0.clock,(SLAVE)pre_scaler_mag_buf_1.clock,(SLAVE)pre_ifft_imag_buf.clock,(SLAVE)stitcher.clock,(SLAVE)pre_scaler_phase_buf_1.clock,(SLAVE)post_scaler_mag_buf_0.clock,(SLAVE)pre_fft_buf.clock,(SLAVE)pre_scaler_mag_buf_0.clock,(SLAVE)polar_to_cart.clock,(SLAVE)scaler.clock,(SLAVE)synth_mags_buf_0.clock_reset,(SLAVE)audio_and_video_config.clk,(SLAVE)pre_scaler_phase_buf_0.clock,(SLAVE)ffter.clock,(SLAVE)out_buf.clock,(SLAVE)post_fft_imag_buf.clock,(SLAVE)hps_0.h2f_lw_axi_clock,(SLAVE)post_fft_real_buf.clock,(SLAVE)post_scaler_phase_buf_1.clock,(SLAVE)post_ifft_buf.clock,(SLAVE)hps_0.f2h_axi_clock,(SLAVE)iffter.clock) 1 1 3 410 830 1100 840 1750
+levelinfo -pg 1 0 200 2020
+levelinfo -hier soc_system 210 240 690 1360 1840 2010

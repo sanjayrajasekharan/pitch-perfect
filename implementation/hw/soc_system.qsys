@@ -33,19 +33,11 @@
          type = "int";
       }
    }
-   element audio_piper_0
-   {
-      datum _sortIndex
-      {
-         value = "6";
-         type = "int";
-      }
-   }
    element cart_to_polar
    {
       datum _sortIndex
       {
-         value = "27";
+         value = "26";
          type = "int";
       }
    }
@@ -57,11 +49,19 @@
          type = "int";
       }
    }
+   element emitter
+   {
+      datum _sortIndex
+      {
+         value = "34";
+         type = "int";
+      }
+   }
    element ffter
    {
       datum _sortIndex
       {
-         value = "24";
+         value = "23";
          type = "int";
       }
    }
@@ -69,7 +69,7 @@
    {
       datum _sortIndex
       {
-         value = "9";
+         value = "8";
          type = "int";
       }
    }
@@ -77,7 +77,7 @@
    {
       datum _sortIndex
       {
-         value = "22";
+         value = "21";
          type = "int";
       }
       datum sopceditor_expanded
@@ -98,7 +98,15 @@
    {
       datum _sortIndex
       {
-         value = "31";
+         value = "30";
+         type = "int";
+      }
+   }
+   element out_buf
+   {
+      datum _sortIndex
+      {
+         value = "33";
          type = "int";
       }
    }
@@ -106,7 +114,7 @@
    {
       datum _sortIndex
       {
-         value = "28";
+         value = "27";
          type = "int";
       }
    }
@@ -114,7 +122,7 @@
    {
       datum _sortIndex
       {
-         value = "26";
+         value = "25";
          type = "int";
       }
    }
@@ -122,7 +130,7 @@
    {
       datum _sortIndex
       {
-         value = "25";
+         value = "24";
          type = "int";
       }
    }
@@ -130,7 +138,7 @@
    {
       datum _sortIndex
       {
-         value = "32";
+         value = "31";
          type = "int";
       }
    }
@@ -138,7 +146,7 @@
    {
       datum _sortIndex
       {
-         value = "16";
+         value = "15";
          type = "int";
       }
    }
@@ -146,7 +154,7 @@
    {
       datum _sortIndex
       {
-         value = "17";
+         value = "16";
          type = "int";
       }
    }
@@ -154,7 +162,7 @@
    {
       datum _sortIndex
       {
-         value = "18";
+         value = "17";
          type = "int";
       }
    }
@@ -162,7 +170,7 @@
    {
       datum _sortIndex
       {
-         value = "19";
+         value = "18";
          type = "int";
       }
    }
@@ -170,7 +178,7 @@
    {
       datum _sortIndex
       {
-         value = "8";
+         value = "7";
          type = "int";
       }
    }
@@ -178,7 +186,7 @@
    {
       datum _sortIndex
       {
-         value = "30";
+         value = "29";
          type = "int";
       }
    }
@@ -186,7 +194,7 @@
    {
       datum _sortIndex
       {
-         value = "29";
+         value = "28";
          type = "int";
       }
    }
@@ -194,7 +202,7 @@
    {
       datum _sortIndex
       {
-         value = "11";
+         value = "10";
          type = "int";
       }
    }
@@ -202,7 +210,7 @@
    {
       datum _sortIndex
       {
-         value = "12";
+         value = "11";
          type = "int";
       }
    }
@@ -210,7 +218,7 @@
    {
       datum _sortIndex
       {
-         value = "13";
+         value = "12";
          type = "int";
       }
    }
@@ -218,7 +226,7 @@
    {
       datum _sortIndex
       {
-         value = "14";
+         value = "13";
          type = "int";
       }
    }
@@ -226,7 +234,7 @@
    {
       datum _sortIndex
       {
-         value = "15";
+         value = "14";
          type = "int";
       }
    }
@@ -234,7 +242,7 @@
    {
       datum _sortIndex
       {
-         value = "23";
+         value = "22";
          type = "int";
       }
    }
@@ -242,7 +250,7 @@
    {
       datum _sortIndex
       {
-         value = "10";
+         value = "9";
          type = "int";
       }
    }
@@ -330,7 +338,15 @@
    {
       datum _sortIndex
       {
-         value = "7";
+         value = "6";
+         type = "int";
+      }
+   }
+   element stitcher
+   {
+      datum _sortIndex
+      {
+         value = "32";
          type = "int";
       }
    }
@@ -338,7 +354,7 @@
    {
       datum _sortIndex
       {
-         value = "20";
+         value = "19";
          type = "int";
       }
    }
@@ -346,7 +362,7 @@
    {
       datum _sortIndex
       {
-         value = "21";
+         value = "20";
          type = "int";
       }
    }
@@ -389,9 +405,6 @@
    internal="audio_and_video_config.external_interface"
    type="conduit"
    dir="end" />
- <interface
-   name="audio_piper_0_lights_conduit"
-   internal="audio_piper_0.lights_conduit" />
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
  <interface name="hps" internal="hps_0.hps_io" type="conduit" dir="end" />
  <interface name="hps_ddr3" internal="hps_0.memory" type="conduit" dir="end" />
@@ -438,7 +451,6 @@
   <parameter name="device_family" value="Cyclone V" />
   <parameter name="gui_refclk" value="50.0" />
  </module>
- <module name="audio_piper_0" kind="audio_piper" version="1.0" enabled="0" />
  <module name="cart_to_polar" kind="cart_to_polar" version="1.0" enabled="1" />
  <module name="clk_0" kind="clock_source" version="21.1" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
@@ -446,6 +458,7 @@
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
+ <module name="emitter" kind="emitter" version="1.0" enabled="1" />
  <module name="ffter" kind="ffter" version="1.0" enabled="1" />
  <module
    name="first_hannifier"
@@ -984,6 +997,7 @@
   <parameter name="use_default_mpu_clk" value="true" />
  </module>
  <module name="iffter" kind="iffter" version="1.0" enabled="1" />
+ <module name="out_buf" kind="window_mem" version="1.0" enabled="1" />
  <module name="polar_to_cart" kind="polar_to_cart" version="1.0" enabled="1" />
  <module name="post_fft_imag_buf" kind="window_mem" version="1.0" enabled="1" />
  <module name="post_fft_real_buf" kind="window_mem" version="1.0" enabled="1" />
@@ -1039,6 +1053,7 @@
    kind="software_interface"
    version="1.0"
    enabled="1" />
+ <module name="stitcher" kind="stitcher" version="1.0" enabled="1" />
  <module name="synth_devs_buf" kind="synth_buf" version="1.0" enabled="1" />
  <module name="synth_mags_buf_0" kind="synth_buf" version="1.0" enabled="1" />
  <module name="vga_ball_0" kind="vga_ball" version="1.0" enabled="0" />
@@ -1073,17 +1088,7 @@
    kind="avalon_streaming"
    version="21.1"
    start="audio.avalon_left_channel_source"
-   end="audio_piper_0.left_in" />
- <connection
-   kind="avalon_streaming"
-   version="21.1"
-   start="audio.avalon_left_channel_source"
    end="sampler.left_in" />
- <connection
-   kind="avalon_streaming"
-   version="21.1"
-   start="audio.avalon_right_channel_source"
-   end="audio_piper_0.right_in" />
  <connection
    kind="avalon_streaming"
    version="21.1"
@@ -1092,12 +1097,12 @@
  <connection
    kind="avalon_streaming"
    version="21.1"
-   start="audio_piper_0.left_out"
+   start="emitter.left_out"
    end="audio.avalon_left_channel_sink" />
  <connection
    kind="avalon_streaming"
    version="21.1"
-   start="audio_piper_0.right_out"
+   start="emitter.right_out"
    end="audio.avalon_right_channel_sink" />
  <connection
    kind="clock"
@@ -1108,12 +1113,12 @@
    kind="clock"
    version="21.1"
    start="audio_clock.audio_clk"
-   end="audio_piper_0.clock" />
+   end="sampler.clock" />
  <connection
    kind="clock"
    version="21.1"
    start="audio_clock.audio_clk"
-   end="sampler.clock" />
+   end="emitter.clock" />
  <connection
    kind="clock"
    version="21.1"
@@ -1214,6 +1219,8 @@
    version="21.1"
    start="clk_0.clk"
    end="post_ifft_buf.clock" />
+ <connection kind="clock" version="21.1" start="clk_0.clk" end="stitcher.clock" />
+ <connection kind="clock" version="21.1" start="clk_0.clk" end="out_buf.clock" />
  <connection
    kind="clock"
    version="21.1"
@@ -1396,6 +1403,28 @@
  <connection
    kind="conduit"
    version="21.1"
+   start="post_ifft_buf.memreader"
+   end="stitcher.read_data">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="pre_fft_buf.memwriter"
+   end="first_hannifier.pre_fft_buf_writer">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
    start="ring_buf.memwriter"
    end="sampler.to_ring_buf">
   <parameter name="endPort" value="" />
@@ -1451,6 +1480,17 @@
  <connection
    kind="conduit"
    version="21.1"
+   start="emitter.r_out_buf"
+   end="out_buf.memreader">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
    start="scaler.r_pre_scaler_mag_buf_0"
    end="pre_scaler_mag_buf_0.memreader">
   <parameter name="endPort" value="" />
@@ -1486,6 +1526,17 @@
    version="21.1"
    start="scaler.r_pre_scaler_phase_buf_1"
    end="pre_scaler_phase_buf_1.memreader">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="hann_rom.reader_b"
+   end="stitcher.read_rom">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -1594,6 +1645,17 @@
  <connection
    kind="conduit"
    version="21.1"
+   start="stitcher.to_emitter"
+   end="emitter.from_stitcher">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
    start="polar_to_cart.to_iffter"
    end="iffter.from_polar_to_cart">
   <parameter name="endPort" value="" />
@@ -1607,6 +1669,17 @@
    version="21.1"
    start="scaler.to_polar_to_cart"
    end="polar_to_cart.from_scaler">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="21.1"
+   start="iffter.to_stitcher"
+   end="stitcher.from_iffter">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -1669,6 +1742,17 @@
   <parameter name="width" value="0" />
  </connection>
  <connection
+   kind="conduit"
+   version="21.1"
+   start="stitcher.write_out"
+   end="out_buf.memwriter">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
    kind="reset"
    version="21.1"
    start="clk_0.clk_reset"
@@ -1691,13 +1775,13 @@
  <connection
    kind="reset"
    version="21.1"
-   start="audio_clock.reset_source"
-   end="audio.reset" />
+   start="clk_0.clk_reset"
+   end="emitter.reset_sink" />
  <connection
    kind="reset"
    version="21.1"
    start="audio_clock.reset_source"
-   end="audio_piper_0.reset" />
+   end="audio.reset" />
  <connection
    kind="reset"
    version="21.1"

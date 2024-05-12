@@ -67,7 +67,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   </table>
   <table class="blueBar">
    <tr>
-    <td class="l">2024.05.12.05:23:29</td>
+    <td class="l">2024.05.12.05:54:59</td>
     <td class="r">Datasheet</td>
    </tr>
   </table>
@@ -964,10 +964,28 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <table class="connectionboxes">
      <tr>
       <td class="neighbor" rowspan="4">
+       <a href="#module_emitter">emitter</a>
+      </td>
+      <td class="from">left_out&#160;&#160;</td>
+      <td class="main" rowspan="13">audio</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;avalon_left_channel_sink</td>
+     </tr>
+     <tr>
+      <td class="from">right_out&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;avalon_right_channel_sink</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="4">
        <a href="#module_audio_clock">audio_clock</a>
       </td>
       <td class="from">audio_clk&#160;&#160;</td>
-      <td class="main" rowspan="8">audio</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clk</td>
@@ -1200,7 +1218,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_0">clk_0</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="16">audio_clock</td>
+      <td class="main" rowspan="19">audio_clock</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;ref_clk</td>
@@ -1259,6 +1277,22 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="to">&#160;&#160;reset_sink</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">audio_clk&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_emitter">emitter</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;clock</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -1516,6 +1550,114 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     </tr>
    </table>
   </div>
+  <a name="module_emitter"> </a>
+  <div>
+   <hr/>
+   <h2>emitter</h2>emitter v1.0
+   <br/>
+   <div class="greydiv">
+    <table class="connectionboxes">
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_audio_clock">audio_clock</a>
+      </td>
+      <td class="from">audio_clk&#160;&#160;</td>
+      <td class="main" rowspan="15">emitter</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clock</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_stitcher">stitcher</a>
+      </td>
+      <td class="from">to_emitter&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;from_stitcher</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_clk_0">clk_0</a>
+      </td>
+      <td class="from">clk_reset&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;reset_sink</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">left_out&#160;&#160;</td>
+      <td class="neighbor" rowspan="4">
+       <a href="#module_audio">audio</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;avalon_left_channel_sink</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">right_out&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;avalon_right_channel_sink</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">r_out_buf&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_out_buf">out_buf</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;memreader</td>
+     </tr>
+    </table>
+   </div>
+   <br/>
+   <br/>
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Parameters</h2>
+      <table>
+       <tr>
+        <td class="parametername">deviceFamily</td>
+        <td class="parametervalue">UNKNOWN</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateLegacySim</td>
+        <td class="parametervalue">false</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>&#160;&#160;
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Software Assignments</h2>(none)</td>
+    </tr>
+   </table>
+  </div>
   <a name="module_ffter"> </a>
   <div>
    <hr/>
@@ -1642,10 +1784,22 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_0">clk_0</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="13">first_hannifier</td>
+      <td class="main" rowspan="16">first_hannifier</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clock</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_pre_fft_buf">pre_fft_buf</a>
+      </td>
+      <td class="from">memwriter&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;pre_fft_buf_writer</td>
      </tr>
      <tr>
       <td></td>
@@ -1748,7 +1902,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_0">clk_0</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="5">hann_rom</td>
+      <td class="main" rowspan="7">hann_rom</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clock_reset</td>
@@ -1764,6 +1918,19 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;reader_a</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">reader_b&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_stitcher">stitcher</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;read_rom</td>
      </tr>
     </table>
    </div>
@@ -29232,7 +29399,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_0">clk_0</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="13">iffter</td>
+      <td class="main" rowspan="16">iffter</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clock</td>
@@ -29276,6 +29443,22 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <tr>
       <td></td>
       <td></td>
+      <td class="from">to_stitcher&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_stitcher">stitcher</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;from_iffter</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
       <td class="from">w_post_ifft_buf&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
        <a href="#module_post_ifft_buf">post_ifft_buf</a>
@@ -29284,6 +29467,75 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <tr>
       <td></td>
       <td></td>
+      <td class="to">&#160;&#160;memwriter</td>
+     </tr>
+    </table>
+   </div>
+   <br/>
+   <br/>
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Parameters</h2>
+      <table>
+       <tr>
+        <td class="parametername">deviceFamily</td>
+        <td class="parametervalue">UNKNOWN</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateLegacySim</td>
+        <td class="parametervalue">false</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>&#160;&#160;
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Software Assignments</h2>(none)</td>
+    </tr>
+   </table>
+  </div>
+  <a name="module_out_buf"> </a>
+  <div>
+   <hr/>
+   <h2>out_buf</h2>window_mem v1.0
+   <br/>
+   <div class="greydiv">
+    <table class="connectionboxes">
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_clk_0">clk_0</a>
+      </td>
+      <td class="from">clk&#160;&#160;</td>
+      <td class="main" rowspan="8">out_buf</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clock</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_emitter">emitter</a>
+      </td>
+      <td class="from">r_out_buf&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;memreader</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_stitcher">stitcher</a>
+      </td>
+      <td class="from">write_out&#160;&#160;</td>
+     </tr>
+     <tr>
       <td class="to">&#160;&#160;memwriter</td>
      </tr>
     </table>
@@ -29616,7 +29868,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_0">clk_0</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="5">post_ifft_buf</td>
+      <td class="main" rowspan="7">post_ifft_buf</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clock</td>
@@ -29632,6 +29884,19 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="to">&#160;&#160;memwriter</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">memreader&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_stitcher">stitcher</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;read_data</td>
      </tr>
     </table>
    </div>
@@ -29953,7 +30218,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_0">clk_0</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="4">pre_fft_buf</td>
+      <td class="main" rowspan="7">pre_fft_buf</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clock</td>
@@ -29970,6 +30235,22 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="to">&#160;&#160;r_pre_fft_buf</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">memwriter&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_first_hannifier">first_hannifier</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;pre_fft_buf_writer</td>
      </tr>
     </table>
    </div>
@@ -30932,6 +31213,116 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     </tr>
    </table>
   </div>
+  <a name="module_stitcher"> </a>
+  <div>
+   <hr/>
+   <h2>stitcher</h2>stitcher v1.0
+   <br/>
+   <div class="greydiv">
+    <table class="connectionboxes">
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_clk_0">clk_0</a>
+      </td>
+      <td class="from">clk&#160;&#160;</td>
+      <td class="main" rowspan="16">stitcher</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clock</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_post_ifft_buf">post_ifft_buf</a>
+      </td>
+      <td class="from">memreader&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;read_data</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_hann_rom">hann_rom</a>
+      </td>
+      <td class="from">reader_b&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;read_rom</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_iffter">iffter</a>
+      </td>
+      <td class="from">to_stitcher&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;from_iffter</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">to_emitter&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_emitter">emitter</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;from_stitcher</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">write_out&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_out_buf">out_buf</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;memwriter</td>
+     </tr>
+    </table>
+   </div>
+   <br/>
+   <br/>
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Parameters</h2>
+      <table>
+       <tr>
+        <td class="parametername">deviceFamily</td>
+        <td class="parametervalue">UNKNOWN</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateLegacySim</td>
+        <td class="parametervalue">false</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>&#160;&#160;
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Software Assignments</h2>(none)</td>
+    </tr>
+   </table>
+  </div>
   <a name="module_synth_devs_buf"> </a>
   <div>
    <hr/>
@@ -31048,8 +31439,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   </div>
   <table class="blueBar">
    <tr>
-    <td class="l">generation took 0.00 seconds</td>
-    <td class="r">rendering took 0.13 seconds</td>
+    <td class="l">generation took 0.01 seconds</td>
+    <td class="r">rendering took 0.50 seconds</td>
    </tr>
   </table>
  </body>

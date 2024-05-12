@@ -27,12 +27,12 @@ module polar_to_cart(
 
 		// Write to pre_ifft_real_buf
 		output logic [15:0] real_buf_data,
-		output logic [12:0] real_buf_addr = 0,
+		output logic [11:0] real_buf_addr = 0,
 		output logic        real_buf_wren = 0,
 
 		// Write to pre_ifft_imag_buf
 		output logic [15:0] imag_buf_data,
-		output logic [12:0] imag_buf_addr = 0,
+		output logic [11:0] imag_buf_addr = 0,
 		output logic        imag_buf_wren = 0,
 
 		// Communicate with iffter
