@@ -7,35 +7,35 @@
 
 `timescale 1 ps / 1 ps
 module soc_system_mm_interconnect_0 (
-		input  wire        clk_0_clk_clk,                                               //                                        clk_0_clk.clk
-		input  wire        software_interface_0_reset_reset_bridge_in_reset_reset,      // software_interface_0_reset_reset_bridge_in_reset.reset
-		input  wire [3:0]  software_interface_0_avalon_master_address,                  //               software_interface_0_avalon_master.address
-		output wire        software_interface_0_avalon_master_waitrequest,              //                                                 .waitrequest
-		input  wire [3:0]  software_interface_0_avalon_master_byteenable,               //                                                 .byteenable
-		input  wire        software_interface_0_avalon_master_read,                     //                                                 .read
-		output wire [31:0] software_interface_0_avalon_master_readdata,                 //                                                 .readdata
-		input  wire        software_interface_0_avalon_master_write,                    //                                                 .write
-		input  wire [31:0] software_interface_0_avalon_master_writedata,                //                                                 .writedata
-		output wire [1:0]  audio_and_video_config_0_avalon_av_config_slave_address,     //  audio_and_video_config_0_avalon_av_config_slave.address
-		output wire        audio_and_video_config_0_avalon_av_config_slave_write,       //                                                 .write
-		output wire        audio_and_video_config_0_avalon_av_config_slave_read,        //                                                 .read
-		input  wire [31:0] audio_and_video_config_0_avalon_av_config_slave_readdata,    //                                                 .readdata
-		output wire [31:0] audio_and_video_config_0_avalon_av_config_slave_writedata,   //                                                 .writedata
-		output wire [3:0]  audio_and_video_config_0_avalon_av_config_slave_byteenable,  //                                                 .byteenable
-		input  wire        audio_and_video_config_0_avalon_av_config_slave_waitrequest  //                                                 .waitrequest
+		input  wire        clk_0_clk_clk,                                             //                                        clk_0_clk.clk
+		input  wire        software_interface_0_reset_reset_bridge_in_reset_reset,    // software_interface_0_reset_reset_bridge_in_reset.reset
+		input  wire [3:0]  software_interface_0_avalon_master_address,                //               software_interface_0_avalon_master.address
+		output wire        software_interface_0_avalon_master_waitrequest,            //                                                 .waitrequest
+		input  wire [3:0]  software_interface_0_avalon_master_byteenable,             //                                                 .byteenable
+		input  wire        software_interface_0_avalon_master_read,                   //                                                 .read
+		output wire [31:0] software_interface_0_avalon_master_readdata,               //                                                 .readdata
+		input  wire        software_interface_0_avalon_master_write,                  //                                                 .write
+		input  wire [31:0] software_interface_0_avalon_master_writedata,              //                                                 .writedata
+		output wire [1:0]  audio_and_video_config_avalon_av_config_slave_address,     //    audio_and_video_config_avalon_av_config_slave.address
+		output wire        audio_and_video_config_avalon_av_config_slave_write,       //                                                 .write
+		output wire        audio_and_video_config_avalon_av_config_slave_read,        //                                                 .read
+		input  wire [31:0] audio_and_video_config_avalon_av_config_slave_readdata,    //                                                 .readdata
+		output wire [31:0] audio_and_video_config_avalon_av_config_slave_writedata,   //                                                 .writedata
+		output wire [3:0]  audio_and_video_config_avalon_av_config_slave_byteenable,  //                                                 .byteenable
+		input  wire        audio_and_video_config_avalon_av_config_slave_waitrequest  //                                                 .waitrequest
 	);
 
-	wire         software_interface_0_avalon_master_translator_avalon_universal_master_0_waitrequest;   // audio_and_video_config_0_avalon_av_config_slave_translator:uav_waitrequest -> software_interface_0_avalon_master_translator:uav_waitrequest
-	wire  [31:0] software_interface_0_avalon_master_translator_avalon_universal_master_0_readdata;      // audio_and_video_config_0_avalon_av_config_slave_translator:uav_readdata -> software_interface_0_avalon_master_translator:uav_readdata
-	wire         software_interface_0_avalon_master_translator_avalon_universal_master_0_debugaccess;   // software_interface_0_avalon_master_translator:uav_debugaccess -> audio_and_video_config_0_avalon_av_config_slave_translator:uav_debugaccess
-	wire   [3:0] software_interface_0_avalon_master_translator_avalon_universal_master_0_address;       // software_interface_0_avalon_master_translator:uav_address -> audio_and_video_config_0_avalon_av_config_slave_translator:uav_address
-	wire         software_interface_0_avalon_master_translator_avalon_universal_master_0_read;          // software_interface_0_avalon_master_translator:uav_read -> audio_and_video_config_0_avalon_av_config_slave_translator:uav_read
-	wire   [3:0] software_interface_0_avalon_master_translator_avalon_universal_master_0_byteenable;    // software_interface_0_avalon_master_translator:uav_byteenable -> audio_and_video_config_0_avalon_av_config_slave_translator:uav_byteenable
-	wire         software_interface_0_avalon_master_translator_avalon_universal_master_0_readdatavalid; // audio_and_video_config_0_avalon_av_config_slave_translator:uav_readdatavalid -> software_interface_0_avalon_master_translator:uav_readdatavalid
-	wire         software_interface_0_avalon_master_translator_avalon_universal_master_0_lock;          // software_interface_0_avalon_master_translator:uav_lock -> audio_and_video_config_0_avalon_av_config_slave_translator:uav_lock
-	wire         software_interface_0_avalon_master_translator_avalon_universal_master_0_write;         // software_interface_0_avalon_master_translator:uav_write -> audio_and_video_config_0_avalon_av_config_slave_translator:uav_write
-	wire  [31:0] software_interface_0_avalon_master_translator_avalon_universal_master_0_writedata;     // software_interface_0_avalon_master_translator:uav_writedata -> audio_and_video_config_0_avalon_av_config_slave_translator:uav_writedata
-	wire   [2:0] software_interface_0_avalon_master_translator_avalon_universal_master_0_burstcount;    // software_interface_0_avalon_master_translator:uav_burstcount -> audio_and_video_config_0_avalon_av_config_slave_translator:uav_burstcount
+	wire         software_interface_0_avalon_master_translator_avalon_universal_master_0_waitrequest;   // audio_and_video_config_avalon_av_config_slave_translator:uav_waitrequest -> software_interface_0_avalon_master_translator:uav_waitrequest
+	wire  [31:0] software_interface_0_avalon_master_translator_avalon_universal_master_0_readdata;      // audio_and_video_config_avalon_av_config_slave_translator:uav_readdata -> software_interface_0_avalon_master_translator:uav_readdata
+	wire         software_interface_0_avalon_master_translator_avalon_universal_master_0_debugaccess;   // software_interface_0_avalon_master_translator:uav_debugaccess -> audio_and_video_config_avalon_av_config_slave_translator:uav_debugaccess
+	wire   [3:0] software_interface_0_avalon_master_translator_avalon_universal_master_0_address;       // software_interface_0_avalon_master_translator:uav_address -> audio_and_video_config_avalon_av_config_slave_translator:uav_address
+	wire         software_interface_0_avalon_master_translator_avalon_universal_master_0_read;          // software_interface_0_avalon_master_translator:uav_read -> audio_and_video_config_avalon_av_config_slave_translator:uav_read
+	wire   [3:0] software_interface_0_avalon_master_translator_avalon_universal_master_0_byteenable;    // software_interface_0_avalon_master_translator:uav_byteenable -> audio_and_video_config_avalon_av_config_slave_translator:uav_byteenable
+	wire         software_interface_0_avalon_master_translator_avalon_universal_master_0_readdatavalid; // audio_and_video_config_avalon_av_config_slave_translator:uav_readdatavalid -> software_interface_0_avalon_master_translator:uav_readdatavalid
+	wire         software_interface_0_avalon_master_translator_avalon_universal_master_0_lock;          // software_interface_0_avalon_master_translator:uav_lock -> audio_and_video_config_avalon_av_config_slave_translator:uav_lock
+	wire         software_interface_0_avalon_master_translator_avalon_universal_master_0_write;         // software_interface_0_avalon_master_translator:uav_write -> audio_and_video_config_avalon_av_config_slave_translator:uav_write
+	wire  [31:0] software_interface_0_avalon_master_translator_avalon_universal_master_0_writedata;     // software_interface_0_avalon_master_translator:uav_writedata -> audio_and_video_config_avalon_av_config_slave_translator:uav_writedata
+	wire   [2:0] software_interface_0_avalon_master_translator_avalon_universal_master_0_burstcount;    // software_interface_0_avalon_master_translator:uav_burstcount -> audio_and_video_config_avalon_av_config_slave_translator:uav_burstcount
 
 	altera_merlin_master_translator #(
 		.AV_ADDRESS_W                (4),
@@ -123,7 +123,7 @@ module soc_system_mm_interconnect_0 (
 		.AV_WRITE_WAIT_CYCLES           (0),
 		.AV_SETUP_WAIT_CYCLES           (0),
 		.AV_DATA_HOLD_CYCLES            (0)
-	) audio_and_video_config_0_avalon_av_config_slave_translator (
+	) audio_and_video_config_avalon_av_config_slave_translator (
 		.clk                    (clk_0_clk_clk),                                                                         //                      clk.clk
 		.reset                  (software_interface_0_reset_reset_bridge_in_reset_reset),                                //                    reset.reset
 		.uav_address            (software_interface_0_avalon_master_translator_avalon_universal_master_0_address),       // avalon_universal_slave_0.address
@@ -137,13 +137,13 @@ module soc_system_mm_interconnect_0 (
 		.uav_writedata          (software_interface_0_avalon_master_translator_avalon_universal_master_0_writedata),     //                         .writedata
 		.uav_lock               (software_interface_0_avalon_master_translator_avalon_universal_master_0_lock),          //                         .lock
 		.uav_debugaccess        (software_interface_0_avalon_master_translator_avalon_universal_master_0_debugaccess),   //                         .debugaccess
-		.av_address             (audio_and_video_config_0_avalon_av_config_slave_address),                               //      avalon_anti_slave_0.address
-		.av_write               (audio_and_video_config_0_avalon_av_config_slave_write),                                 //                         .write
-		.av_read                (audio_and_video_config_0_avalon_av_config_slave_read),                                  //                         .read
-		.av_readdata            (audio_and_video_config_0_avalon_av_config_slave_readdata),                              //                         .readdata
-		.av_writedata           (audio_and_video_config_0_avalon_av_config_slave_writedata),                             //                         .writedata
-		.av_byteenable          (audio_and_video_config_0_avalon_av_config_slave_byteenable),                            //                         .byteenable
-		.av_waitrequest         (audio_and_video_config_0_avalon_av_config_slave_waitrequest),                           //                         .waitrequest
+		.av_address             (audio_and_video_config_avalon_av_config_slave_address),                                 //      avalon_anti_slave_0.address
+		.av_write               (audio_and_video_config_avalon_av_config_slave_write),                                   //                         .write
+		.av_read                (audio_and_video_config_avalon_av_config_slave_read),                                    //                         .read
+		.av_readdata            (audio_and_video_config_avalon_av_config_slave_readdata),                                //                         .readdata
+		.av_writedata           (audio_and_video_config_avalon_av_config_slave_writedata),                               //                         .writedata
+		.av_byteenable          (audio_and_video_config_avalon_av_config_slave_byteenable),                              //                         .byteenable
+		.av_waitrequest         (audio_and_video_config_avalon_av_config_slave_waitrequest),                             //                         .waitrequest
 		.av_begintransfer       (),                                                                                      //              (terminated)
 		.av_beginbursttransfer  (),                                                                                      //              (terminated)
 		.av_burstcount          (),                                                                                      //              (terminated)

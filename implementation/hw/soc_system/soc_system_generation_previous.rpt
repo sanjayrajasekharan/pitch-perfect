@@ -2,24 +2,74 @@ Info: Starting: Create block symbol file (.bsf)
 Info: qsys-generate /homes/user/stud/spring24/shw2139/pitch-perfect/implementation/hw/soc_system.qsys --block-symbol-file --output-directory=/homes/user/stud/spring24/shw2139/pitch-perfect/implementation/hw/soc_system --family="Cyclone V" --part=5CSEMA5F31C6
 Progress: Loading hw/soc_system.qsys
 Progress: Reading input file
-Progress: Adding audio_0 [altera_up_avalon_audio 18.0]
-Progress: Parameterizing module audio_0
-Progress: Adding audio_and_video_config_0 [altera_up_avalon_audio_and_video_config 18.0]
-Progress: Parameterizing module audio_and_video_config_0
+Progress: Adding audio [altera_up_avalon_audio 18.0]
+Progress: Parameterizing module audio
+Progress: Adding audio_and_video_config [altera_up_avalon_audio_and_video_config 18.0]
+Progress: Parameterizing module audio_and_video_config
+Progress: Adding audio_clock [altera_up_avalon_audio_pll 18.0]
+Progress: Parameterizing module audio_clock
 Progress: Adding audio_piper_0 [audio_piper 1.0]
 Progress: Parameterizing module audio_piper_0
-Progress: Adding audio_pll_0 [altera_up_avalon_audio_pll 18.0]
-Progress: Parameterizing module audio_pll_0
+Progress: Adding cart_to_polar [cart_to_polar 1.0]
+Progress: Parameterizing module cart_to_polar
 Progress: Adding clk_0 [clock_source 21.1]
 Progress: Parameterizing module clk_0
+Progress: Adding ffter [ffter 1.0]
+Progress: Parameterizing module ffter
 Progress: Adding first_hannifier [first_hannifier 1.0]
 Progress: Parameterizing module first_hannifier
-Progress: Adding hann_to_fft_buf [window_mem 1.0]
-Progress: Parameterizing module hann_to_fft_buf
+Progress: Adding hann_rom [hann_rom 1.0]
+Progress: Parameterizing module hann_rom
 Progress: Adding hps_0 [altera_hps 21.1]
 Progress: Parameterizing module hps_0
+Progress: Adding iffter [iffter 1.0]
+Progress: Parameterizing module iffter
+Progress: Adding out_buf [window_mem 1.0]
+Progress: Parameterizing module out_buf
+Progress: Adding polar_to_cart [polar_to_cart 1.0]
+Progress: Parameterizing module polar_to_cart
+Progress: Adding post_fft_imag_buf [window_mem 1.0]
+Progress: Parameterizing module post_fft_imag_buf
+Progress: Adding post_fft_real_buf [window_mem 1.0]
+Progress: Parameterizing module post_fft_real_buf
+Progress: Adding post_ifft_buf [window_mem 1.0]
+Progress: Parameterizing module post_ifft_buf
+Progress: Adding post_scaler_mag_buf_0 [r_rw_buf 1.0]
+Progress: Parameterizing module post_scaler_mag_buf_0
+Progress: Adding post_scaler_mag_buf_1 [r_rw_buf 1.0]
+Progress: Parameterizing module post_scaler_mag_buf_1
+Progress: Adding post_scaler_phase_buf_0 [r_rw_buf 1.0]
+Progress: Parameterizing module post_scaler_phase_buf_0
+Progress: Adding post_scaler_phase_buf_1 [r_rw_buf 1.0]
+Progress: Parameterizing module post_scaler_phase_buf_1
+Progress: Adding pre_fft_buf [window_mem 1.0]
+Progress: Parameterizing module pre_fft_buf
+Progress: Adding pre_ifft_imag_buf [window_mem 1.0]
+Progress: Parameterizing module pre_ifft_imag_buf
+Progress: Adding pre_ifft_real_buf [window_mem 1.0]
+Progress: Parameterizing module pre_ifft_real_buf
+Progress: Adding pre_scaler_mag_buf_0 [window_mem 1.0]
+Progress: Parameterizing module pre_scaler_mag_buf_0
+Progress: Adding pre_scaler_mag_buf_1 [window_mem 1.0]
+Progress: Parameterizing module pre_scaler_mag_buf_1
+Progress: Adding pre_scaler_phase_buf_0 [window_mem 1.0]
+Progress: Parameterizing module pre_scaler_phase_buf_0
+Progress: Adding pre_scaler_phase_buf_1 [window_mem 1.0]
+Progress: Parameterizing module pre_scaler_phase_buf_1
+Progress: Adding ring_buf [ring_buf 1.0]
+Progress: Parameterizing module ring_buf
+Progress: Adding sampler [sampler 1.0]
+Progress: Parameterizing module sampler
+Progress: Adding scaler [scaler 1.0]
+Progress: Parameterizing module scaler
 Progress: Adding software_interface_0 [software_interface 1.0]
 Progress: Parameterizing module software_interface_0
+Progress: Adding stitcher [stitcher 1.0]
+Progress: Parameterizing module stitcher
+Progress: Adding synth_devs_buf [synth_buf 1.0]
+Progress: Parameterizing module synth_devs_buf
+Progress: Adding synth_mags_buf_0 [synth_buf 1.0]
+Progress: Parameterizing module synth_mags_buf_0
 Progress: Adding vga_ball_0 [vga_ball 1.0]
 Progress: Parameterizing module vga_ball_0
 Progress: Building connections
@@ -28,11 +78,10 @@ Progress: Validating
 Progress: Done reading input file
 Info: soc_system.hps_0: HPS Main PLL counter settings: n = 0  m = 73
 Info: soc_system.hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
-Warning: soc_system.first_hannifier: first_hannifier.sampler_to_first_hannifier must be exported, or connected to a matching conduit.
-Warning: soc_system.first_hannifier: first_hannifier.first_hannifier_to_ffter must be exported, or connected to a matching conduit.
-Warning: soc_system.first_hannifier: first_hannifier.hann_rom_reader must be exported, or connected to a matching conduit.
-Warning: soc_system.first_hannifier: first_hannifier.ring_buf_reader must be exported, or connected to a matching conduit.
-Warning: soc_system.hann_to_fft_buf: hann_to_fft_buf.memreader must be exported, or connected to a matching conduit.
+Warning: soc_system.audio.avalon_left_channel_sink: audio.avalon_left_channel_sink must be connected to an Avalon-ST source
+Warning: soc_system.audio.avalon_right_channel_sink: audio.avalon_right_channel_sink must be connected to an Avalon-ST source
+Warning: soc_system.out_buf: out_buf.memreader must be exported, or connected to a matching conduit.
+Warning: soc_system.stitcher: stitcher.to_emitter must be exported, or connected to a matching conduit.
 Info: qsys-generate succeeded.
 Info: Finished: Create block symbol file (.bsf)
 Info: 
@@ -40,24 +89,74 @@ Info: Starting: Create HDL design files for synthesis
 Info: qsys-generate /homes/user/stud/spring24/shw2139/pitch-perfect/implementation/hw/soc_system.qsys --synthesis=VERILOG --output-directory=/homes/user/stud/spring24/shw2139/pitch-perfect/implementation/hw/soc_system/synthesis --family="Cyclone V" --part=5CSEMA5F31C6
 Progress: Loading hw/soc_system.qsys
 Progress: Reading input file
-Progress: Adding audio_0 [altera_up_avalon_audio 18.0]
-Progress: Parameterizing module audio_0
-Progress: Adding audio_and_video_config_0 [altera_up_avalon_audio_and_video_config 18.0]
-Progress: Parameterizing module audio_and_video_config_0
+Progress: Adding audio [altera_up_avalon_audio 18.0]
+Progress: Parameterizing module audio
+Progress: Adding audio_and_video_config [altera_up_avalon_audio_and_video_config 18.0]
+Progress: Parameterizing module audio_and_video_config
+Progress: Adding audio_clock [altera_up_avalon_audio_pll 18.0]
+Progress: Parameterizing module audio_clock
 Progress: Adding audio_piper_0 [audio_piper 1.0]
 Progress: Parameterizing module audio_piper_0
-Progress: Adding audio_pll_0 [altera_up_avalon_audio_pll 18.0]
-Progress: Parameterizing module audio_pll_0
+Progress: Adding cart_to_polar [cart_to_polar 1.0]
+Progress: Parameterizing module cart_to_polar
 Progress: Adding clk_0 [clock_source 21.1]
 Progress: Parameterizing module clk_0
+Progress: Adding ffter [ffter 1.0]
+Progress: Parameterizing module ffter
 Progress: Adding first_hannifier [first_hannifier 1.0]
 Progress: Parameterizing module first_hannifier
-Progress: Adding hann_to_fft_buf [window_mem 1.0]
-Progress: Parameterizing module hann_to_fft_buf
+Progress: Adding hann_rom [hann_rom 1.0]
+Progress: Parameterizing module hann_rom
 Progress: Adding hps_0 [altera_hps 21.1]
 Progress: Parameterizing module hps_0
+Progress: Adding iffter [iffter 1.0]
+Progress: Parameterizing module iffter
+Progress: Adding out_buf [window_mem 1.0]
+Progress: Parameterizing module out_buf
+Progress: Adding polar_to_cart [polar_to_cart 1.0]
+Progress: Parameterizing module polar_to_cart
+Progress: Adding post_fft_imag_buf [window_mem 1.0]
+Progress: Parameterizing module post_fft_imag_buf
+Progress: Adding post_fft_real_buf [window_mem 1.0]
+Progress: Parameterizing module post_fft_real_buf
+Progress: Adding post_ifft_buf [window_mem 1.0]
+Progress: Parameterizing module post_ifft_buf
+Progress: Adding post_scaler_mag_buf_0 [r_rw_buf 1.0]
+Progress: Parameterizing module post_scaler_mag_buf_0
+Progress: Adding post_scaler_mag_buf_1 [r_rw_buf 1.0]
+Progress: Parameterizing module post_scaler_mag_buf_1
+Progress: Adding post_scaler_phase_buf_0 [r_rw_buf 1.0]
+Progress: Parameterizing module post_scaler_phase_buf_0
+Progress: Adding post_scaler_phase_buf_1 [r_rw_buf 1.0]
+Progress: Parameterizing module post_scaler_phase_buf_1
+Progress: Adding pre_fft_buf [window_mem 1.0]
+Progress: Parameterizing module pre_fft_buf
+Progress: Adding pre_ifft_imag_buf [window_mem 1.0]
+Progress: Parameterizing module pre_ifft_imag_buf
+Progress: Adding pre_ifft_real_buf [window_mem 1.0]
+Progress: Parameterizing module pre_ifft_real_buf
+Progress: Adding pre_scaler_mag_buf_0 [window_mem 1.0]
+Progress: Parameterizing module pre_scaler_mag_buf_0
+Progress: Adding pre_scaler_mag_buf_1 [window_mem 1.0]
+Progress: Parameterizing module pre_scaler_mag_buf_1
+Progress: Adding pre_scaler_phase_buf_0 [window_mem 1.0]
+Progress: Parameterizing module pre_scaler_phase_buf_0
+Progress: Adding pre_scaler_phase_buf_1 [window_mem 1.0]
+Progress: Parameterizing module pre_scaler_phase_buf_1
+Progress: Adding ring_buf [ring_buf 1.0]
+Progress: Parameterizing module ring_buf
+Progress: Adding sampler [sampler 1.0]
+Progress: Parameterizing module sampler
+Progress: Adding scaler [scaler 1.0]
+Progress: Parameterizing module scaler
 Progress: Adding software_interface_0 [software_interface 1.0]
 Progress: Parameterizing module software_interface_0
+Progress: Adding stitcher [stitcher 1.0]
+Progress: Parameterizing module stitcher
+Progress: Adding synth_devs_buf [synth_buf 1.0]
+Progress: Parameterizing module synth_devs_buf
+Progress: Adding synth_mags_buf_0 [synth_buf 1.0]
+Progress: Parameterizing module synth_mags_buf_0
 Progress: Adding vga_ball_0 [vga_ball 1.0]
 Progress: Parameterizing module vga_ball_0
 Progress: Building connections
@@ -66,26 +165,68 @@ Progress: Validating
 Progress: Done reading input file
 Info: soc_system.hps_0: HPS Main PLL counter settings: n = 0  m = 73
 Info: soc_system.hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
-Warning: soc_system.first_hannifier: first_hannifier.sampler_to_first_hannifier must be exported, or connected to a matching conduit.
-Warning: soc_system.first_hannifier: first_hannifier.first_hannifier_to_ffter must be exported, or connected to a matching conduit.
-Warning: soc_system.first_hannifier: first_hannifier.hann_rom_reader must be exported, or connected to a matching conduit.
-Warning: soc_system.first_hannifier: first_hannifier.ring_buf_reader must be exported, or connected to a matching conduit.
-Warning: soc_system.hann_to_fft_buf: hann_to_fft_buf.memreader must be exported, or connected to a matching conduit.
+Warning: soc_system.audio.avalon_left_channel_sink: audio.avalon_left_channel_sink must be connected to an Avalon-ST source
+Warning: soc_system.audio.avalon_right_channel_sink: audio.avalon_right_channel_sink must be connected to an Avalon-ST source
+Warning: soc_system.out_buf: out_buf.memreader must be exported, or connected to a matching conduit.
+Warning: soc_system.stitcher: stitcher.to_emitter must be exported, or connected to a matching conduit.
 Info: soc_system: Generating soc_system "soc_system" for QUARTUS_SYNTH
+Info: Interconnect is inserted between master software_interface_0.avalon_master and slave audio_and_video_config.avalon_av_config_slave because the master has address signal 4 bit wide, but the slave is 2 bit wide.
+Info: Interconnect is inserted between master hps_0.h2f_lw_axi_master and slave software_interface_0.avalon_slave because the master is of type axi and the slave is of type avalon.
 Warning: hps_0.f2h_irq0: Cannot connect clock for irq_mapper.sender
 Warning: hps_0.f2h_irq0: Cannot connect reset for irq_mapper.sender
 Warning: hps_0.f2h_irq1: Cannot connect clock for irq_mapper_001.sender
 Warning: hps_0.f2h_irq1: Cannot connect reset for irq_mapper_001.sender
+Info: audio: Starting Generation of Audio Controller
+Info: audio: "soc_system" instantiated altera_up_avalon_audio "audio"
+Info: audio_and_video_config: Starting Generation of Audio and Video Config
+Info: audio_and_video_config: "soc_system" instantiated altera_up_avalon_audio_and_video_config "audio_and_video_config"
+Info: audio_clock: "soc_system" instantiated altera_up_avalon_audio_pll "audio_clock"
+Info: cart_to_polar: "soc_system" instantiated cart_to_polar "cart_to_polar"
+Info: ffter: "soc_system" instantiated ffter "ffter"
 Info: first_hannifier: "soc_system" instantiated first_hannifier "first_hannifier"
-Info: hann_to_fft_buf: "soc_system" instantiated window_mem "hann_to_fft_buf"
+Info: hann_rom: "soc_system" instantiated hann_rom "hann_rom"
 Info: hps_0: "Running  for module: hps_0"
 Info: hps_0: HPS Main PLL counter settings: n = 0  m = 73
 Info: hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
 Info: hps_0: "soc_system" instantiated altera_hps "hps_0"
+Info: out_buf: "soc_system" instantiated window_mem "out_buf"
+Info: polar_to_cart: "soc_system" instantiated polar_to_cart "polar_to_cart"
+Info: post_scaler_mag_buf_0: "soc_system" instantiated r_rw_buf "post_scaler_mag_buf_0"
+Info: ring_buf: "soc_system" instantiated ring_buf "ring_buf"
+Info: sampler: "soc_system" instantiated sampler "sampler"
+Info: scaler: "soc_system" instantiated scaler "scaler"
+Info: software_interface_0: "soc_system" instantiated software_interface "software_interface_0"
+Info: stitcher: "soc_system" instantiated stitcher "stitcher"
+Info: synth_devs_buf: "soc_system" instantiated synth_buf "synth_devs_buf"
+Info: mm_interconnect_0: "soc_system" instantiated altera_mm_interconnect "mm_interconnect_0"
+Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: mm_interconnect_1: "soc_system" instantiated altera_mm_interconnect "mm_interconnect_1"
 Info: irq_mapper: "soc_system" instantiated altera_irq_mapper "irq_mapper"
+Info: rst_controller: "soc_system" instantiated altera_reset_controller "rst_controller"
+Info: audio_pll: "audio_clock" instantiated altera_pll "audio_pll"
+Info: reset_from_locked: "audio_clock" instantiated altera_up_avalon_reset_from_locked_signal "reset_from_locked"
 Info: fpga_interfaces: "hps_0" instantiated altera_interface_generator "fpga_interfaces"
 Info: hps_io: "hps_0" instantiated altera_hps_io "hps_io"
+Info: software_interface_0_avalon_master_translator: "mm_interconnect_0" instantiated altera_merlin_master_translator "software_interface_0_avalon_master_translator"
+Info: audio_and_video_config_avalon_av_config_slave_translator: "mm_interconnect_0" instantiated altera_merlin_slave_translator "audio_and_video_config_avalon_av_config_slave_translator"
+Info: hps_0_h2f_lw_axi_master_agent: "mm_interconnect_1" instantiated altera_merlin_axi_master_ni "hps_0_h2f_lw_axi_master_agent"
+Info: software_interface_0_avalon_slave_agent: "mm_interconnect_1" instantiated altera_merlin_slave_agent "software_interface_0_avalon_slave_agent"
+Info: software_interface_0_avalon_slave_agent_rsp_fifo: "mm_interconnect_1" instantiated altera_avalon_sc_fifo "software_interface_0_avalon_slave_agent_rsp_fifo"
+Info: router: "mm_interconnect_1" instantiated altera_merlin_router "router"
+Info: router_002: "mm_interconnect_1" instantiated altera_merlin_router "router_002"
+Info: software_interface_0_avalon_slave_burst_adapter: "mm_interconnect_1" instantiated altera_merlin_burst_adapter "software_interface_0_avalon_slave_burst_adapter"
+Info: Reusing file /homes/user/stud/spring24/shw2139/pitch-perfect/implementation/hw/soc_system/synthesis/submodules/altera_merlin_address_alignment.sv
+Info: cmd_demux: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: cmd_mux: "mm_interconnect_1" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: rsp_demux: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: rsp_mux: "mm_interconnect_1" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: Reusing file /homes/user/stud/spring24/shw2139/pitch-perfect/implementation/hw/soc_system/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: software_interface_0_avalon_slave_rsp_width_adapter: "mm_interconnect_1" instantiated altera_merlin_width_adapter "software_interface_0_avalon_slave_rsp_width_adapter"
+Info: Reusing file /homes/user/stud/spring24/shw2139/pitch-perfect/implementation/hw/soc_system/synthesis/submodules/altera_merlin_address_alignment.sv
+Info: Reusing file /homes/user/stud/spring24/shw2139/pitch-perfect/implementation/hw/soc_system/synthesis/submodules/altera_merlin_burst_uncompressor.sv
+Info: avalon_st_adapter: "mm_interconnect_1" instantiated altera_avalon_st_adapter "avalon_st_adapter"
 Info: border: "hps_io" instantiated altera_interface_generator "border"
-Info: soc_system: Done "soc_system" with 8 modules, 54 files
+Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
+Info: soc_system: Done "soc_system" with 42 modules, 129 files
 Info: qsys-generate succeeded.
 Info: Finished: Create HDL design files for synthesis

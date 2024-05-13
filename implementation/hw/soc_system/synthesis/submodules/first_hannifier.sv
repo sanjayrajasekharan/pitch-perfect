@@ -6,7 +6,7 @@
 module first_hannifier(
 		input logic	    clk,
 
-		// Communicate with input_reader
+		// Communicate with sampler
 		input logic [2:0]   window_start,
 		input logic	    go_in,
 
@@ -36,13 +36,14 @@ module first_hannifier(
 				ring_buf_addr <= window_start;
 				hann_rom_addr <= 0;
 				out_buf_addr <= 0;
+				go_out <= 0;
 				going <= 1;
 			end
 		end 
 		else begin
 			if (!just_finished) begin
 				out_buf_wren <= 1;
-				out_buf_data <= ring_buf_data * hann_rom_data;
+				out_buf_data <= ring_buf_data * hann_rom_data >> 16; // hann_rom_data: Q0.16, I think output is Q16.16, and then take only first 16 most sig bits 
 				out_buf_addr <= hann_rom_addr;
 				hann_rom_addr <= hann_rom_addr + 1;
 				
@@ -58,7 +59,7 @@ module first_hannifier(
 					just_finished <= 1;
 				end
 			end
-			else begin
+			else begin // just finished
 				out_buf_wren <= 0;
 				just_finished <= 0;
 				go_out <= 1;
