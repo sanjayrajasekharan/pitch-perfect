@@ -21,7 +21,7 @@ fft_pts=11'd1023;
 end
 
 assign outreal = insignal;
-assign outimag = 32'd0;
+assign outimag = 16'd0;
 
 always @(posedge clk)
 begin
